@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>N harfi sayohati — 1-sinf</title>
+  <meta name="description" content="1-sinf o‘quvchilari uchun interaktiv o‘yin: [n] tovushi va N n harfi (Alifbe, 9-dars).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app" data-screen="start">
+    <div class="scene" aria-hidden="true">
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+      <div class="cloud c3"></div>
+      <svg class="hills" viewBox="0 0 1440 300" preserveAspectRatio="none">
+        <path d="M0 150 C220 70 420 90 620 150 C820 210 1040 80 1440 120 L1440 300 L0 300Z" fill="#9BDB7A"/>
+        <path d="M0 210 C260 150 520 170 760 210 C1000 250 1200 170 1440 190 L1440 300 L0 300Z" fill="#74C766"/>
+      </svg>
+    </div>
+
+    <header class="topbar">
+      <button class="icon-btn" id="homeBtn" type="button" aria-label="Xaritaga qaytish"></button>
+      <div class="title-pill"><span class="lesson">9-dars</span><span id="title"></span></div>
+      <div class="spacer"></div>
+      <div class="stars-pill" id="stars" aria-label="Yulduzchalar"></div>
+      <button class="icon-btn" id="soundBtn" type="button" aria-label="Ovozni o‘chirish/yoqish"></button>
+    </header>
+
+    <main id="stage"></main>
+    <div id="fx" aria-hidden="true"></div>
+  </div>
+
+  <script src="js/art.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+/* N harfi sayohati — 1-sinf uchun o‘yin. Hamma o‘lchamlar rem’da: ekran o‘lchamiga qarab o‘zi moslashadi. */
+:root {
+  --blue: #1E6FE8;
+  --blue-d: #1452B8;
+  --ink: #1B2A4A;
+  --muted: #6B7A99;
+  --green: #2DBE6C;
+  --green-d: #1E9952;
+  --orange: #FF8A1F;
+  --orange-d: #E06A00;
+  --yellow: #FFC93C;
+  --red: #F0505A;
+  --card: #FFFFFF;
+  --shadow: 0 .45rem 0 rgba(27, 42, 74, .08), 0 1rem 2.2rem rgba(30, 70, 140, .16);
+  --font: 'Nunito', 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+}
+
+html { font-size: clamp(11px, min(1.25vw, 2.15vh), 30px); }
+@media (orientation: portrait) {
+  html { font-size: clamp(11px, min(2.15vw, 1.45vh), 26px); }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background: #8FD3FF;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; touch-action: manipulation; }
+button:focus-visible { outline: .3rem solid var(--yellow); outline-offset: .2rem; }
+svg { display: block; }
+.hl { color: var(--blue); font-weight: 900; }
+
+#app { position: fixed; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ---------- Fon: osmon, bulutlar, adirlar ---------- */
+.scene { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, #6EC1FF 0%, #A8DCFF 45%, #DDF3FF 75%, #EFFAFF 100%); pointer-events: none; }
+.hills { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 26%; }
+.cloud { position: absolute; width: 14rem; height: 4.2rem; background: #fff; border-radius: 4rem; opacity: .85; animation: drift 60s linear infinite; }
+.cloud::before, .cloud::after { content: ''; position: absolute; background: #fff; border-radius: 50%; }
+.cloud::before { width: 6rem; height: 6rem; left: 2.4rem; top: -3rem; }
+.cloud::after { width: 4.4rem; height: 4.4rem; left: 7rem; top: -2rem; }
+.cloud.c1 { top: 12%; left: -16rem; animation-duration: 70s; }
+.cloud.c2 { top: 30%; left: -16rem; transform: scale(.7); animation-duration: 95s; animation-delay: -40s; }
+.cloud.c3 { top: 6%; left: -16rem; transform: scale(.55); animation-duration: 110s; animation-delay: -75s; }
+@keyframes drift { to { translate: calc(100vw + 32rem) 0; } }
+
+/* ---------- Yuqori panel ---------- */
+.topbar { position: relative; z-index: 5; display: flex; align-items: center; gap: .9rem; padding: .9rem 1.4rem .3rem; }
+.spacer { flex: 1; }
+.icon-btn {
+  width: 3.8rem; height: 3.8rem; flex: none; border-radius: 50%;
+  background: #fff; color: var(--blue); display: grid; place-items: center;
+  box-shadow: 0 .3rem 0 rgba(20, 82, 184, .25), 0 .6rem 1.2rem rgba(20, 60, 140, .15);
+  transition: transform .12s;
+}
+.icon-btn svg { width: 58%; height: 58%; }
+.icon-btn:active { transform: translateY(.2rem); }
+.icon-btn.off { color: #9AA8C2; }
+.title-pill {
+  display: flex; align-items: center; gap: .7rem; background: #fff; border-radius: 999px;
+  padding: .35rem 1.4rem .35rem .4rem; font-weight: 900; font-size: 1.45rem; box-shadow: var(--shadow);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+.title-pill .lesson { background: var(--blue); color: #fff; border-radius: 999px; padding: .35rem .9rem; font-size: 1.1rem; }
+.stars-pill { display: flex; gap: .25rem; background: #fff; padding: .45rem .8rem; border-radius: 999px; box-shadow: var(--shadow); }
+.stars-pill i { width: 2.2rem; height: 2.2rem; color: #D5DEEE; display: block; }
+.stars-pill i.on { color: var(--yellow); filter: drop-shadow(0 .12rem 0 #E5A500); }
+.stars-pill svg { width: 100%; height: 100%; }
+#app[data-screen="start"] #homeBtn,
+#app[data-screen="start"] .title-pill,
+#app[data-screen="start"] .stars-pill { visibility: hidden; }
+
+#stage { position: relative; z-index: 2; flex: 1; min-height: 0; }
+#fx { position: fixed; inset: 0; z-index: 50; pointer-events: none; overflow: hidden; }
+
+/* ---------- Tugmalar ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .8rem;
+  font-size: 2rem; font-weight: 900; color: #fff; padding: 1rem 2.4rem; border-radius: 999px;
+  background: linear-gradient(180deg, #FFA53D, var(--orange));
+  box-shadow: 0 .45rem 0 var(--orange-d), 0 1rem 1.8rem rgba(224, 106, 0, .3);
+  transition: transform .1s, box-shadow .1s;
+}
+.btn svg { width: 1.8rem; height: 1.8rem; }
+.btn:active { transform: translateY(.35rem); box-shadow: 0 .1rem 0 var(--orange-d); }
+.btn-alt { background: linear-gradient(180deg, #4D8FFF, var(--blue)); box-shadow: 0 .45rem 0 var(--blue-d), 0 1rem 1.8rem rgba(20, 82, 184, .3); }
+.btn-alt:active { box-shadow: 0 .1rem 0 var(--blue-d); }
+
+/* ---------- Nunu (qahramon) ---------- */
+.mascot svg { width: 100%; height: auto; overflow: visible; }
+.mascot .m-body { transform-box: view-box; transform-origin: 60px 120px; animation: bob 2.6s ease-in-out infinite; }
+.mascot .m-arm-r { transform-box: fill-box; transform-origin: 0% 100%; animation: wave 2.2s ease-in-out infinite; }
+.mascot .m-eyes { transform-box: fill-box; transform-origin: center; animation: blink 4.5s infinite; }
+.mascot.happy svg { animation: jump .7s cubic-bezier(.3, 1.6, .5, 1); }
+.mascot.think svg { animation: tilt .8s ease-in-out; }
+.mascot.dance svg { animation: dance 1s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-3px) scale(1.02, .98); } }
+@keyframes wave { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-22deg); } 80% { transform: rotate(10deg); } 90% { transform: rotate(-16deg); } }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes jump { 40% { transform: translateY(-22%) rotate(-6deg); } 70% { transform: translateY(0) scale(1.06, .94); } }
+@keyframes tilt { 30% { transform: rotate(-10deg); } 65% { transform: rotate(8deg); } }
+@keyframes dance { 25% { transform: translateY(-10%) rotate(-8deg); } 50% { transform: translateY(0); } 75% { transform: translateY(-10%) rotate(8deg); } }
+
+/* ---------- Ko‘rsatma (Nunu + gap pufagi) ---------- */
+.guide { display: flex; align-items: center; gap: .9rem; min-width: 0; flex: 1; }
+.guide-mascot { width: 6.6rem; flex: none; }
+.bubble {
+  position: relative; background: #fff; border-radius: 1.6rem; padding: .95rem 1.4rem;
+  font-size: 1.7rem; font-weight: 800; line-height: 1.3; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: .9rem; max-width: 52rem;
+}
+.bubble::before {
+  content: ''; position: absolute; left: -.9rem; top: 50%; translate: 0 -50%;
+  border: .7rem solid transparent; border-right: 1rem solid #fff; border-left: 0;
+}
+.bubble.pop-in { animation: popIn .45s cubic-bezier(.3, 1.5, .5, 1); }
+.bubble.good { background: var(--green); color: #fff; font-size: 2.1rem; }
+.bubble.good::before { border-right-color: var(--green); }
+.bubble.good .hl { color: #fff; }
+.bubble.try { background: #FFF4D6; }
+.bubble.try::before { border-right-color: #FFF4D6; }
+.say { display: none; flex: none; width: 3.2rem; height: 3.2rem; border-radius: 50%; background: #EAF2FF; color: var(--blue); place-items: center; }
+.say svg { width: 60%; height: 60%; }
+body.has-voice .say { display: grid; }
+
+/* ---------- Bosqich tuzilmasi ---------- */
+.level { position: absolute; inset: 0; display: flex; flex-direction: column; gap: .8rem; padding: .5rem 1.6rem 1.4rem; }
+.lvl-head { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 7rem; }
+.prog { display: flex; gap: .3rem; flex: none; background: #fff; padding: .55rem .8rem; border-radius: 999px; box-shadow: var(--shadow); }
+.prog i { display: block; width: 1.9rem; height: 1.9rem; color: #D5DEEE; }
+.prog i svg { width: 100%; height: 100%; }
+.prog i.on { color: var(--yellow); filter: drop-shadow(0 .1rem 0 #E5A500); }
+
+/* ---------- Bosh ekran ---------- */
+.start { position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem; }
+.float-letters span {
+  position: absolute; font-weight: 900; font-size: 6rem; color: rgba(255, 255, 255, .55);
+  left: calc(4% + var(--i) * 9.6%); top: 100%;
+  animation: rise 14s linear infinite; animation-delay: calc(var(--i) * -1.45s);
+}
+.float-letters span:nth-child(odd) { font-size: 4.4rem; color: rgba(30, 111, 232, .22); }
+@keyframes rise { to { transform: translateY(-120vh) rotate(25deg); } }
+.start-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+.lesson-tag { background: #fff; color: var(--blue); font-weight: 900; font-size: 1.4rem; padding: .45rem 1.3rem; border-radius: 999px; box-shadow: var(--shadow); }
+.start h1 { font-size: 5.4rem; line-height: 1; font-weight: 900; color: #fff; text-shadow: 0 .35rem 0 var(--blue-d), 0 .8rem 1.6rem rgba(20, 82, 184, .35); }
+.start h1 span { color: var(--yellow); text-shadow: 0 .35rem 0 #D08A00, 0 .8rem 1.6rem rgba(160, 100, 0, .3); }
+.start .sub { font-size: 2rem; font-weight: 800; background: rgba(255, 255, 255, .9); padding: .4rem 1.4rem; border-radius: 1rem; }
+.start-hero { display: flex; align-items: center; gap: 1.2rem; margin: .4rem 0 .8rem; }
+.start-mascot { width: 13rem; }
+.start-bubble { position: relative; background: #fff; border-radius: 1.6rem; padding: 1rem 1.4rem; font-size: 1.7rem; font-weight: 800; text-align: left; box-shadow: var(--shadow); line-height: 1.35; }
+.start-bubble::before { content: ''; position: absolute; left: -.9rem; top: 50%; translate: 0 -50%; border: .7rem solid transparent; border-right: 1rem solid #fff; border-left: 0; }
+.btn-play { font-size: 2.6rem; padding: 1.1rem 3.2rem; animation: breathe 1.8s ease-in-out infinite; }
+.btn-play svg { width: 2.2rem; height: 2.2rem; }
+@keyframes breathe { 50% { transform: scale(1.06); } }
+
+/* ---------- Xarita ---------- */
+.map { position: absolute; inset: 0; }
+.map-board { position: absolute; inset: 7.5rem 7% 4.5rem; }
+.map-path { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.road { fill: none; stroke: #F7E7C1; stroke-width: 2.8rem; stroke-linecap: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 .3rem 0 rgba(160, 120, 60, .25)); }
+.road-dash { fill: none; stroke: #fff; stroke-width: .5rem; stroke-dasharray: .1rem 1.4rem; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.station {
+  position: absolute; width: 8.6rem; height: 8.6rem; translate: -50% -50%; border-radius: 50%;
+  background: #fff; border: .55rem solid var(--c); box-shadow: 0 .55rem 0 rgba(27, 42, 74, .14), 0 1rem 2rem rgba(20, 60, 140, .18);
+  display: grid; place-items: center; transition: transform .15s;
+}
+.station:active { transform: scale(.94); }
+.st-ico { width: 72%; height: 72%; }
+.st-ico svg { width: 100%; height: 100%; }
+.st-num {
+  position: absolute; left: -.6rem; top: -.6rem; width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  background: var(--c); color: #fff; font-weight: 900; font-size: 1.5rem; display: grid; place-items: center; border: .25rem solid #fff;
+}
+.st-label {
+  position: absolute; top: calc(100% + .6rem); left: 50%; translate: -50% 0; white-space: nowrap;
+  background: #fff; padding: .3rem 1rem; border-radius: 999px; font-weight: 900; font-size: 1.35rem; box-shadow: var(--shadow);
+}
+.st-star { position: absolute; right: -1rem; top: -1rem; width: 3.4rem; height: 3.4rem; color: var(--yellow); filter: drop-shadow(0 .15rem 0 #E5A500); }
+.st-star svg { width: 100%; height: 100%; }
+.st-lock { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(240, 244, 250, .72); border-radius: 50%; color: #8C9BB5; }
+.st-lock svg { width: 38%; height: 38%; }
+.station.locked { border-color: #C7D1E2; }
+.station.locked .st-num { background: #A8B4C8; }
+.station.locked .st-label { color: var(--muted); }
+.station.current { animation: stPulse 1.6s ease-in-out infinite; }
+@keyframes stPulse {
+  0%, 100% { box-shadow: 0 .55rem 0 rgba(27, 42, 74, .14), 0 0 0 0 rgba(255, 201, 60, .8); transform: scale(1); }
+  50% { box-shadow: 0 .55rem 0 rgba(27, 42, 74, .14), 0 0 0 1.2rem rgba(255, 201, 60, 0); transform: scale(1.07); }
+}
+.map-mascot { position: absolute; width: 6.4rem; translate: -125% -105%; pointer-events: none; z-index: 2; }
+.map-mascot.right { translate: 30% -105%; }
+.map-guide { position: absolute; left: 1.6rem; top: .4rem; right: 1.6rem; flex-wrap: wrap; }
+.btn-prize { font-size: 1.7rem; padding: .8rem 1.8rem; animation: breathe 1.6s ease-in-out infinite; }
+
+/* ---------- Umumiy kartochka va plitkalar ---------- */
+.word-card {
+  background: var(--card); border-radius: 2.2rem; box-shadow: var(--shadow);
+  display: flex; align-items: center; gap: 2.4rem; padding: 1.4rem 3rem;
+}
+.word-card .pic { width: min(30vh, 22rem); aspect-ratio: 1; flex: none; }
+.word-card .pic svg { width: 100%; height: 100%; }
+.word-card.over { box-shadow: var(--shadow), 0 0 0 .5rem rgba(255, 201, 60, .9); }
+.tiles { display: flex; gap: 1.4rem; flex-wrap: wrap; justify-content: center; }
+.tile {
+  position: relative; min-width: 7.2rem; height: 7.2rem; padding: 0 1.2rem; border-radius: 1.6rem;
+  background: #fff; font-size: 4.6rem; font-weight: 900; line-height: 1; color: var(--ink);
+  border: .4rem solid var(--c, var(--blue)); box-shadow: 0 .5rem 0 var(--c, var(--blue)), 0 1rem 1.6rem rgba(20, 60, 140, .15);
+  display: grid; place-items: center; touch-action: none; transition: box-shadow .1s;
+}
+.tile:active { box-shadow: 0 .2rem 0 var(--c, var(--blue)); }
+.dragging { z-index: 30; transition: none !important; box-shadow: 0 1.6rem 2.6rem rgba(20, 60, 140, .3) !important; cursor: grabbing; }
+.fly { z-index: 60; pointer-events: none; }
+
+/* ---------- 1. Harfli sharlar ---------- */
+.field { position: relative; flex: 1; min-height: 0; overflow: hidden; border-radius: 2rem; }
+.balloon { position: absolute; top: 0; left: 0; width: 8.6rem; height: 15rem; will-change: transform; touch-action: none; }
+.balloon .sway { display: block; width: 100%; height: 100%; animation: sway var(--sway, 3s) ease-in-out infinite alternate; transform-origin: 50% 100%; }
+.balloon .b {
+  position: relative; display: grid; place-items: center; width: 8.6rem; height: 10.2rem;
+  border-radius: 50% 50% 47% 47% / 44% 44% 56% 56%;
+  background: radial-gradient(circle at 30% 26%, rgba(255, 255, 255, .7) 0 7%, rgba(255, 255, 255, 0) 8%), radial-gradient(circle at 35% 35%, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0) 60%), var(--c);
+  box-shadow: inset -.8rem -1rem 0 rgba(0, 0, 0, .1);
+}
+.balloon .b::after { content: ''; position: absolute; bottom: -.7rem; left: 50%; translate: -50% 0; border: .55rem solid transparent; border-bottom: .9rem solid var(--c); border-top: 0; }
+.balloon .ch { font-size: 5.6rem; font-weight: 900; color: #fff; text-shadow: 0 .25rem 0 rgba(0, 0, 0, .16); line-height: 1; margin-top: -.4rem; }
+.balloon .str { width: 1.4rem; height: 4.6rem; margin: .6rem auto 0; fill: none; stroke: #8C9BB5; stroke-width: 2; transition: opacity .2s; }
+.balloon.wobble .b { animation: wobble .6s ease-in-out; }
+.balloon.away { opacity: 0; transition: opacity .6s; }
+.balloon.hint .b { animation: glow 1s ease-in-out 3; }
+@keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(5deg); } }
+@keyframes wobble { 20% { transform: rotate(-14deg); } 45% { transform: rotate(12deg); } 70% { transform: rotate(-7deg); } }
+@keyframes glow { 50% { box-shadow: inset -.8rem -1rem 0 rgba(0, 0, 0, .1), 0 0 0 .8rem rgba(255, 255, 255, .95), 0 0 2.4rem 1rem rgba(255, 201, 60, .9); } }
+
+/* ---------- 2. Harfni yoz ---------- */
+.trace-wrap { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; gap: 2.4rem; }
+.letter-tabs { display: flex; flex-direction: column; gap: 1.2rem; }
+.ltab {
+  width: 6.4rem; height: 6.4rem; border-radius: 1.6rem; background: rgba(255, 255, 255, .75); color: #A8B4C8;
+  display: grid; place-items: center; font-size: 4rem; font-weight: 900; border: .35rem solid transparent; position: relative;
+}
+.ltab.active { background: #fff; color: var(--blue); border-color: var(--blue); box-shadow: var(--shadow); }
+.ltab.done { background: #fff; color: var(--green); border-color: var(--green); }
+.ltab.done::after { content: '✓'; position: absolute; right: -.7rem; top: -.7rem; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--green); color: #fff; font-size: 1.3rem; display: grid; place-items: center; }
+.board { height: 100%; max-height: 100%; aspect-ratio: 1; background: #fff; border-radius: 2.4rem; box-shadow: var(--shadow); padding: 1rem; touch-action: none; }
+.trace-svg { width: 100%; height: 100%; touch-action: none; cursor: crosshair; overflow: visible; }
+.trace-svg .ln { stroke: #C9D8F0; stroke-width: .5; }
+.trace-svg .ln.dash { stroke-dasharray: 2 2; }
+.trace-svg .g-base path { fill: none; stroke: #EEF3FB; stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; }
+.trace-svg .g-dash { fill: none; stroke: #9DB7E0; stroke-width: 1.2; stroke-dasharray: 2.5 2.5; stroke-linecap: round; }
+.trace-svg .g-fill { fill: none; stroke: var(--blue); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.trace-svg .g-solid { fill: none; stroke: var(--blue); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.trace-svg .g-done { transform-box: fill-box; transform-origin: center; }
+.trace-svg .g-done.letter-done { animation: letterDone .9s cubic-bezier(.3, 1.5, .5, 1); }
+.trace-svg .g-done.letter-done path { stroke: var(--green); transition: stroke .3s; }
+.trace-svg .mover { fill: var(--orange); opacity: .9; }
+.trace-svg .start-dot { fill: var(--green); stroke: #fff; stroke-width: 1.4; transform-box: fill-box; transform-origin: center; animation: dotPulse 1.4s ease-in-out infinite; }
+.trace-svg .start-dot.blink { animation: dotBig .4s ease-in-out 3; }
+.trace-svg .start-num { fill: #fff; font-size: 6px; font-weight: 900; text-anchor: middle; pointer-events: none; font-family: var(--font); }
+.trace-svg .ink { fill: none; stroke: var(--orange); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; opacity: .75; pointer-events: none; }
+.trace-svg .ink.fade { opacity: 0; transition: opacity .45s; }
+@keyframes dotPulse { 50% { transform: scale(1.25); } }
+@keyframes dotBig { 50% { transform: scale(1.8); } }
+@keyframes letterDone { 40% { transform: scale(1.12); } }
+.poem { width: 19rem; background: #fff; border-radius: 1.8rem; padding: 1.2rem 1.4rem; box-shadow: var(--shadow); font-size: 1.45rem; font-weight: 800; line-height: 1.45; }
+.poem-pic { width: 4.4rem; height: 4.4rem; margin-bottom: .4rem; }
+.poem-pic svg { width: 100%; height: 100%; }
+
+/* ---------- 3. Tovush savati ---------- */
+.basket-area { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; justify-items: center; gap: 1.6rem; }
+.card-slot { display: grid; place-items: center; }
+.pic-card {
+  width: min(34vh, 23rem); background: #fff; border-radius: 2.2rem; box-shadow: var(--shadow); padding: 1.4rem 1.4rem 1rem;
+  display: flex; flex-direction: column; align-items: center; touch-action: none; cursor: grab;
+}
+.pic-card .pic { width: 100%; aspect-ratio: 1; }
+.pic-card .pic svg { width: 100%; height: 100%; }
+.pic-card .word { height: 4rem; font-size: 3.2rem; font-weight: 900; line-height: 4rem; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+.pic-card .word.show { opacity: 1; transform: none; }
+.pic-card.enter { animation: cardIn .5s cubic-bezier(.3, 1.4, .5, 1); }
+.pic-card.gone { opacity: 0; transition: opacity .2s; }
+.pic-card.wiggle { animation: wiggle 1s ease-in-out; }
+.bask { position: relative; width: min(23rem, 30vh); display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform .15s; }
+.bask > svg { width: 100%; height: auto; position: relative; z-index: 2; filter: drop-shadow(0 .6rem .6rem rgba(90, 50, 10, .22)); }
+.bask-in { position: relative; z-index: 1; width: 70%; height: 6rem; margin-bottom: -3.4rem; }
+.bask-in .mini { position: absolute; left: 50%; bottom: 0; width: 6rem; height: 6rem; translate: calc(-50% + var(--x)) 0; rotate: var(--r); animation: dropIn .35s ease-out; }
+.bask-in .mini svg { width: 100%; height: 100%; }
+.bask-tag {
+  position: absolute; z-index: 3; left: 50%; top: 60%; translate: -50% -50%;
+  width: 6.4rem; height: 6.4rem; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 .3rem 0 rgba(0, 0, 0, .12);
+}
+.bt-letter { font-size: 4.2rem; font-weight: 900; color: var(--blue); line-height: 1; margin-top: -.5rem; position: relative; }
+.bt-letter.crossed { color: #A8B4C8; }
+.bt-letter.crossed::after { content: ''; position: absolute; left: -.6rem; right: -.6rem; top: 55%; height: .5rem; background: var(--red); border-radius: 1rem; rotate: -35deg; }
+.bt-mark { position: absolute; right: -.6rem; bottom: -.4rem; width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.bt-mark.ok { background: var(--green); }
+.bt-mark svg { width: 62%; height: 62%; }
+.bask-label { margin-top: .6rem; background: #fff; padding: .3rem 1.4rem; border-radius: 999px; font-size: 1.7rem; font-weight: 900; box-shadow: var(--shadow); }
+.bask.yes .bask-label { color: var(--green-d); }
+.bask.no .bask-label { color: var(--muted); }
+.bask.over, .bask:active { transform: scale(1.06); }
+.bask.over > svg { filter: drop-shadow(0 0 1.2rem rgba(255, 201, 60, 1)); }
+.bask.bump { animation: bump .45s ease-out; }
+.bask.hint { animation: none; }
+.bask.hint .bask-tag { animation: glowRound 1s ease-in-out 3; }
+@keyframes dropIn { from { transform: translateY(-3rem); opacity: 0; } }
+@keyframes bump { 40% { transform: scale(1.08, .92); } }
+@keyframes glowRound { 50% { box-shadow: 0 0 0 .7rem rgba(255, 201, 60, .9), 0 0 2rem 1rem rgba(255, 201, 60, .6); } }
+
+/* ---------- 4. Harfni qo‘y ---------- */
+.miss-area, .syl-area { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; }
+.word-card.enter { animation: cardIn .5s cubic-bezier(.3, 1.4, .5, 1); }
+.spell { display: flex; align-items: center; font-size: 6.4rem; font-weight: 900; line-height: 1; letter-spacing: .05em; }
+.spell .slot {
+  display: inline-grid; place-items: center; width: 5rem; height: 6.6rem; margin: 0 .25rem;
+  border: .4rem dashed #9DB7E0; border-radius: 1.2rem; background: #F4F8FF; color: var(--blue);
+}
+.spell .slot.filled { border-style: solid; border-color: var(--yellow); background: #FFF8E1; animation: popIn .45s cubic-bezier(.3, 1.6, .5, 1); }
+.spell .slot.hint { animation: glowRound 1s ease-in-out 3; }
+.spell.solved { animation: letterDone .8s cubic-bezier(.3, 1.5, .5, 1); }
+
+/* ---------- 5. So‘z yasa ---------- */
+.syl-build { display: flex; flex-direction: column; align-items: center; min-width: 22rem; }
+.syl-slots { display: flex; gap: 1rem; }
+.sslot {
+  display: grid; place-items: center; min-width: 9rem; height: 7.4rem; padding: 0 1rem;
+  border: .4rem dashed #9DB7E0; border-radius: 1.4rem; background: #F4F8FF; font-size: 4.6rem; font-weight: 900; color: var(--ink);
+}
+.sslot.filled { border-style: solid; border-color: var(--yellow); background: #FFF8E1; animation: popIn .4s cubic-bezier(.3, 1.6, .5, 1); }
+.sslot.hint { animation: glowRound 1s ease-in-out 3; }
+.syl-arc { width: 72%; height: 2.2rem; margin-top: .3rem; fill: none; stroke: #C9D8F0; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.syl-build.solved .syl-arc { stroke: var(--blue); }
+.syl-word { height: 5.2rem; font-size: 4.6rem; font-weight: 900; line-height: 5.2rem; }
+.syl-build.solved .syl-word { animation: popIn .5s cubic-bezier(.3, 1.6, .5, 1); }
+.tile.syl { font-size: 4rem; min-width: 8.4rem; }
+.tile.used { visibility: hidden; }
+.tile.hint { animation: glowRound 1s ease-in-out 3; }
+
+/* ---------- Bosqich yakuni ---------- */
+.overlay { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(20, 50, 110, .35); animation: fadeIn .3s; }
+.win-card {
+  background: #fff; border-radius: 2.6rem; padding: 1.6rem 3.6rem 2.2rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: .5rem; box-shadow: 0 2rem 4rem rgba(20, 50, 110, .35);
+  animation: popIn .5s cubic-bezier(.3, 1.5, .5, 1);
+}
+.win-mascot { width: 9rem; margin-top: -5.6rem; }
+.win-card h2 { font-size: 4rem; font-weight: 900; color: var(--blue); }
+.win-card p { font-size: 1.8rem; font-weight: 800; color: var(--muted); }
+.win-star { width: 7.4rem; height: 7.4rem; color: var(--yellow); filter: drop-shadow(0 .3rem 0 #E5A500); animation: starSpin 1s cubic-bezier(.3, 1.5, .5, 1); margin: .4rem 0 1rem; }
+.win-star svg { width: 100%; height: 100%; }
+@keyframes starSpin { from { transform: scale(0) rotate(-180deg); } }
+
+/* ---------- Mukofot ekrani ---------- */
+.finish { position: absolute; inset: 0; display: grid; place-items: center; padding: .5rem 1.6rem 1.4rem; }
+.finish-card {
+  position: relative; background: rgba(255, 255, 255, .95); border-radius: 2.8rem; box-shadow: var(--shadow);
+  padding: 1.4rem 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: .6rem; text-align: center; max-width: 64rem;
+}
+.medal { width: 8rem; margin-top: -4rem; animation: starSpin 1s cubic-bezier(.3, 1.5, .5, 1); }
+.finish-card h1 { font-size: 4.4rem; font-weight: 900; color: var(--blue); line-height: 1.1; }
+.finish-card .sub { font-size: 2rem; font-weight: 800; }
+.finish-stars { display: flex; gap: .6rem; }
+.finish-stars i { width: 3.6rem; height: 3.6rem; color: var(--yellow); filter: drop-shadow(0 .2rem 0 #E5A500); animation: starSpin .6s cubic-bezier(.3, 1.5, .5, 1) backwards; animation-delay: calc(.4s + var(--i) * .15s); }
+.finish-stars svg { width: 100%; height: 100%; }
+.learned-title { font-size: 1.5rem; font-weight: 800; color: var(--muted); margin-top: .4rem; }
+.learned { display: flex; flex-wrap: wrap; justify-content: center; gap: .9rem; }
+.lw { width: 7.6rem; background: #F4F8FF; border-radius: 1.4rem; padding: .6rem .4rem .4rem; display: flex; flex-direction: column; align-items: center; cursor: pointer; animation: cardIn .5s cubic-bezier(.3, 1.4, .5, 1) backwards; animation-delay: calc(1s + var(--i) * .12s); }
+.lw .pic { width: 5.4rem; height: 5.4rem; }
+.lw .pic svg { width: 100%; height: 100%; }
+.lw span { font-size: 1.7rem; font-weight: 900; }
+.finish-btns { display: flex; gap: 1.2rem; margin-top: .8rem; flex-wrap: wrap; justify-content: center; }
+.finish-btns .btn { font-size: 1.7rem; padding: .85rem 1.9rem; }
+.finish-mascot { position: absolute; right: 4%; bottom: 3%; width: 10rem; }
+
+/* ---------- Qayta aloqa: toast, zarrachalar, konfetti ---------- */
+.toast {
+  position: fixed; left: 50%; top: 40%; z-index: 70; max-width: 90vw; text-align: center;
+  font-size: 2.6rem; font-weight: 900; color: #fff; padding: .9rem 2.2rem; border-radius: 999px;
+  animation: toast 1.6s cubic-bezier(.3, 1.4, .5, 1) forwards;
+}
+.toast.good { background: linear-gradient(180deg, #3FD07E, var(--green)); box-shadow: 0 .45rem 0 var(--green-d), 0 1rem 2rem rgba(30, 153, 82, .35); }
+.toast.try { background: #fff; color: var(--ink); font-size: 2rem; box-shadow: 0 .45rem 0 #E2E9F5, 0 1rem 2rem rgba(20, 60, 140, .2); }
+.toast .hl { color: var(--blue); }
+.toast.good .hl { color: #fff; }
+@keyframes toast {
+  0% { transform: translate(-50%, -50%) scale(.4); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+  25%, 75% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -110%) scale(.95); opacity: 0; }
+}
+.particle { position: fixed; width: 1rem; height: 1rem; margin: -.5rem 0 0 -.5rem; border-radius: 50%; pointer-events: none; }
+.confetti { position: fixed; top: -1.2rem; width: .9rem; height: 1.3rem; border-radius: .2rem; pointer-events: none; }
+
+/* ---------- Umumiy animatsiyalar ---------- */
+.shake { animation: shake .5s ease-in-out; }
+.hint { animation: glowRound 1s ease-in-out 3; }
+.balloon.hint { animation: none; }
+.pop { animation: popIn .45s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes shake { 15%, 55% { translate: -.8rem 0; } 35%, 75% { translate: .8rem 0; } }
+@keyframes popIn { from { transform: scale(.5); opacity: 0; } }
+@keyframes cardIn { from { transform: translateY(2rem) scale(.85); opacity: 0; } }
+@keyframes wiggle { 20% { rotate: -5deg; } 40% { rotate: 5deg; } 60% { rotate: -3deg; } 80% { rotate: 2deg; } }
+@keyframes fadeIn { from { opacity: 0; } }
+
+/* ---------- Tik (portret) ekranlar: planshet, telefon ---------- */
+@media (orientation: portrait) {
+  .lvl-head { flex-direction: column; align-items: stretch; min-height: 0; }
+  .lvl-head .prog { align-self: center; }
+  .trace-wrap { flex-direction: column; gap: 1.2rem; }
+  .letter-tabs { flex-direction: row; }
+  .board { height: auto; width: min(100%, 60vh); max-height: none; }
+  .poem { display: none; }
+  .basket-area { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr auto; grid-template-areas: "card card" "yes no"; }
+  .card-slot { grid-area: card; }
+  .bask.yes { grid-area: yes; }
+  .bask.no { grid-area: no; }
+  .bask { width: min(20rem, 40vw); }
+  .pic-card { width: min(32vh, 26rem); }
+  .word-card { flex-direction: column; gap: 1rem; padding: 1.4rem 2rem; }
+  .word-card .pic { width: min(28vh, 22rem); }
+  .map-board { inset: 9.5rem 6% 3.5rem; }
+  .finish-mascot { display: none; }
+}
+
+/* Past (keng, lekin past) ekranlar */
+@media (orientation: landscape) and (max-height: 520px) {
+  .poem { display: none; }
+  .guide-mascot { width: 5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
