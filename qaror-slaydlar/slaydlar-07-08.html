@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Слайдлар 07–08</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* Taqdimot uslubi: 1526×860 slayd, to'q ko'k sarlavha + havorang chiziq,
+   och ko'k chegarali panellar, ko'k→yashil gradient bo'lim nomlari, to'la ko'k ikonkalar. */
+:root{
+  --navy:#17254A; --cyan:#2FC1FF;
+  --blue:#026DD1; --blue-2:#1F6DC4; --blue-ink:#0154BA; --chev:#519BFB;
+  --teal:#05BAB6; --teal-2:#27A9AE;
+  --line:#C9DEF3; --line-2:#B6E3F9;
+  --card:#F4FAFE; --ink:#0E0E0E; --ink-2:#333B48; --ink-3:#5E6B7D;
+  --page:#E9EEF5; --page-ink:#17254A;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--page:#0E1626;--page-ink:#DCE6F5}
+}
+:root[data-theme="dark"]{--page:#0E1626;--page-ink:#DCE6F5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--page-ink);font-family:'Montserrat',system-ui,sans-serif}
+.wrap{max-width:1526px;margin:0 auto;padding:16px 16px 48px}
+.cap{font-weight:700;font-size:13px;letter-spacing:.04em;margin:18px 0 8px}
+.stage{width:100%;overflow:hidden;border-radius:6px;box-shadow:0 2px 16px rgba(10,30,60,.18)}
+body.export .wrap{padding:0;max-width:none}
+body.export .cap{display:none}
+body.export .stage{border-radius:0;box-shadow:none;width:1526px}
+
+/* ---------- slide ---------- */
+.slide{width:1526px;height:860px;background:#fff;transform-origin:top left;display:flex;flex-direction:column;color:var(--ink);overflow:hidden}
+.sh{height:51px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 28px;flex:none}
+.sh h2{margin:0;color:#fff;font-weight:700;font-size:21px;text-transform:uppercase;letter-spacing:.01em}
+.sh .pg{color:#fff;font-weight:300;font-size:34px;letter-spacing:.02em;line-height:1}
+.rule{height:5px;background:var(--cyan);flex:none}
+.body{flex:1;min-height:0;padding:30px 24px 18px;display:flex;flex-direction:column;gap:30px}
+
+/* ---------- panels ---------- */
+.panel{position:relative;border:2px solid var(--line);border-radius:18px;padding:26px 16px 16px;display:flex;flex-direction:column;min-height:0;background:#fff}
+.pt{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fff;padding:0 14px;white-space:nowrap;
+  font-weight:800;font-size:16px;line-height:22px;text-transform:uppercase;color:#000;letter-spacing:.01em}
+.pt.gr{font-size:20px;top:-16px;line-height:28px}
+.pt.gr span{background:linear-gradient(90deg,#1F6DC4 0%,#2198B4 55%,#27A9AE 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.row{display:flex;gap:14px;min-height:0}
+.row>*{min-width:0}
+.col{display:flex;flex-direction:column;gap:12px;min-height:0}
+.f1{flex:1}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:center;min-width:0}
+.card.bd{background:#fff;border:1.5px solid var(--line-2)}
+.card h4{margin:0 0 4px;font-weight:700;font-size:14.5px;line-height:1.25;color:var(--ink)}
+.card p{margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)}
+.card p b{font-weight:700;color:var(--ink)}
+.ic{flex:none;color:var(--blue);font-size:34px;width:46px;text-align:center;line-height:1}
+.ic.lg{font-size:46px;width:64px}
+.ic.sm{font-size:26px;width:34px}
+.big{font-weight:800;color:var(--blue-ink);line-height:1;letter-spacing:-.01em}
+.tl{height:2px;background:var(--teal);border:0;margin:8px 0 9px;width:100%}
+
+/* chevron flow */
+.flow{display:flex;align-items:stretch;gap:0;min-height:0}
+.flow>.step{flex:1;min-width:0}
+.chev{flex:none;width:30px;display:grid;place-items:center;color:var(--chev);font-size:22px}
+.step{position:relative;background:var(--card);border-radius:12px;padding:18px 14px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px}
+.step.bd{background:#fff;border:1.5px solid var(--line-2)}
+.step .ic{width:auto;font-size:38px;margin-top:4px}
+.step h4{margin:0;font-weight:700;font-size:14px;line-height:1.28;color:var(--ink)}
+.step p{margin:0;font-weight:500;font-size:12px;line-height:1.4;color:var(--ink-2)}
+.step p b{font-weight:700;color:var(--ink)}
+.num{position:absolute;top:0;left:0;background:var(--blue-2);color:#fff;font-weight:300;font-size:19px;line-height:1;
+  padding:7px 9px 6px;border-radius:12px 0 10px 0}
+
+/* pills (2-слайддаги сана туглари) */
+.pill{display:inline-flex;align-items:center;gap:9px;background:var(--blue-2);color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:13.5px;white-space:nowrap}
+.pill i{font-size:16px}
+.check{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:13.5px;color:var(--ink)}
+.check i{color:var(--blue-2);font-size:17px}
+
+/* target bar (4-слайд пастидаги) */
+.goal{flex:none;display:flex;height:54px;border-radius:10px;overflow:hidden}
+.goal .gl{flex:none;width:300px;background:linear-gradient(90deg,#E4F4F1,#DBE9F7);display:flex;align-items:center;padding-left:28px;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%);
+  font-weight:800;font-size:15px;color:var(--blue-ink);text-transform:uppercase}
+.goal .gr{flex:1;margin-left:-6px;background:var(--card);display:flex;align-items:center;justify-content:center;gap:10px;font-weight:500;font-size:15.5px;color:var(--blue-ink);
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,18px 50%)}
+.goal .gr b{font-weight:800;text-transform:uppercase}
+.goal .gr i{font-size:22px}
+
+/* donut */
+.donut{position:relative;width:150px;height:150px;flex:none}
+.donut .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.lg-row{display:flex;gap:12px;align-items:flex-start}
+.lg-row .dot{flex:none;width:14px;height:14px;border-radius:50%;margin-top:4px}
+
+/* tree (3-слайддаги институт тузилмаси) */
+.org{background:linear-gradient(90deg,#3F8DF0,#5B9EF2);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:18px;padding:12px 20px;
+  font-weight:800;font-size:19px;line-height:1.2;text-transform:uppercase;letter-spacing:.01em}
+.org i{font-size:40px}
+.branch{position:relative;height:24px}
+.branch::before{content:"";position:absolute;left:50%;top:0;width:2px;height:12px;background:#B9D3EC}
+.branch::after{content:"";position:absolute;left:16.66%;right:16.66%;top:12px;height:18px;border:2px solid #B9D3EC;border-bottom:0;border-radius:8px 8px 0 0}
+.branch span{position:absolute;left:50%;top:12px;width:2px;height:18px;background:#B9D3EC}
+.leaves{display:flex;gap:14px}
+.leaf{flex:1;text-align:center;padding:11px 6px 10px;position:relative;display:flex;flex-direction:column;align-items:center;gap:5px}
+.leaf::before,.leaf::after{content:"";position:absolute;left:8px;right:8px;height:4px;border-radius:2px}
+.leaf::before{top:0;background:linear-gradient(90deg,#2E7BD8 0 22%,transparent 22% 78%,#2E7BD8 78%)}
+.leaf::after{bottom:0;background:#2E7BD8}
+.leaf.t::before{background:linear-gradient(90deg,var(--teal-2) 0 22%,transparent 22% 78%,var(--teal-2) 78%)}
+.leaf.t::after{background:var(--teal-2)}
+.leaf i{font-size:30px;color:var(--blue)}
+.leaf b{font-weight:800;font-size:16px;color:var(--ink);line-height:1.1}
+.leaf span{font-weight:500;font-size:12.5px;color:var(--ink-2);line-height:1.3}
+
+/* annex grid */
+.ann{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ax{display:flex;align-items:stretch;background:var(--card);border-radius:10px;overflow:hidden;min-height:58px}
+.ax .n{flex:none;width:46px;background:var(--blue-2);color:#fff;font-weight:300;font-size:22px;display:grid;place-items:center}
+.ax .n.new{background:var(--teal-2)}
+.ax p{margin:0;padding:8px 12px;display:flex;align-items:center;font-weight:600;font-size:12.5px;line-height:1.3;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ======================= 07 ======================= -->
+<div class="cap">07 · Иқтидорли ёшларни қўллаб-қувватлаш</div>
+<div class="stage"><div class="slide" id="s07">
+  <div class="sh"><h2>Иқтидорли ёшларни қўллаб-қувватлаш</h2><span class="pg">07</span></div><div class="rule"></div>
+  <div class="body">
+
+    <!-- А. Ноутбук ташаббуси -->
+    <div class="panel" style="flex:1.18;padding-top:30px">
+      <div class="pt gr"><span>“Менинг биринчи ноутбуким” миллий ташаббуси</span></div>
+      <div class="row f1">
+
+        <div class="card" style="flex:none;width:262px;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;padding:18px 20px">
+          <i class="fa-solid fa-laptop ic lg" style="text-align:left;width:auto"></i>
+          <div class="big" style="font-size:40px">10 МИНГ</div>
+          <div style="font-weight:600;font-size:15px;color:var(--ink)">нафар ёш</div>
+          <hr class="tl" style="margin:2px 0">
+          <div style="font-weight:500;font-size:13px;color:var(--ink-2);line-height:1.35"><b style="color:var(--ink)">2027 йилдан</b> бошлаб ноутбук билан таъминланади</div>
+        </div>
+
+        <div class="card bd" style="flex:none;width:400px;flex-direction:column;align-items:stretch;justify-content:center;gap:12px;padding:16px 18px">
+          <div style="font-weight:700;font-size:14px;text-align:center">Харажатлар тақсимоти</div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="donut">
+              <svg viewBox="0 0 150 150" width="150" height="150">
+                <circle cx="75" cy="75" r="60" fill="none" stroke="#05BAB6" stroke-width="16"/>
+                <circle cx="75" cy="75" r="60" fill="none" stroke="#026DD1" stroke-width="16" stroke-dasharray="188.5 188.5" transform="rotate(-90 75 75)"/>
+              </svg>
+              <div class="c"><div class="big" style="font-size:22px">50 / 50</div><div style="font-weight:600;font-size:11px;color:var(--ink-3);margin-top:3px">ноутбук нархи</div></div>
+            </div>
+            <div class="col" style="gap:14px;flex:1">
+              <div class="lg-row"><span class="dot" style="background:#026DD1"></span><div><div style="font-weight:800;font-size:19px;color:var(--blue-ink)">50%</div><div style="font-weight:700;font-size:13px">Давлат қоплайди</div><div style="font-weight:500;font-size:11.5px;color:var(--ink-2);line-height:1.35">БҲМнинг 20 бараваригача бўлган қиймат</div></div></div>
+              <div class="lg-row"><span class="dot" style="background:#05BAB6"></span><div><div style="font-weight:800;font-size:19px;color:#078E8B">50%</div><div style="font-weight:700;font-size:13px">Ёшнинг ўзи</div><div style="font-weight:500;font-size:11.5px;color:var(--ink-2);line-height:1.35">2 йилгача муддатда бўлиб тўланади</div></div></div>
+            </div>
+          </div>
+          <div style="font-weight:500;font-size:11.5px;color:var(--ink-3);text-align:center;line-height:1.35">Маркетплейс платформаларида харид қилинади</div>
+        </div>
+
+        <div class="col f1" style="gap:12px">
+          <div style="font-weight:700;font-size:14px;text-align:center;color:var(--ink)">Жорий этиш механизми</div>
+          <div class="flow f1">
+            <div class="step bd"><span class="num">01</span><i class="fa-solid fa-users-viewfinder ic"></i><h4>“Рақамли ёшлар” платформаси</h4><p>Иштирокчи ёшлар реестри юритилади, муддатли тўлов операторлари билан интеграция</p></div>
+            <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+            <div class="step bd"><span class="num">02</span><i class="fa-solid fa-credit-card ic"></i><h4>Муддатли тўлов оператори</h4><p>Ноутбук маркетплейснинг муддатли тўлов хизмати орқали харид қилинади</p></div>
+            <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+            <div class="step"><span class="num">03</span><i class="fa-solid fa-building-columns ic"></i><h4>“Рақамли таълимни ривожлантириш маркази”</h4><p>Оператор сўровига кўра нархнинг <b>50%</b>ини Рақамли технологияларни ривожлантириш жамғармаси ҳисобидан қоплайди</p></div>
+          </div>
+          <div style="display:flex;justify-content:center;gap:28px;flex:none">
+            <span class="check"><i class="fa-solid fa-circle-check"></i>Кенгаш таркиби — 2-илова</span>
+            <span class="check"><i class="fa-solid fa-circle-check"></i>Кенгаш вазифалари — 3-илова</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Б. 9–10-синф -->
+    <div class="panel" style="flex:1;padding-top:24px">
+      <div class="pt">Иқтидорли 9–10-синф ўқувчилари учун ўқитиш тизими</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px;flex:none">
+        <span class="pill"><i class="fa-regular fa-calendar-days"></i>2027 йил 1 мартдан</span>
+        <span style="font-weight:500;font-size:13.5px;color:var(--ink-2)">Масъул: <b style="color:var(--ink)">Рақамли технологиялар вазирлиги</b> ҳамда <b style="color:var(--ink)">Таълим ва илм-фан вазирлиги</b></span>
+      </div>
+      <div class="flow f1">
+        <div class="step"><span class="num">01</span><i class="fa-solid fa-trophy ic"></i><h4>Олимпиада ғолиби</h4><p>Математика, информатика, физика ва СИ олимпиадаларининг <b>вилоят босқичи</b> ғолиблари</p></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="step"><span class="num">02</span><i class="fa-solid fa-laptop-code ic"></i><h4>Махсус ўқув курси</h4><p>Сунъий интеллект ва рақамли технологиялар бўйича ўқитиш тизими</p></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="step"><span class="num">03</span><i class="fa-solid fa-award ic"></i><h4>Халқаро сертификат</h4><p><b>Pearson, ICDL, Cambridge</b> каби ташкилотлар билан ҳамкорликда баҳолаш</p></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="step"><span class="num">04</span><i class="fa-solid fa-graduation-cap ic"></i><h4>ОТМга қабул</h4><p>Рақамли технологиялар вазирлиги ОТМларига <b>квотадан ташқари</b>, суҳбат асосида, тўлов-контракт</p></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="step"><span class="num">05</span><i class="fa-solid fa-hand-holding-dollar ic"></i><h4>Грант тақсимоти</h4><p>Кейинги ўқув йилидан грант тақсимотида иштирок этиш имконияти</p></div>
+      </div>
+    </div>
+
+    <div class="goal" style="margin-top:-12px">
+      <div class="gl">2027 йилдан</div>
+      <div class="gr"><i class="fa-solid fa-bullseye"></i><span><b>10 минг нафар ёш</b> — ноутбук билан, <b>олимпиада ғолиблари</b> — халқаро сертификат ва ОТМга қабул имтиёзи билан</span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ======================= 08 ======================= -->
+<div class="cap">08 · Лойиҳа офиси, халқаро ҳамкорлик ва ижро</div>
+<div class="stage"><div class="slide" id="s08">
+  <div class="sh"><h2>Лойиҳа офиси, халқаро ҳамкорлик ва ижро</h2><span class="pg">08</span></div><div class="rule"></div>
+  <div class="body">
+
+    <div class="row" style="flex:1;gap:22px">
+
+      <!-- Лойиҳа офиси -->
+      <div class="panel" style="flex:1;padding-top:30px">
+        <div class="pt gr"><span>Лойиҳа офиси</span></div>
+        <div class="org"><i class="fa-solid fa-chart-pie"></i><span>Таълимни таҳлил қилиш<br>ва прогнозлаш лойиҳа офиси</span></div>
+        <div class="branch"><span></span></div>
+        <div class="leaves" style="flex:none">
+          <div class="leaf"><i class="fa-solid fa-users"></i><b>10 та</b><span>штат бирлиги</span></div>
+          <div class="leaf t"><i class="fa-solid fa-file-contract"></i><b>Юридик шахс</b><span>мақомига эга эмас</span></div>
+          <div class="leaf"><i class="fa-solid fa-sitemap"></i><b>Республика таълим маркази</b><span>штати ҳисобидан</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px;margin-top:14px;flex:1;min-height:0">
+          <div class="card"><i class="fa-solid fa-chart-line ic sm"></i><div><h4>Тизимли таҳлил ва прогноз</h4><p>Таълим сифати, кадрлар, инфратузилма ва эҳтиёж бўйича ўрта ва узоқ муддатли прогнозлар</p></div></div>
+          <div class="card"><i class="fa-solid fa-chart-column ic sm"></i><div><h4>Ягона таҳлилий кўрсаткичлар</h4><p>Тизим ҳолати ва ривожланиш динамикаси, такомиллаштириш тавсиялари</p></div></div>
+          <div class="card"><i class="fa-solid fa-file-lines ic sm"></i><div><h4>Таҳлилий ҳисоботлар</h4><p>Давлат органлари учун асосланган бошқарув тавсиялари</p></div></div>
+          <div class="card"><i class="fa-solid fa-globe ic sm"></i><div><h4>Халқаро тажриба</h4><p>Рақамли трансформация тажрибаси асосида миллий амалиётга мос ечимлар</p></div></div>
+        </div>
+      </div>
+
+      <!-- KOICA -->
+      <div class="panel" style="flex:1.12;padding-top:30px">
+        <div class="pt gr"><span>KOICA гранти · “Рақамли таълим марказлари”</span></div>
+        <div class="flow" style="flex:1">
+          <div class="step bd"><span class="num">01</span><i class="fa-solid fa-landmark ic"></i><h4>Тўрт масъул орган</h4><p>Қорақалпоғистон Вазирлар Кенгаши · Қашқадарё вилояти ҳокимлиги · Кадастр агентлиги · Давлат активларини бошқариш агентлиги</p></div>
+          <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+          <div class="step bd"><span class="num">02</span><i class="fa-solid fa-map-location-dot ic"></i><h4>Ер ва бино</h4><p>Зарур ер участкалари ҳамда <b>10 минг м²</b>дан кам бўлмаган бино майдонлари</p></div>
+          <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+          <div class="step"><span class="num">03</span><i class="fa-solid fa-building-columns ic"></i><h4>“Рақамли таълимни ривожлантириш маркази”</h4><p>Белгиланган тартибда давлат муассасасига ўтказилади</p></div>
+        </div>
+        <div class="row" style="margin-top:14px;flex:none;gap:12px">
+          <div class="card" style="flex:1;background:linear-gradient(90deg,#E4F4F1,#DBE9F7)"><i class="fa-regular fa-calendar-days ic" style="color:#3FA88E"></i><div><div class="big" style="font-size:17px;margin-bottom:4px;white-space:nowrap">2027 ЙИЛ МАРТ</div><p>гача, Рақамли технологиялар вазирлиги билан келишиб</p></div></div>
+          <div class="card" style="flex:1"><i class="fa-solid fa-shield-halved ic sm"></i><div><h4>Солиқ имтиёзи</h4><p>Грант ҳисобидан товар ва хизматлар божхона тўловлари ва ҚҚСдан озод</p></div></div>
+          <div class="card" style="flex:1"><i class="fa-solid fa-passport ic sm"></i><div><h4>Виза</h4><p>Хорижий мутахассисларга консуллик йиғимларисиз расмийлаштирилади</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:none;height:236px;gap:22px">
+
+      <!-- Иловалар -->
+      <div class="panel" style="flex:1.42">
+        <div class="pt">Қарорга иловалар · 8 та</div>
+        <div class="ann" style="flex:1;grid-auto-rows:1fr">
+          <div class="ax"><span class="n">1</span><p>Институт фаолиятининг асосий йўналишлари</p></div>
+          <div class="ax"><span class="n">2</span><p>Кенгаш таркиби</p></div>
+          <div class="ax"><span class="n">3</span><p>Кенгаш вазифалари</p></div>
+          <div class="ax"><span class="n">4</span><p>Асосий йўналишлар</p></div>
+          <div class="ax"><span class="n">5</span><p>Йўл харитаси</p></div>
+          <div class="ax"><span class="n">6</span><p>Чора-тадбирлар</p></div>
+          <div class="ax"><span class="n">7</span><p>Мақсадли кўрсаткичлар</p></div>
+          <div class="ax"><span class="n">8</span><p>Ҳужжатларга ўзгартиш ва қўшимчалар</p></div>
+        </div>
+      </div>
+
+      <!-- Ижро -->
+      <div class="panel" style="flex:1">
+        <div class="pt">Ижро ва назорат</div>
+        <div class="row f1" style="gap:10px">
+          <div class="card bd" style="flex:1;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px">
+            <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-user-tie" style="color:var(--blue);font-size:20px"></i><h4 style="margin:0">Шахсий масъул</h4></div>
+            <hr class="tl" style="margin:4px 0 6px">
+            <p><b>Ш.К. Курбаниязов</b><br>ТРРИММ директори</p>
+            <p style="margin-top:6px"><b>Э.О. Турдимов</b><br>Таълим ва илм-фан вазири</p>
+          </div>
+          <div class="card bd" style="flex:1;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px">
+            <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-eye" style="color:var(--blue);font-size:20px"></i><h4 style="margin:0">Назорат</h4></div>
+            <hr class="tl" style="margin:4px 0 6px">
+            <p><b>А.Н. Арипов</b><br>Бош вазир</p>
+            <p style="margin-top:6px"><b>О.А. Хакимов</b><br>Президент Администрацияси Раҳбари ўринбосари</p>
+          </div>
+          <div class="card" style="flex:.92;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:12px 14px">
+            <i class="fa-solid fa-hourglass-half" style="color:var(--blue);font-size:24px"></i>
+            <div class="big" style="font-size:18px">УЧ ОЙ</div>
+            <p>муддатда қонун ҳужжатларига ўзгартишлар бўйича Вазирлар Маҳкамасига таклиф</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div></div>
+
+</div>
+<script>
+(function(){
+  if(location.hash==='#export'){document.body.classList.add('export');return;}
+  var W=1526,H=860;
+  function fit(){
+    var st=document.querySelectorAll('.stage');
+    for(var i=0;i<st.length;i++){var s=st[i].clientWidth/W;st[i].firstElementChild.style.transform='scale('+s+')';st[i].style.height=(H*s)+'px';}
+  }
+  fit();window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
