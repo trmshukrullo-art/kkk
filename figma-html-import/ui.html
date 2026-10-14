@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: var(--figma-color-bg, #fff);
+    --fg: var(--figma-color-text, #1e1e1e);
+    --muted: var(--figma-color-text-secondary, #6b6b6b);
+    --border: var(--figma-color-border, #e2e2e2);
+    --brand: var(--figma-color-bg-brand, #0d99ff);
+    --brand-fg: var(--figma-color-text-onbrand, #fff);
+    --hover: var(--figma-color-bg-hover, #f5f5f5);
+    --danger: var(--figma-color-text-danger, #e03e1a);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 12px; font: 12px/1.4 Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+  h1 { font-size: 13px; font-weight: 600; margin: 0 0 10px; }
+  .drop { border: 1.5px dashed var(--border); border-radius: 8px; padding: 16px 10px; text-align: center; color: var(--muted); cursor: pointer; }
+  .drop.over { border-color: var(--brand); background: var(--hover); color: var(--fg); }
+  .drop b { color: var(--fg); }
+  ul { list-style: none; margin: 8px 0 0; padding: 0; max-height: 110px; overflow: auto; }
+  li { display: flex; justify-content: space-between; gap: 8px; padding: 4px 6px; border-radius: 4px; }
+  li:hover { background: var(--hover); }
+  li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  li button { border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0 2px; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; color: var(--muted); }
+  textarea { width: 100%; height: 90px; margin-top: 6px; font: 11px/1.4 ui-monospace, monospace; border: 1px solid var(--border); border-radius: 6px; padding: 6px; background: var(--bg); color: var(--fg); resize: vertical; }
+  .row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .row label { flex: 1; color: var(--muted); }
+  input[type=number] { width: 80px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); color: var(--fg); }
+  .go { width: 100%; margin-top: 12px; padding: 8px; border: 0; border-radius: 6px; background: var(--brand); color: var(--brand-fg); font-weight: 600; cursor: pointer; }
+  .go:disabled { opacity: .5; cursor: default; }
+  #log { margin-top: 10px; color: var(--muted); white-space: pre-wrap; max-height: 120px; overflow: auto; }
+  #log .err { color: var(--danger); }
+</style>
+</head>
+<body>
+<h1>HTML → Figma</h1>
+
+<div class="drop" id="drop">
+  <b>.html fayllarni shu yerga tashlang</b><br>yoki bosib tanlang (bir nechta variant mumkin)
+  <input type="file" id="file" accept=".html,.htm,text/html" multiple hidden>
+</div>
+<ul id="list"></ul>
+
+<details>
+  <summary>yoki HTML kodni joylashtiring</summary>
+  <textarea id="paste" placeholder="<!doctype html>..."></textarea>
+</details>
+
+<div class="row">
+  <label for="width">Sahifa kengligi (px)<br><small>bo'sh = meta viewport'dan, bo'lmasa 1440</small></label>
+  <input type="number" id="width" min="200" max="8000" placeholder="auto">
+</div>
+
+<button class="go" id="go" disabled>Figma'ga import qilish</button>
+<div id="log"></div>
+
+<script>
+// ---------------------------------------------------------------------------
+// UI
+// ---------------------------------------------------------------------------
+const files = [];
+const $ = (id) => document.getElementById(id);
+const drop = $('drop'), fileInput = $('file'), list = $('list'), paste = $('paste'), go = $('go'), logEl = $('log');
+
+function log(msg, isErr) {
+  const d = document.createElement('div');
+  if (isErr) d.className = 'err';
+  d.textContent = msg;
+  logEl.appendChild(d);
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+function refresh() {
+  list.innerHTML = '';
+  files.forEach((f, i) => {
+    const li = document.createElement('li');
+    const s = document.createElement('span');
+    s.textContent = f.name;
+    const b = document.createElement('button');
+    b.textContent = '✕';
+    b.onclick = () => { files.splice(i, 1); refresh(); };
+    li.append(s, b);
+    list.appendChild(li);
+  });
+  go.disabled = !files.length && !paste.value.trim();
+}
+
+function addFiles(fl) {
+  for (const f of fl) if (/\.html?$/i.test(f.name) || f.type === 'text/html') files.push(f);
+  refresh();
+}
+
+drop.onclick = () => fileInput.click();
+fileInput.onchange = () => { addFiles(fileInput.files); fileInput.value = ''; };
+drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('over'); };
+drop.ondragleave = () => drop.classList.remove('over');
+drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); };
+paste.oninput = refresh;
+
+go.onclick = async () => {
+  go.disabled = true;
+  logEl.innerHTML = '';
+  try {
+    const sources = [];
+    for (const f of files) sources.push({ name: f.name.replace(/\.html?$/i, ''), html: await f.text() });
+    if (paste.value.trim()) sources.push({ name: 'Pasted HTML', html: paste.value });
+    const pages = [];
+    for (const s of sources) {
+      const width = +$('width').value || viewportWidth(s.html) || 1440;
+      log(`⏳ ${s.name}: render (${width}px)...`);
+      const page = await extractPage(s.html, width, s.name);
+      log(`✓ ${s.name}: ${page.count} ta element`);
+      pages.push(page);
+    }
+    log('⏳ Figma qatlamlari yaratilmoqda...');
+    parent.postMessage({ pluginMessage: { type: 'import', pages } }, '*');
+  } catch (e) {
+    log('Xato: ' + (e && e.message || e), true);
+    go.disabled = false;
+  }
+};
+
+window.onmessage = (e) => {
+  const m = e.data && e.data.pluginMessage;
+  if (!m) return;
+  if (m.type === 'progress') log(m.text);
+  if (m.type === 'done') {
+    log(`✅ Tayyor: ${m.pages} ta sahifa import qilindi.`);
+    if (m.missingFonts && m.missingFonts.length) log('⚠ Figma\'da topilmagan shriftlar (Inter bilan almashtirildi): ' + m.missingFonts.join(', '), true);
+    go.disabled = false;
+  }
+  if (m.type === 'error') { log('Xato: ' + m.text, true); go.disabled = false; }
+};
+
+function viewportWidth(html) {
+  const m = html.match(/<meta[^>]+name=["']?viewport["']?[^>]*>/i);
+  const w = m && m[0].match(/width\s*=\s*(\d+)/i);
+  return w ? +w[1] : 0;
+}
+
+// ---------------------------------------------------------------------------
+// HTML -> serializable tree
+// ---------------------------------------------------------------------------
+const SKIP_TAGS = new Set(['script', 'style', 'link', 'meta', 'title', 'head', 'noscript', 'template', 'iframe', 'object', 'embed']);
+const REPLACED_TAGS = new Set(['img', 'svg', 'canvas', 'video', 'input', 'button', 'select', 'textarea', 'iframe', 'picture']);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r()));
+
+let win, doc, tasks, count;
+
+async function extractPage(html, width, name) {
+  const iframe = document.createElement('iframe');
+  iframe.style.cssText = `position:absolute;left:-40000px;top:0;width:${width}px;height:1000px;border:0;`;
+  const loaded = new Promise((r) => (iframe.onload = r));
+  iframe.srcdoc = html;
+  document.body.appendChild(iframe);
+  try {
+    await Promise.race([loaded, sleep(15000)]);
+    win = iframe.contentWindow;
+    doc = iframe.contentDocument;
+    if (!doc || !doc.body) throw new Error('HTML ochilmadi');
+    await Promise.race([doc.fonts.ready, sleep(8000)]);
+    await Promise.race([Promise.all([...doc.images].map((img) => img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; }))), sleep(10000)]);
+
+    // Grow the iframe to the full document height so nothing is scrolled.
+    let height = 0;
+    for (let i = 0; i < 4; i++) {
+      const h = Math.ceil(Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight));
+      if (h === height) break;
+      height = h;
+      iframe.style.height = height + 'px';
+      await nextFrame(); await nextFrame();
+    }
+
+    tasks = []; count = 0;
+    const de = doc.documentElement, body = doc.body;
+    const fills = [...paintsFor(de, getComputedStyle(de), de.getBoundingClientRect()), ...paintsFor(body, getComputedStyle(body), body.getBoundingClientRect())];
+    const root = {
+      type: 'FRAME', name: doc.title || name, x: 0, y: 0, w: width, h: height,
+      fills: fills.length ? fills : [{ type: 'SOLID', color: { r: 1, g: 1, b: 1, a: 1 } }],
+      clip: true, children: childrenOf(body),
+    };
+    await Promise.all(tasks);
+    return { name, tree: root, count };
+  } finally {
+    iframe.remove();
+  }
+}
+
+function getComputedStyle(el) { return win.getComputedStyle(el); }
+
+// ---------- parsing helpers ----------
+function splitTop(s, sep = ',') {
+  const out = []; let depth = 0, cur = '';
+  for (const ch of s) {
+    if (ch === '(') depth++;
+    else if (ch === ')') depth--;
+    if (depth === 0 && (sep === ' ' ? /\s/.test(ch) : ch === sep)) { if (cur.trim()) out.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  if (cur.trim()) out.push(cur.trim());
+  return out;
+}
+
+const colorCanvas = document.createElement('canvas');
+colorCanvas.width = colorCanvas.height = 1;
+const colorCtx = colorCanvas.getContext('2d', { willReadFrequently: true });
+
+function parseColor(str) {
+  if (!str) return null;
+  str = str.trim();
+  if (str === 'transparent' || str === 'none') return null;
+  let m = str.match(/^rgba?\(([^)]+)\)$/i);
+  if (m) {
+    const p = m[1].split(/[\s,\/]+/).filter(Boolean);
+    const ch = (v) => (v.endsWith('%') ? parseFloat(v) / 100 : parseFloat(v) / 255);
+    const a = p[3] === undefined ? 1 : p[3].endsWith('%') ? parseFloat(p[3]) / 100 : parseFloat(p[3]);
+    return { r: ch(p[0]), g: ch(p[1]), b: ch(p[2]), a };
+  }
+  m = str.match(/^color\(srgb\s+([^)]+)\)$/i);
+  if (m) {
+    const p = m[1].split(/[\s\/]+/).filter(Boolean).map(parseFloat);
+    return { r: p[0], g: p[1], b: p[2], a: p[3] === undefined ? 1 : p[3] };
+  }
+  // Anything else (oklch, hsl, named...) — let the browser rasterize it.
+  colorCtx.clearRect(0, 0, 1, 1);
+  colorCtx.fillStyle = '#000';
+  colorCtx.fillStyle = str;
+  colorCtx.fillRect(0, 0, 1, 1);
+  const d = colorCtx.getImageData(0, 0, 1, 1).data;
+  return { r: d[0] / 255, g: d[1] / 255, b: d[2] / 255, a: d[3] / 255 };
+}
+
+function toDeg(v) {
+  const n = parseFloat(v);
+  if (v.endsWith('grad')) return n * 0.9;
+  if (v.endsWith('rad')) return n * 180 / Math.PI;
+  if (v.endsWith('turn')) return n * 360;
+  return n;
+}
+
+function directionToDeg(dir, w, h) {
+  const d = dir.replace(/^to\s+/, '').split(/\s+/).sort().join(' ');
+  const a = Math.atan2(h, w) * 180 / Math.PI;
+  return { top: 0, right: 90, bottom: 180, left: 270,
+    'right top': a, 'bottom right': 180 - a, 'bottom left': 180 + a, 'left top': 360 - a }[d] ?? 180;
+}
+
+// Figma gradientTransform maps node space (0..1) to gradient space; we build
+// the inverse (gradient handles in node space) and invert it.
+function linearTransform(angle, w, h) {
+  const rad = angle * Math.PI / 180;
+  const dx = Math.sin(rad), dy = -Math.cos(rad);
+  const len = Math.abs(w * dx) + Math.abs(h * dy);
+  const sx = 0.5 - (dx * len / 2) / w, sy = 0.5 - (dy * len / 2) / h;
+  const ex = 0.5 + (dx * len / 2) / w, ey = 0.5 + (dy * len / 2) / h;
+  const ax = ex - sx, ay = ey - sy;
+  const bx = -ay * h / w, by = ax * w / h;
+  const tx = sx - 0.5 * bx, ty = sy - 0.5 * by;
+  const det = ax * by - bx * ay || 1e-9;
+  const i00 = by / det, i01 = -bx / det, i10 = -ay / det, i11 = ax / det;
+  return [[i00, i01, -(i00 * tx + i01 * ty)], [i10, i11, -(i10 * tx + i11 * ty)]];
+}
+
+function parseGradient(str, w, h) {
+  const m = str.match(/^(repeating-)?(linear|radial)-gradient\(([\s\S]*)\)$/);
+  if (!m) return null;
+  const parts = splitTop(m[3]);
+  let angle = 180, idx = 0;
+  const isColor = (s) => /^(rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch|color)\(|^#|^[a-z]+(\s|$)/i.test(s) && !/^(to|at|circle|ellipse|closest|farthest)\b/.test(s);
+  if (m[2] === 'linear') {
+    if (/^-?[\d.]+(deg|rad|turn|grad)$/.test(parts[0])) { angle = toDeg(parts[0]); idx = 1; }
+    else if (/^to\s/.test(parts[0])) { angle = directionToDeg(parts[0], w, h); idx = 1; }
+  } else if (!isColor(parts[0])) idx = 1;
+
+  const len = m[2] === 'linear'
+    ? Math.abs(w * Math.sin(angle * Math.PI / 180)) + Math.abs(h * Math.cos(angle * Math.PI / 180))
+    : Math.hypot(w, h) / 2;
+  const stops = [];
+  for (const p of parts.slice(idx)) {
+    const cm = p.match(/^((?:[a-z-]+\([^)]*\))|#[0-9a-f]+|[a-z]+)\s*(.*)$/i);
+    if (!cm) continue;
+    const color = parseColor(cm[1]);
+    if (!color) continue;
+    const positions = cm[2].split(/\s+/).filter(Boolean).map((v) => v.endsWith('%') ? parseFloat(v) / 100 : parseFloat(v) / len);
+    if (!positions.length) stops.push({ color, position: null });
+    for (const pos of positions) stops.push({ color, position: pos });
+  }
+  if (stops.length < 2) return null;
+  // Fill in missing positions evenly.
+  if (stops[0].position == null) stops[0].position = 0;
+  if (stops[stops.length - 1].position == null) stops[stops.length - 1].position = 1;
+  for (let i = 1; i < stops.length; i++) {
+    if (stops[i].position != null) continue;
+    let j = i; while (stops[j].position == null) j++;
+    const a = stops[i - 1].position, b = stops[j].position;
+    for (let k = i; k < j; k++) stops[k].position = a + (b - a) * (k - i + 1) / (j - i + 1);
+  }
+  let last = 0;
+  for (const s of stops) { s.position = Math.min(1, Math.max(last, s.position)); last = s.position; }
+
+  if (m[2] === 'linear') return { type: 'GRADIENT_LINEAR', transform: linearTransform(angle, w, h), stops };
+  const k = 1 / Math.SQRT2; // farthest-corner ellipse
+  return { type: 'GRADIENT_RADIAL', transform: [[k, 0, 0.5 - 0.5 * k], [0, k, 0.5 - 0.5 * k]], stops };
+}
+
+function px(v) { return parseFloat(v) || 0; }
+
+// ---------- images ----------
+function sniffImage(bytes) {
+  if (bytes[0] === 0x89 && bytes[1] === 0x50) return 'png';
+  if (bytes[0] === 0xff && bytes[1] === 0xd8) return 'jpg';
+  if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) return 'gif';
+  return null;
+}
+
+async function rasterize(src, w, h) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  await new Promise((r, j) => { img.onload = r; img.onerror = j; img.src = src; });
+  const c = document.createElement('canvas');
+  c.width = Math.max(1, Math.round(img.naturalWidth || w));
+  c.height = Math.max(1, Math.round(img.naturalHeight || h));
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
+  return new Uint8Array(await blob.arrayBuffer());
+}
+
+// Loads `src` and fills `target`: either target.bytes (raster) or, when the
+// image is an SVG and `asSvg` is given, calls asSvg(svgText).
+function loadImage(src, target, w, h, asSvg) {
+  tasks.push((async () => {
+    try {
+      const res = await fetch(src);
+      const type = res.headers.get('content-type') || '';
+      if (asSvg && (type.includes('svg') || /^data:image\/svg/i.test(src) || /\.svg(\?|#|$)/i.test(src))) {
+        asSvg(await res.text());
+        return;
+      }
+      let bytes = new Uint8Array(await res.arrayBuffer());
+      if (!sniffImage(bytes)) bytes = await rasterize(src, w, h);
+      target.bytes = bytes;
+    } catch (e) {
+      try { target.bytes = await rasterize(src, w, h); } catch (e2) { /* leave empty */ }
+    }
+  })());
+}
+
+// ---------- paints / box ----------
+function paintsFor(el, cs, rect) {
+  const out = [];
+  const bg = parseColor(cs.backgroundColor);
+  if (bg && bg.a > 0) out.push({ type: 'SOLID', color: bg });
+  if (cs.backgroundImage && cs.backgroundImage !== 'none') {
+    const layers = splitTop(cs.backgroundImage).reverse();
+    const sizes = splitTop(cs.backgroundSize).reverse();
+    layers.forEach((layer, i) => {
+      if (/gradient\(/.test(layer)) {
+        const g = parseGradient(layer, rect.width || 1, rect.height || 1);
+        if (g) out.push(g);
+      } else {
+        const u = layer.match(/^url\(["']?([\s\S]*?)["']?\)$/);
+        if (!u) return;
+        const size = sizes[i] || sizes[0] || 'auto';
+        const paint = { type: 'IMAGE', scaleMode: /contain/.test(size) ? 'FIT' : 'FILL' };
+        out.push(paint);
+        loadImage(u[1], paint, rect.width, rect.height);
+      }
+    });
+  }
+  return out;
+}
+
+function hasBox(cs) {
+  const bg = parseColor(cs.backgroundColor);
+  return (bg && bg.a > 0) || cs.backgroundImage !== 'none' || cs.boxShadow !== 'none' ||
+    px(cs.borderTopWidth) + px(cs.borderRightWidth) + px(cs.borderBottomWidth) + px(cs.borderLeftWidth) > 0 || hasOutline(cs);
+}
+
+function hasOutline(cs) {
+  return cs.outlineStyle !== 'none' && px(cs.outlineWidth) > 0;
+}
+
+function radius(v, w, h) {
+  const first = v.split(/\s+/)[0];
+  const r = first.endsWith('%') ? parseFloat(first) / 100 * Math.min(w, h) : px(first);
+  return Math.min(r, Math.min(w, h) / 2);
+}
+
+function parseShadows(str) {
+  if (!str || str === 'none') return [];
+  return splitTop(str).map((s) => {
+    const inset = /\binset\b/.test(s);
+    s = s.replace(/\binset\b/, '').trim();
+    const cm = s.match(/(rgba?\([^)]*\)|color\([^)]*\)|#[0-9a-f]+|[a-z]+\([^)]*\))/i);
+    const color = parseColor(cm ? cm[1] : 'rgb(0,0,0)') || { r: 0, g: 0, b: 0, a: 0 };
+    const nums = (cm ? s.replace(cm[1], '') : s).trim().split(/\s+/).filter(Boolean).map(px);
+    return { inset, color, x: nums[0] || 0, y: nums[1] || 0, blur: nums[2] || 0, spread: nums[3] || 0 };
+  }).reverse();
+}
+
+function boxProps(node, el, cs, rect) {
+  const w = rect.width, h = rect.height;
+  node.fills = paintsFor(el, cs, rect);
+  node.radii = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius].map((v) => radius(v, w, h));
+  const sides = ['Top', 'Right', 'Bottom', 'Left'];
+  const weights = sides.map((s) => cs['border' + s + 'Style'] === 'none' || cs['border' + s + 'Style'] === 'hidden' ? 0 : px(cs['border' + s + 'Width']));
+  const i = weights.findIndex((x) => x > 0);
+  if (i >= 0) {
+    const c = parseColor(cs['border' + sides[i] + 'Color']);
+    if (c && c.a > 0) { node.stroke = c; node.strokeWeights = weights; node.dashed = /dash|dot/.test(cs['border' + sides[i] + 'Style']); }
+  } else if (hasOutline(cs)) {
+    const c = parseColor(cs.outlineColor);
+    const ow = px(cs.outlineWidth);
+    if (c && c.a > 0) { node.stroke = c; node.strokeWeights = [ow, ow, ow, ow]; node.strokeAlign = 'OUTSIDE'; node.dashed = /dash|dot/.test(cs.outlineStyle); }
+  }
+  node.shadows = parseShadows(cs.boxShadow);
+  const blur = cs.filter && cs.filter.match(/blur\(([\d.]+)px\)/);
+  if (blur) node.blur = +blur[1];
+  const bblur = cs.backdropFilter && cs.backdropFilter.match(/blur\(([\d.]+)px\)/);
+  if (bblur) node.backgroundBlur = +bblur[1];
+}
+
+function nameOf(el) {
+  const cls = typeof el.className === 'string' ? el.className.trim().split(/\s+/).filter(Boolean) : [];
+  return el.id ? `${el.tagName.toLowerCase()}#${el.id}` : cls.length ? cls.join('.') : el.tagName.toLowerCase();
+}
+
+function absRect(r) { return { x: r.left + win.scrollX, y: r.top + win.scrollY, w: r.width, h: r.height }; }
+
+function zKey(cs, isText) {
+  if (isText) return -0.5;
+  if (cs.zIndex !== 'auto' && (cs.position !== 'static' || /flex|grid/.test(cs.display))) return +cs.zIndex || 0;
+  return cs.position !== 'static' ? 0 : -0.5;
+}
+
+// ---------- text ----------
+// 2 = only inline text content, 1 = only whitespace, 0 = has block/visual content
+function inlineTextOnly(el) {
+  let hasText = false;
+  for (const n of el.childNodes) {
+    if (n.nodeType === 3) { if (n.data.trim()) hasText = true; continue; }
+    if (n.nodeType !== 1) continue;
+    const tag = n.tagName.toLowerCase();
+    if (tag === 'br' || SKIP_TAGS.has(tag)) continue;
+    const cs = getComputedStyle(n);
+    if (cs.display === 'none') continue;
+    if (cs.display !== 'inline' || REPLACED_TAGS.has(tag) || hasBox(cs) || +cs.opacity < 1) return 0;
+    const r = inlineTextOnly(n);
+    if (r === 0) return 0;
+    if (r === 2) hasText = true;
+  }
+  return hasText ? 2 : 1;
+}
+
+function textStyle(el) {
+  const cs = getComputedStyle(el);
+  return {
+    family: cs.fontFamily,
+    weight: +cs.fontWeight || 400,
+    italic: /italic|oblique/.test(cs.fontStyle),
+    size: px(cs.fontSize) || 16,
+    color: parseColor(cs.color) || { r: 0, g: 0, b: 0, a: 1 },
+    letterSpacing: cs.letterSpacing === 'normal' ? 0 : px(cs.letterSpacing),
+    decoration: /underline/.test(cs.textDecorationLine) ? 'UNDERLINE' : /line-through/.test(cs.textDecorationLine) ? 'STRIKETHROUGH' : 'NONE',
+    textCase: { uppercase: 'UPPER', lowercase: 'LOWER', capitalize: 'TITLE' }[cs.textTransform] || 'ORIGINAL',
+  };
+}
+
+// Collects characters with a style index each, honoring CSS whitespace rules.
+function collectChars(nodes, acc) {
+  for (const n of nodes) {
+    if (n.nodeType === 3) {
+      const el = n.parentElement;
+      const cs = getComputedStyle(el);
+      const key = styleKey(el, acc);
+      let t = n.data;
+      const ws = cs.whiteSpace;
+      if (ws === 'pre' || ws === 'pre-wrap' || ws === 'break-spaces') t = t.replace(/\r\n?/g, '\n');
+      else if (ws === 'pre-line') t = t.replace(/[ \t]+/g, ' ').replace(/ ?\n ?/g, '\n');
+      else t = t.replace(/\s+/g, ' ');
+      const collapse = !/^pre($|-wrap)|break-spaces/.test(ws);
+      for (const ch of t) {
+        const last = acc.chars[acc.chars.length - 1];
+        if (collapse && ch === ' ' && (last === undefined || last === ' ' || last === '\n')) continue;
+        acc.chars.push(ch); acc.styles.push(key);
+      }
+    } else if (n.nodeType === 1) {
+      const tag = n.tagName.toLowerCase();
+      if (SKIP_TAGS.has(tag)) continue;
+      if (tag === 'br') {
+        while (acc.chars[acc.chars.length - 1] === ' ') { acc.chars.pop(); acc.styles.pop(); }
+        acc.chars.push('\n'); acc.styles.push(styleKey(n.parentElement, acc));
+        continue;
+      }
+      if (getComputedStyle(n).display === 'none') continue;
+      collectChars(n.childNodes, acc);
+    }
+  }
+}
+
+function styleKey(el, acc) {
+  if (acc.cache.has(el)) return acc.cache.get(el);
+  const s = textStyle(el);
+  const json = JSON.stringify(s);
+  let idx = acc.styleList.findIndex((x) => x.json === json);
+  if (idx < 0) { idx = acc.styleList.length; acc.styleList.push({ json, style: s }); }
+  acc.cache.set(el, idx);
+  return idx;
+}
+
+function groupLines(rects) {
+  const rs = [...rects].filter((r) => r.width > 0 || r.height > 0).sort((a, b) => a.top - b.top);
+  const lines = [];
+  for (const r of rs) {
+    const l = lines[lines.length - 1];
+    if (l && r.top < l.bottom - 1) { l.top = Math.min(l.top, r.top); l.bottom = Math.max(l.bottom, r.bottom); }
+    else lines.push({ top: r.top, bottom: r.bottom });
+  }
+  return lines;
+}
+
+// Builds a TEXT node from `nodes` (child nodes of a container) laid out inside `boxEl`.
+function makeText(nodes, boxEl, range) {
+  const acc = { chars: [], styles: [], styleList: [], cache: new Map() };
+  collectChars(nodes, acc);
+  while (acc.chars[0] === ' ' || acc.chars[0] === '\n' && !/pre/.test(getComputedStyle(boxEl).whiteSpace)) { acc.chars.shift(); acc.styles.shift(); }
+  while (acc.chars.length && /\s/.test(acc.chars[acc.chars.length - 1])) { acc.chars.pop(); acc.styles.pop(); }
+  if (!acc.chars.length) return null;
+
+  const segs = [];
+  let text = '';
+  acc.chars.forEach((ch, i) => {
+    const s = acc.styles[i];
+    const last = segs[segs.length - 1];
+    if (last && last.style === s) last.end = text.length + ch.length;
+    else segs.push({ start: text.length, end: text.length + ch.length, style: s });
+    text += ch;
+  });
+
+  const cs = getComputedStyle(boxEl);
+  const bb = range.getBoundingClientRect();
+  const lines = groupLines(range.getClientRects());
+  if (!lines.length || bb.width === 0) return null;
+  let lineHeight = cs.lineHeight === 'normal' ? null : px(cs.lineHeight);
+  if (lineHeight == null && lines.length > 1) lineHeight = lines[1].top - lines[0].top;
+  const align = { center: 'CENTER', right: 'RIGHT', end: 'RIGHT', justify: 'JUSTIFIED' }[cs.textAlign] || 'LEFT';
+  count++;
+  return {
+    type: 'TEXT',
+    ...absRect(bb),
+    firstLineCenter: (lines[0].top + lines[0].bottom) / 2 + win.scrollY,
+    multiLine: lines.length > 1,
+    lineHeight,
+    align,
+    characters: text,
+    segs,
+    styles: acc.styleList.map((x) => x.style),
+    opacity: 1,
+  };
+}
+
+function textFromElement(el) {
+  const r = doc.createRange();
+  r.selectNodeContents(el);
+  return makeText(el.childNodes, el, r);
+}
+
+function textFromNode(textNode) {
+  const r = doc.createRange();
+  r.selectNodeContents(textNode);
+  return makeText([textNode], textNode.parentElement, r);
+}
+
+// ---------- SVG ----------
+const SVG_PROPS = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-linecap', 'stroke-linejoin', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-miterlimit', 'clip-rule', 'stop-color', 'stop-opacity'];
+
+function serializeSvg(svg, rect) {
+  const clone = svg.cloneNode(true);
+  const src = [svg, ...svg.querySelectorAll('*')];
+  const dst = [clone, ...clone.querySelectorAll('*')];
+  src.forEach((s, i) => {
+    const d = dst[i];
+    const cs = getComputedStyle(s);
+    if (cs.display === 'none' && i > 0) { d.setAttribute('display', 'none'); return; }
+    for (const p of SVG_PROPS) {
+      let v = cs.getPropertyValue(p);
+      if (!v) continue;
+      v = v.replace(/currentcolor/gi, cs.color).replace(/url\("([^"]*)"\)/g, 'url($1)');
+      if (/width|offset|miterlimit/.test(p)) v = v.replace(/px/g, '');
+      d.setAttribute(p, v);
+    }
+    if (i > 0 && cs.opacity !== '1') d.setAttribute('opacity', cs.opacity);
+    d.removeAttribute('class');
+    d.removeAttribute('style');
+  });
+  if (!clone.getAttribute('viewBox')) {
+    const ow = parseFloat(svg.getAttribute('width')), oh = parseFloat(svg.getAttribute('height'));
+    clone.setAttribute('viewBox', `0 0 ${ow || rect.width} ${oh || rect.height}`);
+  }
+  clone.setAttribute('width', rect.width);
+  clone.setAttribute('height', rect.height);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  return new XMLSerializer().serializeToString(clone);
+}
+
+// ---------- walk ----------
+function childrenOf(el) {
+  const items = [];
+  let order = 0;
+  for (const n of el.childNodes) {
+    if (n.nodeType === 3) {
+      if (!n.data.trim()) continue;
+      const t = textFromNode(n);
+      if (t) items.push({ node: t, z: -0.5, order: order++ });
+    } else if (n.nodeType === 1) {
+      const cs = getComputedStyle(n);
+      for (const node of walk(n, cs)) items.push({ node, z: zKey(cs, false), order: order++ });
+    }
+  }
+  items.sort((a, b) => a.z - b.z || a.order - b.order);
+  return items.map((i) => i.node);
+}
+
+function walk(el, cs) {
+  const tag = el.tagName.toLowerCase();
+  if (SKIP_TAGS.has(tag) || cs.display === 'none' || cs.visibility === 'hidden' || cs.visibility === 'collapse') return [];
+  if (cs.display === 'contents') return childrenOf(el);
+  const opacity = +cs.opacity;
+  if (opacity === 0) return [];
+  const rect = el.getBoundingClientRect();
+  const box = absRect(rect);
+  const name = nameOf(el);
+
+  if (tag === 'svg') {
+    if (!rect.width || !rect.height) return [];
+    count++;
+    return [{ type: 'SVG', name, ...box, svg: serializeSvg(el, rect), opacity }];
+  }
+
+  const node = { type: 'FRAME', name, ...box, opacity, clip: false, children: [] };
+  boxProps(node, el, cs, rect);
+  const clip = /hidden|clip|auto|scroll/.test(cs.overflowX + cs.overflowY);
+
+  if (tag === 'img' || tag === 'canvas' || tag === 'video') {
+    if (!rect.width || !rect.height) return [];
+    const fit = cs.objectFit === 'contain' || cs.objectFit === 'scale-down' ? 'FIT' : 'FILL';
+    const paint = { type: 'IMAGE', scaleMode: fit };
+    let src = null;
+    if (tag === 'img') src = el.currentSrc || el.src;
+    else if (tag === 'canvas') { try { src = el.toDataURL('image/png'); } catch (e) {} }
+    else src = el.poster;
+    if (src) {
+      node.fills.push(paint);
+      if (tag === 'img') {
+        loadImage(src, paint, rect.width, rect.height, (svgText) => {
+          node.fills.splice(node.fills.indexOf(paint), 1);
+          node.children.push({ type: 'SVG', name, ...box, svg: svgText, opacity: 1 });
+        });
+      } else loadImage(src, paint, rect.width, rect.height);
+    }
+    node.clip = true;
+    count++;
+    return [node];
+  }
+
+  if (tag === 'input' || tag === 'textarea' || tag === 'select') {
+    const value = tag === 'select' ? (el.selectedOptions[0] || {}).text : el.value || el.placeholder;
+    if (value && el.type !== 'checkbox' && el.type !== 'radio' && el.type !== 'hidden') {
+      const span = doc.createElement('span');
+      span.textContent = value;
+      span.style.cssText = `position:absolute;left:${rect.left + px(cs.paddingLeft) + px(cs.borderLeftWidth) + win.scrollX}px;top:${rect.top + win.scrollY}px;height:${rect.height}px;display:flex;align-items:center;white-space:pre;font-family:${cs.fontFamily};font-size:${cs.fontSize};font-weight:${cs.fontWeight};font-style:${cs.fontStyle};letter-spacing:${cs.letterSpacing};color:${el.value ? cs.color : '#9aa0a6'}`;
+      doc.body.appendChild(span);
+      const t = textFromElement(span);
+      span.remove();
+      if (t) node.children.push(t);
+    }
+    node.clip = true;
+    count++;
+    return [node];
+  }
+
+  const visual = hasBox(cs) || node.blur || node.backgroundBlur;
+  if (inlineTextOnly(el) === 2) {
+    const t = textFromElement(el);
+    if (!t) return [];
+    if (!visual && opacity === 1) { t.name = name; return [t]; }
+    if (!visual) { t.opacity = opacity; t.name = name; return [t]; }
+    node.children = [t];
+    node.clip = clip;
+    count++;
+    return [node];
+  }
+
+  node.children = childrenOf(el);
+  node.clip = clip;
+  if (!visual && !node.children.length) return [];
+  if (!rect.width && !rect.height && !visual && opacity === 1) return node.children; // zero-size wrapper (e.g. absolute anchor)
+  count++;
+  return [node];
+}
+</script>
+</body>
+</html>
