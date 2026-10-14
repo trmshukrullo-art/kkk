@@ -570,12 +570,6 @@ function textFromElement(el) {
   return makeText(el.childNodes, el, r);
 }
 
-function textFromNode(textNode) {
-  const r = doc.createRange();
-  r.selectNodeContents(textNode);
-  return makeText([textNode], textNode.parentElement, r);
-}
-
 // ---------- SVG ----------
 const SVG_PROPS = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-linecap', 'stroke-linejoin', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-miterlimit', 'clip-rule', 'stop-color', 'stop-opacity'];
 
@@ -609,19 +603,40 @@ function serializeSvg(svg, rect) {
 }
 
 // ---------- walk ----------
+// Is this child part of a running line of text (plain inline element)?
+function isInlineRun(n, cs) {
+  return cs.display === 'inline' && !REPLACED_TAGS.has(n.tagName.toLowerCase()) && !hasBox(cs) && +cs.opacity === 1 && inlineTextOnly(n) !== 0;
+}
+
 function childrenOf(el) {
   const items = [];
   let order = 0;
-  for (const n of el.childNodes) {
-    if (n.nodeType === 3) {
-      if (!n.data.trim()) continue;
-      const t = textFromNode(n);
+  // Consecutive text nodes and plain inline elements (e.g. "<b>bold</b> rest")
+  // flow as one paragraph, so they become a single mixed-style text layer.
+  let run = [];
+  const flush = () => {
+    if (run.some((n) => n.textContent.trim())) {
+      const r = doc.createRange();
+      r.setStartBefore(run[0]);
+      r.setEndAfter(run[run.length - 1]);
+      const t = makeText(run, el, r);
       if (t) items.push({ node: t, z: -0.5, order: order++ });
-    } else if (n.nodeType === 1) {
-      const cs = getComputedStyle(n);
-      for (const node of walk(n, cs)) items.push({ node, z: zKey(cs, false), order: order++ });
     }
+    run = [];
+  };
+  for (const n of el.childNodes) {
+    if (n.nodeType === 3) { run.push(n); continue; }
+    if (n.nodeType !== 1) continue;
+    const tag = n.tagName.toLowerCase();
+    if (SKIP_TAGS.has(tag)) continue;
+    if (tag === 'br') { run.push(n); continue; }
+    const cs = getComputedStyle(n);
+    if (cs.display === 'none') continue;
+    if (isInlineRun(n, cs)) { run.push(n); continue; }
+    flush();
+    for (const node of walk(n, cs)) items.push({ node, z: zKey(cs, false), order: order++ });
   }
+  flush();
   items.sort((a, b) => a.z - b.z || a.order - b.order);
   return items.map((i) => i.node);
 }
