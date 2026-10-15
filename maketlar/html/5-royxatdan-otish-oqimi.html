@@ -1,0 +1,243 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1440"><title>Ro‘yxatdan o‘tish oqimi</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Instrument+Sans:wght@500;600&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:'Geist',sans-serif;color:#02081A;-webkit-font-smoothing:antialiased}
+.wrap{display:flex;justify-content:center}
+.frame{width:1440px;position:relative;background:#fff;overflow:hidden}
+.inter{font-family:'Inter',sans-serif}
+.row{display:flex;align-items:center}
+.col{display:flex;flex-direction:column}
+.hero-bg{position:absolute;left:0;top:0;width:1440px;height:560px;background:linear-gradient(180deg,#0838A8 0%,#1257E6 38%,#1868F2 62%,rgba(24,104,242,0) 100%)}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.foot-bg{position:absolute;left:0;bottom:0;width:1440px;height:460px;background:linear-gradient(180deg,rgba(24,104,242,0) 0%,#1868F2 45%,#0B47C9 100%)}
+.foot{position:relative;height:330px}
+.foot-word{position:absolute;left:0;width:1440px;text-align:center;top:80px;font-family:'Instrument Sans','Geist',sans-serif;font-weight:600;font-size:170px;line-height:1;color:rgba(255,255,255,.08);letter-spacing:4px;white-space:nowrap}
+.foot-copy{position:absolute;left:0;width:1440px;bottom:44px;text-align:center;color:#fff;font-size:15px}
+.totop{position:absolute;right:66px;bottom:30px;width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}
+.hdr{position:relative;height:97px;margin:0 50px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.22)}
+.logo{display:flex;align-items:center;gap:8px;color:#fff}
+.logo img{height:38px}
+.logo .bar{width:2px;height:34px;background:#fff}
+.logo .t{font-weight:700;font-size:7.6px;line-height:9.4px;text-transform:uppercase}
+.nav{display:flex;gap:29px;margin-left:50px;color:#fff;font-size:14px;height:97px;align-items:center}
+.nav a{height:97px;display:flex;align-items:center}
+.hright{margin-left:auto;display:flex;gap:32px;color:#fff;font-size:14px;align-items:center}
+.flag{width:14px;height:14px;border-radius:50%;background:linear-gradient(180deg,#0099B5 0 33%,#fff 33% 40%,#CE1126 40% 45%,#fff 45% 55%,#CE1126 55% 60%,#fff 60% 67%,#1EB53A 67%);margin-right:6px}
+.kirish{display:flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:100px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28)}
+.phead{position:relative;text-align:center;padding-top:22px;color:#fff}
+.crumbs{display:inline-flex;gap:14px;align-items:center;font-size:15px}
+.crumbs .cur{background:rgba(255,255,255,.14);padding:7px 18px;border-radius:100px}
+.crumbs .sep{opacity:.7;display:flex}
+.ptitle{font-weight:600;font-size:36px;line-height:44px;margin-top:14px;letter-spacing:-.5px}
+.ptitle span{color:rgba(255,255,255,.62)}
+.psub{font-size:16px;line-height:24px;color:rgba(255,255,255,.8);margin-top:8px}
+.box{position:relative;margin:40px 25px 0;background:#fff;border-radius:32px;padding:56px 80px 72px}
+/* ui kit */
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:100px;border:1px solid #E1E8F3;font-size:13px;font-family:'Inter',sans-serif;color:#1B1B1B;background:#fff;white-space:nowrap}
+.chip.soft{background:#F0F5FC;border-color:#F0F5FC;color:#074CBA;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:100px;font-size:15px;font-weight:600;white-space:nowrap}
+.btn.pri{background:linear-gradient(180deg,#2C8CFF,#1868F2);color:#fff;box-shadow:0 8px 20px rgba(24,104,242,.28)}
+.btn.sec{background:#fff;border:1px solid #DCE5F2;color:#02081A}
+.btn.dis{background:#E9EEF6;color:#9AA6BC}
+.btn.full{width:100%}
+.h2{font-weight:600;font-size:28px;line-height:36px;letter-spacing:-.4px}
+.h3{font-weight:600;font-size:18px;line-height:24px}
+.muted{color:#6B7690}
+.lbl{font-family:Inter;font-size:13px;font-weight:500;color:#3A4459;margin-bottom:8px;display:flex;justify-content:space-between}
+.lbl em{font-style:normal;color:#E5484D;margin-left:3px;margin-right:auto}
+.lbl span{color:#8A95AB;font-weight:400}
+.inp{height:52px;border-radius:14px;border:1px solid #DCE5F2;background:#fff;display:flex;align-items:center;gap:10px;padding:0 16px;font-family:Inter;font-size:15px;color:#02081A}
+.inp.ph{color:#9AA6BC}
+.inp.focus{border:1.5px solid #1868F2;box-shadow:0 0 0 4px rgba(24,104,242,.12)}
+.inp.err{border:1.5px solid #E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.10)}
+.inp .end{margin-left:auto;display:flex;color:#6B7690}
+.inp.filled{background:#F7F9FD}
+.hint{font-family:Inter;font-size:12.5px;line-height:18px;color:#6B7690;margin-top:8px;display:flex;gap:6px;align-items:flex-start}
+.hint.err{color:#D93036}
+.hint.ok{color:#178A4C}
+.prog{height:6px;border-radius:6px;background:#E9EEF6;overflow:hidden}
+.prog i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#2C8CFF,#1868F2)}
+.step-chip{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:100px;background:#F0F5FC;color:#074CBA;font-family:Inter;font-size:12.5px;font-weight:600}
+.check{width:20px;height:20px;border-radius:6px;border:1.5px solid #C9D5E8;display:flex;align-items:center;justify-content:center;flex:none}
+.check.on{background:#1868F2;border-color:#1868F2}
+.link{color:#1868F2;font-weight:600}
+
+body{background:#EEF3FB}
+.board{width:1440px;background:#EEF3FB;padding:80px}
+.btitle{font-weight:700;font-size:44px;line-height:52px;letter-spacing:-1px}
+.bsub{font-family:Inter;font-size:17px;line-height:27px;color:#5B6476;margin-top:12px;max-width:860px}
+.legend{display:flex;gap:10px;margin-top:24px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.cell .cap{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.cap .k{width:32px;height:32px;border-radius:10px;background:#02081A;color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cap .nm{font-weight:600;font-size:17px}
+.cap .ds{font-family:Inter;font-size:13px;color:#6B7690;margin-left:auto}
+.card{background:#fff;border-radius:28px;padding:32px;height:680px;display:flex;flex-direction:column;box-shadow:0 1px 0 rgba(10,30,80,.04)}
+.card .top{display:flex;align-items:center;justify-content:space-between}
+.card .t{font-weight:600;font-size:24px;line-height:30px;letter-spacing:-.3px;margin-top:18px}
+.card .d{font-family:Inter;font-size:14px;line-height:21px;color:#6B7690;margin-top:8px}
+.card .prog{margin-top:20px}
+.card .body{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+.card .act{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.role{border:1.5px solid #DCE5F2;border-radius:20px;padding:18px;display:flex;gap:14px;align-items:center;position:relative}
+.role .ri{width:52px;height:52px;border-radius:16px;background:#F0F5FC;color:#1868F2;display:flex;align-items:center;justify-content:center;flex:none}
+.role .rt{font-weight:600;font-size:17px}
+.role .rd{font-family:Inter;font-size:13px;line-height:18px;color:#6B7690;margin-top:3px}
+.role .rb{margin-left:auto;width:22px;height:22px;border-radius:50%;border:1.5px solid #C9D5E8;flex:none;display:flex;align-items:center;justify-content:center}
+.role.on{border-color:#1868F2;background:#F6FAFF;box-shadow:0 0 0 4px rgba(24,104,242,.10)}
+.role.on .ri{background:#1868F2;color:#fff}
+.role.on .rb{background:#1868F2;border-color:#1868F2}
+.cc{display:flex;align-items:center;gap:6px;padding-right:12px;border-right:1px solid #E1E8F3;font-weight:600;color:#02081A}
+.otp{display:flex;gap:10px}
+.otp div{flex:1;height:60px;border-radius:14px;border:1px solid #DCE5F2;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:24px;background:#F7F9FD}
+.otp div.cur{border:1.5px solid #1868F2;background:#fff;box-shadow:0 0 0 4px rgba(24,104,242,.12)}
+.otp div.cur:after{content:"";width:2px;height:26px;background:#1868F2}
+.otp.bad div{border:1.5px solid #E5484D;background:#FFF5F5;color:#D93036}
+.otp div.e{background:#fff;color:#C9D5E8}
+.timer{display:flex;align-items:center;justify-content:space-between;font-family:Inter;font-size:13.5px;color:#6B7690}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.meter{display:flex;gap:6px;margin-top:10px}
+.meter i{flex:1;height:5px;border-radius:5px;background:#E9EEF6;display:block}
+.meter i.on{background:#F5A524}
+.rules{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-family:Inter;font-size:12.5px}
+.rules span{display:flex;align-items:center;gap:5px;color:#8A95AB}
+.rules span.ok{color:#178A4C}
+.agree{display:flex;gap:10px;align-items:flex-start;font-family:Inter;font-size:13px;line-height:19px;color:#3A4459}
+.succ{align-items:center;text-align:center;justify-content:center;background:linear-gradient(170deg,#fff 0%,#fff 55%,#EAF2FF 100%);position:relative;overflow:hidden}
+.badge-ok{width:96px;height:96px;border-radius:50%;background:linear-gradient(160deg,#2C8CFF,#0B47C9);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(24,104,242,.10),0 0 0 26px rgba(24,104,242,.05),0 20px 40px rgba(24,104,242,.3)}
+.sum{width:100%;background:#F7F9FD;border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;text-align:left;margin-top:28px}
+.sum div{display:flex;justify-content:space-between;font-family:Inter;font-size:13.5px}
+.sum div span:first-child{color:#6B7690}
+.sum div span:last-child{font-weight:600}
+.login-tabs{display:flex;background:#F0F5FC;border-radius:100px;padding:4px}
+.login-tabs div{flex:1;height:40px;border-radius:100px;display:flex;align-items:center;justify-content:center;font-family:Inter;font-size:14px;font-weight:500;color:#6B7690}
+.login-tabs div.on{background:#fff;color:#02081A;box-shadow:0 2px 8px rgba(10,30,80,.08)}
+.divider{display:flex;align-items:center;gap:12px;font-family:Inter;font-size:12.5px;color:#9AA6BC}
+.divider:before,.divider:after{content:"";flex:1;height:1px;background:#E9EEF6}
+.oneid{height:48px;border-radius:100px;border:1px solid #DCE5F2;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:15px}
+.oneid b{background:#0B47C9;color:#fff;font-size:11px;letter-spacing:.4px;padding:3px 7px;border-radius:6px}
+.note{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.note>div{background:#fff;border-radius:24px;padding:24px}
+.note .ni{width:40px;height:40px;border-radius:12px;background:#F0F5FC;color:#1868F2;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.note b{display:block;font-size:15px;margin-bottom:6px}
+.note p{font-family:Inter;font-size:13.5px;line-height:20px;color:#5B6476}
+</style></head><body><div class="wrap"><div class="board">
+  <div class="btitle">Ro‘yxatdan o‘tish oqimi</div>
+  <div class="bsub">Kirish, 4 qadamli ro‘yxatdan o‘tish va muvaffaqiyat ekrani. Har bir kartada asosiy holat bilan birga fokus, xato va o‘chirilgan holatlar ko‘rsatilgan.</div>
+  <div class="g3"><div class="cell"><div class="cap"><div class="k">0</div><div class="nm">Kirish</div><div class="ds">Mavjud foydalanuvchi</div></div><div class="card">
+  <div class="top"><span class="step-chip">Kirish</span></div>
+  <div class="t">Xush kelibsiz!</div>
+  <div class="d">Telefon raqamingiz va parolingiz bilan kiring.</div>
+  <div class="body">
+    <div class="login-tabs"><div class="on">Telefon raqam</div><div>Login</div></div>
+    <div><div class="lbl">Telefon raqam</div><div class="inp"><span class="cc"><span class="flag" style="margin:0"></span> +998</span>90 123 45 67</div></div>
+    <div><div class="lbl">Parol <span class="link" style="font-weight:500;color:#1868F2">Parolni unutdingizmi?</span></div><div class="inp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10.5" width="15" height="10.5" rx="3"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>••••••••••<span class="end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span></div></div>
+    <div class="agree"><span class="check on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Meni eslab qol</div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Kirish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="divider">yoki</div>
+    <div class="oneid"><b>ONE ID</b>orqali kirish</div>
+    <div class="inter" style="font-size:13.5px;text-align:center;color:#6B7690">Akkauntingiz yo‘qmi? <span class="link">Ro‘yxatdan o‘tish</span></div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">1</div><div class="nm">Rolni tanlash</div><div class="ds">Kim sifatida?</div></div><div class="card">
+  <div class="top"><span class="step-chip">1-qadam / 4</span><span class="inter muted" style="font-size:13px">≈ 2 daqiqa</span></div>
+  <div class="t">Siz kimsiz?</div>
+  <div class="d">Rolingizga qarab kabinet va resurslar moslashtiriladi.</div>
+  <div class="prog"><i style="width:25%"></i></div>
+  <div class="body">
+    <div class="role on"><div class="ri"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="3" width="12" height="9" rx="1.5"/><circle cx="6" cy="9" r="2.5"/><path d="M2 21v-3.5A3.5 3.5 0 0 1 5.5 14H9l3-2.5"/></svg></div><div><div class="rt">O‘qituvchi</div><div class="rd">Dars ishlanmalari, taqvim-mavzu rejalar, malaka oshirish kurslari</div></div><div class="rb"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div></div>
+    <div class="role"><div class="ri"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1868F2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3.5 2.5 8.5 2.5 12 0v-5"/><path d="M22 9v6"/></svg></div><div><div class="rt">O‘quvchi</div><div class="rd">Sinfingiz darsliklari, interfaol mashqlar va yutuqlar</div></div><div class="rb"></div></div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Davom etish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="inter" style="font-size:13.5px;text-align:center;color:#6B7690">Akkauntingiz bormi? <span class="link">Kirish</span></div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">2</div><div class="nm">Telefon raqam</div><div class="ds">SMS orqali tasdiqlash</div></div><div class="card">
+  <div class="top"><span class="step-chip">2-qadam / 4</span></div>
+  <div class="t">Telefon raqamingiz</div>
+  <div class="d">Raqamingizga 6 xonali tasdiqlash kodi yuboramiz. U login sifatida ham ishlatiladi.</div>
+  <div class="prog"><i style="width:50%"></i></div>
+  <div class="body">
+    <div><div class="lbl">Telefon raqam <em>*</em></div><div class="inp focus"><span class="cc"><span class="flag" style="margin:0"></span> +998</span>90 123 45 6<span style="width:1.5px;height:20px;background:#1868F2;margin-left:-9px"></span></div>
+    <div class="hint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5M12 7.6v.1"/></svg>Bu raqam boshqa akkauntga bog‘lanmagan bo‘lishi kerak.</div></div>
+    <div><div class="lbl">Xato holati</div><div class="inp err"><span class="cc"><span class="flag" style="margin:0"></span> +998</span>90 123 45 67</div>
+    <div class="hint err"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D93036" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg>Bu raqam allaqachon ro‘yxatdan o‘tgan. <span style="font-weight:600;text-decoration:underline">Kirish</span></div></div>
+  </div>
+  <div class="act">
+    <div class="btn dis full">Kod yuborish</div>
+    <div class="btn sec full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Orqaga</div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">2b</div><div class="nm">SMS kod</div><div class="ds">Tasdiqlash</div></div><div class="card">
+  <div class="top"><span class="step-chip">2-qadam / 4</span></div>
+  <div class="t">Kodni kiriting</div>
+  <div class="d">Kod <b style="color:#02081A">+998 90 123 45 67</b> raqamiga yuborildi. <span class="link">O‘zgartirish</span></div>
+  <div class="prog"><i style="width:50%"></i></div>
+  <div class="body">
+    <div class="otp"><div>4</div><div>8</div><div>1</div><div class="cur"></div><div class="e">·</div><div class="e">·</div></div>
+    <div class="timer"><span class="row" style="gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>Qayta yuborish: <b style="color:#02081A">0:42</b></span><span style="color:#9AA6BC;font-weight:500">Kodni qayta yuborish</span></div>
+    <div class="hint ok" style="margin-top:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/></svg>Kodni hech kimga bermang — xodimlarimiz uni so‘ramaydi.</div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Tasdiqlash<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="btn sec full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Orqaga</div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">3</div><div class="nm">Hudud va maktab</div><div class="ds">O‘quvchi varianti</div></div><div class="card">
+  <div class="top"><span class="step-chip">3-qadam / 4</span></div>
+  <div class="t">Hudud va maktab</div>
+  <div class="d">O‘quvchi bitta sinfni tanlaydi — resurslar shu sinf bo‘yicha ko‘rsatiladi.</div>
+  <div class="prog"><i style="width:75%"></i></div>
+  <div class="body">
+    <div class="two"><div><div class="lbl">Viloyat <em>*</em></div><div class="inp filled" style="font-size:14px">Samarqand<span class="end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+    <div><div class="lbl">Tuman <em>*</em></div><div class="inp filled" style="font-size:14px">Urgut<span class="end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg></span></div></div></div>
+    <div><div class="lbl">Maktab <em>*</em></div><div class="inp filled"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/><circle cx="12" cy="11" r="1.6"/></svg>34-maktab<span class="end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg></span></div></div>
+    <div><div class="lbl">Sinf <em>*</em></div><div class="two" style="grid-template-columns:1fr 1fr"><div class="inp filled">7-sinf<span class="end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="inp">“B”<span class="end"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg></span></div></div></div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Davom etish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="btn sec full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Orqaga</div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">4</div><div class="nm">Shaxsiy ma’lumotlar</div><div class="ds">F.I.O va parol</div></div><div class="card">
+  <div class="top"><span class="step-chip">4-qadam / 4</span></div>
+  <div class="t">Oxirgi qadam</div>
+  <div class="prog"><i style="width:100%"></i></div>
+  <div class="body" style="gap:14px">
+    <div class="two"><div><div class="lbl">Familiya <em>*</em></div><div class="inp filled">Karimova</div></div><div><div class="lbl">Ism <em>*</em></div><div class="inp filled">Dilnoza</div></div></div>
+    <div><div class="lbl">Otasining ismi</div><div class="inp filled">Rustamovna</div></div>
+    <div><div class="lbl">Parol <em>*</em></div><div class="inp focus"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10.5" width="15" height="10.5" rx="3"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>••••••••<span class="end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span></div>
+      <div class="meter"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+      <div class="rules"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>8+ belgi</span><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Raqam</span><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9AA6BC" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Katta harf</span><span style="margin-left:auto;color:#B57400;font-weight:600">O‘rtacha</span></div></div>
+    <div class="agree"><span class="check on"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span class="link" style="font-weight:500">Foydalanish shartlari</span> va <span class="link" style="font-weight:500">maxfiylik siyosati</span>ga roziman</span></div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Ro‘yxatdan o‘tish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  </div></div></div></div>
+  <div class="g3"><div class="cell"><div class="cap"><div class="k">✓</div><div class="nm">Muvaffaqiyat</div><div class="ds">Kabinetga yo‘naltirish</div></div><div class="card succ">
+  <div class="badge-ok"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <div class="t" style="margin-top:36px">Xush kelibsiz, Dilnoza!</div>
+  <div class="d" style="max-width:300px">Akkauntingiz yaratildi. Sizning sinflaringiz uchun 412 ta resurs tayyor.</div>
+  <div class="sum"><div><span>Rol</span><span>O‘qituvchi</span></div><div><span>Maktab</span><span>12-maktab, Yunusobod</span></div><div><span>Sinflar</span><span>1, 2, 4-sinflar</span></div></div>
+  <div class="act" style="width:100%;margin-top:24px">
+    <div class="btn pri full">Kabinetga o‘tish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">2c</div><div class="nm">SMS kod — xato</div><div class="ds">Noto‘g‘ri kod holati</div></div><div class="card">
+  <div class="top"><span class="step-chip">2-qadam / 4</span></div>
+  <div class="t">Kodni kiriting</div>
+  <div class="d">Kod <b style="color:#02081A">+998 90 123 45 67</b> raqamiga yuborildi. <span class="link">O‘zgartirish</span></div>
+  <div class="prog"><i style="width:50%"></i></div>
+  <div class="body">
+    <div class="otp bad"><div>4</div><div>8</div><div>1</div><div>9</div><div>0</div><div>2</div></div>
+    <div class="hint err" style="margin-top:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D93036" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg>Kod noto‘g‘ri. Yana 2 ta urinish qoldi.</div>
+    <div class="timer"><span class="row" style="gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg>Kod muddati tugadimi?</span><span class="link">Kodni qayta yuborish</span></div>
+  </div>
+  <div class="act">
+    <div class="btn dis full">Tasdiqlash</div>
+    <div class="btn sec full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Orqaga</div>
+  </div></div></div><div class="cell"><div class="cap"><div class="k">R</div><div class="nm">Parolni tiklash</div><div class="ds">Kirish ekranidan</div></div><div class="card">
+  <div class="top"><span class="step-chip">Parolni tiklash</span></div>
+  <div class="t">Parolni unutdingizmi?</div>
+  <div class="d">Ro‘yxatdan o‘tgan raqamingizni kiriting — yangi parol o‘rnatish uchun SMS kod yuboramiz.</div>
+  <div class="body">
+    <div><div class="lbl">Telefon raqam</div><div class="inp"><span class="cc"><span class="flag" style="margin:0"></span> +998</span>90 123 45 67</div></div>
+    <div><div class="lbl">Yangi parol</div><div class="inp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B7690" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="4.5" y="10.5" width="15" height="10.5" rx="3"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>••••••••••<span class="end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span></div>
+      <div class="meter"><i class="on" style="background:#30A46C"></i><i class="on" style="background:#30A46C"></i><i class="on" style="background:#30A46C"></i><i class="on" style="background:#30A46C"></i></div>
+      <div class="rules"><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>8+ belgi</span><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Raqam</span><span class="ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#178A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Katta harf</span><span style="margin-left:auto;color:#178A4C;font-weight:600">Kuchli</span></div></div>
+  </div>
+  <div class="act">
+    <div class="btn pri full">Kod yuborish<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    <div class="btn sec full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Kirishga qaytish</div>
+  </div></div></div></div>
+  <div class="note"><div><div class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1868F2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.2A6.5 6.5 0 0 1 21.5 20"/></svg></div><b>Bitta ekran — bitta vazifa</b><p>Uzun anketa 4 ta qisqa qadamga bo‘lingan: foydalanuvchi charchamaydi, xato kamayadi.</p></div><div><div class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1868F2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M11 18.5h2"/></svg></div><b>Telefon = login</b><p>SMS bilan tasdiqlangan raqam login bo‘ladi — alohida login o‘ylab topish shart emas.</p></div><div><div class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1868F2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/><circle cx="12" cy="11" r="1.6"/></svg></div><b>Rolga moslashuv</b><p>O‘qituvchi bir nechta sinf va fan tanlaydi, o‘quvchi esa bitta sinf va sinf harfini.</p></div><div><div class="ni"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1868F2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5M12 7.6v.1"/></svg></div><b>Holatlar</b><p>Fokus, xato, o‘chirilgan tugma, parol kuchi, taymer va bo‘sh holatlar ham chizilgan.</p></div></div>
+</div></div></body></html>
