@@ -1,0 +1,388 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1860"><title>Sotuvchi tariflari</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--faint:#9CA3AF;--red:#E5484D;--red-soft:#FDECEC;--green:#15803D;--green-soft:#E8F5EC;--amber:#B45309;--amber-soft:#FEF3C7;--gold:#B7791F}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1100px}
+.frames{display:grid;grid-template-columns:repeat(4,375px);gap:56px 48px;margin-top:44px;align-items:start}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;height:812px;background:#fff;position:relative;overflow:hidden}
+.sb{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:600;font-size:17px}
+.nav{height:50px;display:flex;align-items:center;justify-content:center;position:relative;font-size:16px;border-bottom:1px solid #F1F1F1}
+.nav .bk{position:absolute;left:16px;display:flex}
+.ct{padding:0 16px}
+.h{font-size:17px;font-weight:600;margin:20px 0 10px}
+.muted{color:var(--muted)}
+.row{display:flex;align-items:center}
+.btn{height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.btn.p{background:var(--pri);color:#fff}.btn.s{background:var(--pri-soft);color:var(--pri)}.btn.g{color:var(--pri)}
+.home{height:5px;width:140px;border-radius:3px;background:#000;margin:10px auto 8px}
+.bottom{position:absolute;left:0;right:0;bottom:0;background:#fff}
+.foot{padding:12px 16px 0;border-top:1px solid #F1F1F1}
+/* header & tabbar */
+.hd{background:var(--pri);color:#fff;padding:0 16px 34px}
+.hd .sb{padding:0 8px 0 16px}
+.hrow{display:flex;align-items:center;gap:10px;margin-top:6px}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F7C59F,#4A90C2);flex:none}
+.hrow .t1{font-size:15px;font-weight:600}.hrow .t2{font-size:12px;opacity:.85}
+.bell{margin-left:auto;position:relative}
+.bell i{position:absolute;right:-6px;top:-6px;width:17px;height:17px;border-radius:50%;background:var(--red);font-size:10px;font-style:normal;display:flex;align-items:center;justify-content:center;font-weight:600}
+.sheet{background:#fff;border-radius:22px 22px 0 0;margin-top:-22px;padding:16px;position:relative}
+.tb{display:flex;gap:8px;padding:12px 16px 0}
+.tb div{width:52px;height:44px;border-radius:22px;background:var(--pri-soft);display:flex;align-items:center;justify-content:center}
+.tb .a{flex:1;background:var(--pri);color:#fff;font-size:13px;font-weight:600;gap:6px}
+/* list rows */
+.li{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;height:50px;padding:0 14px;margin-bottom:8px;font-size:15px}
+.li .r{margin-left:auto;color:var(--muted);font-size:14px;display:flex;align-items:center;gap:6px}
+.sec{font-size:15px;font-weight:600;margin:16px 0 10px}
+/* plan card in settings */
+.plan{border-radius:18px;padding:16px;background:linear-gradient(135deg,#015594,#0A73BF);color:#fff;position:relative;overflow:hidden}
+.plan::after{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.plan .k{font-size:12px;opacity:.8}
+.plan .n{font-size:20px;font-weight:700;margin-top:2px;display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;font-weight:700;border-radius:6px;padding:3px 7px;background:rgba(255,255,255,.18);color:#fff}
+.meter{margin-top:12px}
+.meter .t{display:flex;justify-content:space-between;font-size:12px;opacity:.9;margin-bottom:6px}
+.bar{height:6px;border-radius:4px;background:rgba(255,255,255,.22);overflow:hidden}
+.bar i{display:block;height:100%;background:#fff;border-radius:4px}
+.plan .cta{margin-top:14px;height:42px;border-radius:12px;background:#fff;color:var(--pri);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
+/* pricing */
+.per{display:flex;background:var(--field);border-radius:12px;padding:3px;margin:14px 0}
+.per div{flex:1;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;color:var(--muted);font-weight:500}
+.per div.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(15,23,41,.12)}
+.save{font-size:10px;font-weight:700;color:var(--green);background:var(--green-soft);border-radius:5px;padding:2px 5px}
+.pc{border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:10px;position:relative}
+.pc.sel{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri);background:#FAFCFE}
+.pc .top{display:flex;align-items:center;gap:10px}
+.rad{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px #D4D4D8;flex:none}
+.pc.sel .rad{box-shadow:inset 0 0 0 6px var(--pri)}
+.pc .nm{font-size:16px;font-weight:700}
+.pc .pr{margin-left:auto;text-align:right}
+.pc .pr b{font-size:16px}
+.pc .pr small{display:block;font-size:11px;color:var(--muted)}
+.pc .pr s{font-size:11px;color:var(--faint)}
+.pop{position:absolute;top:-10px;left:48px;font-size:10px;font-weight:700;color:#fff;background:var(--pri);border-radius:6px;padding:3px 7px;letter-spacing:.3px}
+.cur{font-size:10px;font-weight:700;color:var(--muted);background:var(--field);border-radius:6px;padding:3px 7px}
+.ft{margin:10px 0 0 32px;display:grid;gap:6px}
+.ft div{font-size:13px;display:flex;gap:8px;align-items:flex-start;line-height:18px}
+.ft svg{flex:none;margin-top:1px}
+.ft .x{color:var(--faint)}
+/* overlay sheets */
+.dimbg{position:absolute;inset:0;background:rgba(15,23,41,.45)}
+.bs{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:10px 16px 0}
+.grab{width:36px;height:5px;border-radius:3px;background:#D4D4D8;margin:0 auto 14px}
+.ico{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin:4px auto 14px}
+.bt{font-size:20px;font-weight:700;text-align:center}
+.bd{font-size:14px;line-height:21px;color:var(--muted);text-align:center;margin:6px 8px 16px}
+.offer{background:var(--field);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.offer .row b{font-size:15px}
+.chk{display:grid;gap:7px;margin-top:10px}
+.chk div{font-size:13px;display:flex;gap:8px;align-items:center}
+/* checkout */
+.sumbox{background:var(--field);border-radius:16px;padding:6px 16px}
+.sr{display:flex;justify-content:space-between;font-size:14px;padding:10px 0;border-top:1px solid #E4E4E7}
+.sr:first-child{border-top:0}
+.sr span:first-child{color:var(--muted)}
+.sr.tot{font-size:16px;font-weight:700}.sr.tot span:first-child{color:var(--ink)}
+.gold{font-size:11px;font-weight:700;color:var(--gold);background:#FDF6E3;border-radius:6px;padding:3px 7px}
+.pm{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;height:58px;padding:0 14px;margin-bottom:8px;font-size:15px;font-weight:500}
+.pm.sel{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}
+.pm .lg{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff}
+.pm .rad{margin-left:auto}
+.pm.sel .rad{box-shadow:inset 0 0 0 6px var(--pri)}
+.legal{font-size:11px;line-height:16px;color:var(--muted);text-align:center;margin:10px 8px 0}
+/* success */
+.ok{width:88px;height:88px;border-radius:50%;background:var(--green-soft);display:flex;align-items:center;justify-content:center;margin:0 auto}
+.rc{border:1px dashed #D4D4D8;border-radius:16px;padding:6px 16px;margin-top:22px}
+.unl{display:grid;gap:8px;margin-top:16px}
+.unl div{display:flex;gap:10px;align-items:center;font-size:14px;background:var(--field);border-radius:12px;padding:10px 12px}
+/* home cards */
+.stats{display:flex;gap:8px;margin-bottom:12px}
+.stats div{flex:1;background:var(--pri-soft);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--muted)}
+.stats b{display:block;color:var(--ink);font-size:16px;margin-top:2px}
+.warn{border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.warn.a{background:var(--amber-soft);color:#78350F}
+.warn.r{background:var(--red-soft);color:#7F1D1D}
+.warn b{display:block;font-size:14px;margin-bottom:2px}
+.warn span{font-size:12px;line-height:17px}
+.warn .go{font-weight:600;text-decoration:underline;display:inline-block;margin-top:6px;font-size:13px}
+.prd{background:var(--field);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+.prd .t{font-size:16px;font-weight:600}
+.prd .c{font-size:12px;color:var(--muted);margin-top:2px}
+.prd .price{font-size:20px;font-weight:700;margin-top:8px}
+.prd .price small{font-size:12px;color:var(--muted);font-weight:400}
+.prd .m{display:flex;align-items:center;gap:12px;border-top:1px solid #E4E4E7;margin-top:10px;padding-top:10px;font-size:12px;color:var(--muted)}
+.tg{width:44px;height:26px;border-radius:20px;background:var(--pri);position:relative;flex:none;margin-left:auto}
+.tg::after{content:'';position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tg.off{background:#E4E4E7}.tg.off::after{right:auto;left:3px}
+.boost{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--pri);background:#fff;border-radius:8px;padding:5px 9px;box-shadow:inset 0 0 0 1px #D6E2EC}
+/* choose visible */
+.cv{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #F1F1F1}
+.cb{width:22px;height:22px;border-radius:7px;background:var(--pri);display:flex;align-items:center;justify-content:center;flex:none}
+.cb.off{background:#fff;box-shadow:inset 0 0 0 1.5px #D4D4D8}
+.cv .n{flex:1;font-size:14px}.cv .n small{display:block;font-size:12px;color:var(--muted)}
+.cv .v{font-size:12px;color:var(--muted);text-align:right}
+.counter{position:sticky;display:flex;justify-content:space-between;align-items:center;background:var(--pri-soft);border-radius:12px;padding:10px 14px;margin:12px 0 4px;font-size:13px}
+/* boost sheet */
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.opt.sel{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri)}
+.opt .rad{margin-left:0}.opt.sel .rad{box-shadow:inset 0 0 0 6px var(--pri)}
+.opt .n{flex:1;font-size:15px;font-weight:600}.opt .n small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.opt b{font-size:15px}
+.free{font-size:12px;font-weight:700;color:var(--green)}
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.ptable td,.ptable th{padding:6px 4px;border-top:1px solid #F1F1F1;text-align:left}
+.ptable th{font-weight:600;color:var(--ink)}
+</style></head><body>
+<div class="board">
+  <div class="btitle">Sotuvchi tariflari</div>
+  <div class="bsub">Start (bepul), Standart va Biznes tariflari: Sozlamalarda tarif holati, tariflarni solishtirish, limitga yetganda chiqadigan paywall, Click/Payme orqali to‘lov, tarif tugash holatlari va pullik «Ko‘tarish» xizmati.</div>
+
+  <div class="frames">
+
+  <!-- 1. Settings -->
+  <div>
+    <div class="fl">1 · Sozlamalar <span>— tarif kartasi</span></div>
+    <div class="ph">
+      <div class="hdx"></div>
+      <div class="sheet">
+        <div class="plan">
+          <div class="k">Joriy tarif</div>
+          <div class="n">Start <span class="badge">Bepul</span></div>
+          <div class="meter"><div class="t"><span>Tovarlar</span><span><b>17</b> / 20</span></div><div class="bar"><i style="width:85%"></i></div></div>
+          <div class="meter" style="margin-top:10px"><div class="t"><span>Rasmlar (har tovarga)</span><span>5 tagacha</span></div></div>
+          <div class="cta">Tarifni yaxshilash</div>
+        </div>
+        <div class="sec">Do‘kon</div>
+        <div class="li"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.6"><path d="M3 8h14l-1-4H4zM4 8v8h12V8M8 16v-4h4v4"/></svg>Do‘kon ma’lumotlari<span class="r">›</span></div>
+        <div class="li"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l3 2"/></svg>Ish vaqti<span class="r">09:00–18:00 ›</span></div>
+        <div class="li"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.6"><rect x="3" y="4" width="14" height="12" rx="2"/><path d="M3 8h14"/></svg>To‘lovlar tarixi<span class="r">›</span></div>
+        <div class="sec">Ilova</div>
+        <div class="li"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.6"><path d="M5 14V9a5 5 0 0 1 10 0v5l1.5 2h-13zM8 18h4"/></svg>Bildirishnomalar<div class="tg" style="margin-left:auto"></div></div>
+        <div class="li"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.6"><circle cx="10" cy="10" r="7"/><path d="M3 10h14M10 3c2.5 2.5 2.5 11.5 0 14M10 3c-2.5 2.5-2.5 11.5 0 14"/></svg>Til<span class="r">O‘zbekcha ›</span></div>
+      </div>
+      <div class="bottom"><div class="tbx" data-a="3"></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 2. Plans -->
+  <div>
+    <div class="fl">2 · Tariflar <span>— solishtirish</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Tariflar"></div>
+      <div class="ct">
+        <div class="per"><div>Oylik</div><div class="on">Yillik <span class="save">2 oy bepul</span></div></div>
+        <div class="pc">
+          <div class="top"><div class="rad"></div><div class="nm">Start</div><span class="cur">Joriy</span><div class="pr"><b>Bepul</b></div></div>
+          <div class="ft"><div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>20 ta tovar, 5 ta rasm</div></div>
+        </div>
+        <div class="pc sel">
+          <span class="pop">OMMABOP</span>
+          <div class="top"><div class="rad"></div><div class="nm">Standart</div><div class="pr"><b>82 500 so‘m</b><small>oyiga · yiliga 990 000</small></div></div>
+          <div class="ft">
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg><span><b>200 ta tovar</b>, 10 ta rasm + video</span></div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Chegirma e’lon qilish</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Statistika 30 va 90 kun</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Telegram ulash</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Oyiga 2 ta bepul «Ko‘tarish»</div>
+          </div>
+        </div>
+        <div class="pc">
+          <div class="top"><div class="rad"></div><div class="nm">Biznes</div><div class="pr"><b>207 500 so‘m</b><small>oyiga · yiliga 2 490 000</small></div></div>
+          <div class="ft">
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg><span>Standartdagi hammasi, <b>cheksiz tovar</b></span></div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Stories, ko‘p filial</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Yillik statistika + Excel</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Oyiga 10 ta bepul «Ko‘tarish»</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:2px">Istalgan vaqtda tarifni o‘zgartirish mumkin</div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">Standartni tanlash · 990 000 so‘m</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 3. Contextual paywall -->
+  <div>
+    <div class="fl">3 · Limit tugadi <span>— 21-tovar qo‘shilganda</span></div>
+    <div class="ph">
+      <div class="hdx"></div>
+      <div class="sheet">
+        <div class="stats"><div>Sotuvda<b>20 ta</b></div><div>Ko‘rishlar<b>3 420</b></div><div>Qo‘ng‘iroqlar<b>86</b></div></div>
+        <div class="prd"><div class="t">Tikurilla kraska</div><div class="c">Bo‘yoqlar va laklar</div><div class="price">35 500 UZS <small>/ litr</small></div></div>
+        <div class="prd"><div class="t">Sement M400 «Qizilqum»</div><div class="c">Qurilish aralashmalari</div><div class="price">62 000 UZS <small>/ qop</small></div></div>
+      </div>
+      <div class="dimbg"></div>
+      <div class="bs">
+        <div class="grab"></div>
+        <div class="ico" style="background:var(--pri-soft)"><svg width="30" height="30" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="22" height="20" rx="4"/><path d="M10 15h10M15 10v10"/></svg></div>
+        <div class="bt">20 ta tovar limiti tugadi</div>
+        <div class="bd">Yangi tovar qo‘shish uchun Standart tarifga o‘ting. Hozirgi tovarlaringiz joyida qoladi.</div>
+        <div class="offer">
+          <div class="row"><b>Standart</b><span style="margin-left:auto;font-weight:700">99 000 so‘m<span class="muted" style="font-weight:400;font-size:12px"> / oy</span></span></div>
+          <div class="chk">
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg><b>200 ta tovar</b>&nbsp;— 10 barobar ko‘p</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Chegirma va Telegram ulash</div>
+            <div><svg width="16" height="16" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m3.5 8.5 3 3 6-7"/></svg>Oyiga 2 ta bepul «Ko‘tarish»</div>
+          </div>
+        </div>
+        <div class="btn p">Standartga o‘tish</div>
+        <div class="btn g" style="height:46px;font-size:15px">Barcha tariflar</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Checkout -->
+  <div>
+    <div class="fl">4 · To‘lov <span>— tashqi ilova orqali</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="To‘lov"></div>
+      <div class="ct">
+        <div class="h">Buyurtma</div>
+        <div class="sumbox">
+          <div class="sr"><span>Tarif</span><b>Standart · 12 oy</b></div>
+          <div class="sr"><span>Narxi</span><span>990 000 so‘m</span></div>
+          <div class="sr"><span>Asoschi sotuvchi <span class="gold">−30%</span></span><span style="color:var(--green)">−297 000 so‘m</span></div>
+          <div class="sr tot"><span>Jami</span><span>693 000 so‘m</span></div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin:8px 4px 0">16.10.2026 — 16.10.2027 · oyiga 57 750 so‘m</div>
+        <div class="h">To‘lov usuli</div>
+        <div class="pm sel"><div class="lg" style="background:#00AEEF">click</div>Click<div class="rad"></div></div>
+        <div class="pm"><div class="lg" style="background:#33CCCC">pay</div>Payme<div class="rad"></div></div>
+        <div class="pm"><div class="lg" style="background:#7B3FE4">uzum</div>Uzum Bank<div class="rad"></div></div>
+        <div class="pm"><div class="lg" style="background:#64748B"><svg width="18" height="18" fill="none" stroke="#fff" stroke-width="1.6"><path d="M3 7h12M4 7v7h10V7M9 3l6 4H3z"/></svg></div><span>Bank o‘tkazmasi<small style="display:block;font-size:11px;color:var(--muted);font-weight:400">MChJ uchun · hisob-faktura</small></span><div class="rad"></div></div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">Click orqali to‘lash <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><path d="M6 3h7v7M13 3 4 12"/></svg></div><div class="legal">Click ilovasi ochiladi. To‘lovdan keyin avtomatik qaytasiz.</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 5. Success -->
+  <div>
+    <div class="fl">5 · To‘lov qabul qilindi <span>— ilovaga qaytgach</span></div>
+    <div class="ph">
+      <div class="sbx"></div>
+      <div class="ct" style="padding-top:70px;text-align:center">
+        <div class="ok"><svg width="44" height="44" fill="none" stroke="#15803D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m11 23 8 8 15-17"/></svg></div>
+        <div style="font-size:22px;font-weight:700;margin-top:20px">Standart tarif faollashdi</div>
+        <div class="muted" style="font-size:14px;margin-top:6px">16.10.2027 gacha amal qiladi</div>
+        <div class="unl" style="text-align:left">
+          <div><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.7"><rect x="3" y="3" width="12" height="12" rx="3"/><path d="M6 9h6M9 6v6"/></svg>200 ta tovargacha qo‘shishingiz mumkin</div>
+          <div><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.7" stroke-linecap="round"><path d="M4 14 14 4"/><circle cx="5" cy="5" r="1.8"/><circle cx="13" cy="13" r="1.8"/></svg>Chegirma e’lon qilish ochildi</div>
+          <div><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.7" stroke-linejoin="round"><path d="M9 2 11 7h5l-4 3.5 1.5 5L9 12.5 4.5 15.5 6 10.5 2 7h5z"/></svg>2 ta bepul «Ko‘tarish» qo‘shildi</div>
+        </div>
+        <div class="rc" style="text-align:left">
+          <div class="sr"><span>Summa</span><b>693 000 so‘m</b></div>
+          <div class="sr"><span>To‘lov</span><span>Click · 16.10.2026, 14:32</span></div>
+          <div class="sr"><span>Chek</span><span style="color:var(--pri);font-weight:600">Yuklab olish</span></div>
+        </div>
+      </div>
+      <div class="bottom"><div class="foot" style="border:0"><div class="btn p">Tovar qo‘shish</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 6. Expiring -->
+  <div>
+    <div class="fl">6 · Tarif tugayapti <span>— 3 kun qoldi</span></div>
+    <div class="ph">
+      <div class="hdx"></div>
+      <div class="sheet">
+        <div class="warn a"><svg width="20" height="20" fill="none" stroke="#B45309" stroke-width="1.7" style="flex:none"><circle cx="10" cy="10" r="8"/><path d="M10 6v4.5l3 1.8" stroke-linecap="round"/></svg><div><b>Standart tarif 3 kundan keyin tugaydi</b><span>Uzaytirmasangiz 180 ta tovar mijozlarga ko‘rinmay qoladi.</span><br><span class="go">Uzaytirish · 99 000 so‘m</span></div></div>
+        <div class="stats"><div>Sotuvda<b>198 ta</b></div><div>Ko‘rishlar<b>12 840</b></div><div>Qo‘ng‘iroqlar<b>312</b></div></div>
+        <div class="prd"><div class="t">Tikurilla kraska</div><div class="c">Bo‘yoqlar va laklar</div><div class="price">35 500 UZS <small>/ litr</small></div><div class="m"><span>👁 1 248</span><span>📞 36</span><span class="boost"><svg width="12" height="12" fill="#015594"><path d="M6 1 10 6H7.5v5h-3V6H2z"/></svg>Ko‘tarish</span><div class="tg"></div></div></div>
+        <div class="prd"><div class="t">Sement M400 «Qizilqum»</div><div class="c">Qurilish aralashmalari</div><div class="price">62 000 UZS <small>/ qop</small></div><div class="m"><span>👁 986</span><span>📞 28</span><span class="boost"><svg width="12" height="12" fill="#015594"><path d="M6 1 10 6H7.5v5h-3V6H2z"/></svg>Ko‘tarish</span><div class="tg"></div></div></div>
+      </div>
+      <div class="bottom"><div class="tbx" data-a="0"></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 7. Expired: choose visible -->
+  <div>
+    <div class="fl">7 · Tarif tugadi <span>— ko‘rinadigan 20 tasini tanlash</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Ko‘rinadigan tovarlar"></div>
+      <div class="ct">
+        <div class="warn r" style="margin-top:12px"><svg width="20" height="20" fill="none" stroke="#B42318" stroke-width="1.7" style="flex:none"><circle cx="10" cy="10" r="8"/><path d="M10 6v5" stroke-linecap="round"/><circle cx="10" cy="14" r=".7" fill="#B42318"/></svg><div><b>Tarif tugadi — Start tarifiga o‘tdingiz</b><span>Start’da 20 ta tovar ko‘rinadi. Qolganlari o‘chirilmaydi, yashiriladi. Tarifni uzaytirsangiz hammasi qaytadi.</span></div></div>
+        <div class="counter"><span>Tanlandi: <b>18 / 20</b></span><span style="color:var(--pri);font-weight:600">Eng ko‘p ko‘rilganlar</span></div>
+        <div class="cv"><div class="cb"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></div><div class="n">Tikurilla kraska<small>35 500 UZS / litr</small></div><div class="v">👁 1 248</div></div>
+        <div class="cv"><div class="cb"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></div><div class="n">Sement M400 «Qizilqum»<small>62 000 UZS / qop</small></div><div class="v">👁 986</div></div>
+        <div class="cv"><div class="cb"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></div><div class="n">Profil CD 60×27<small>18 000 UZS / dona</small></div><div class="v">👁 530</div></div>
+        <div class="cv"><div class="cb"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></div><div class="n">Gipsokarton Knauf 12.5 mm<small>78 000 UZS / list</small></div><div class="v">👁 412</div></div>
+        <div class="cv"><div class="cb off"></div><div class="n">Laminat «Kronospan» 8 mm<small>96 000 UZS / m²</small></div><div class="v">👁 158</div></div>
+        <div class="cv"><div class="cb off"></div><div class="n">Kraska fasad «Dulux» 10 l<small>418 000 UZS / chelak</small></div><div class="v">👁 274</div></div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">Saqlash</div><div class="btn g" style="height:44px;font-size:15px">Tarifni uzaytirish</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 8. Boost -->
+  <div>
+    <div class="fl">8 · Ko‘tarish <span>— tovarni qidiruvda tepaga chiqarish</span></div>
+    <div class="ph">
+      <div class="hdx"></div>
+      <div class="sheet">
+        <div class="prd"><div class="t">Tikurilla kraska</div><div class="c">Bo‘yoqlar va laklar</div><div class="price">35 500 UZS <small>/ litr</small></div></div>
+      </div>
+      <div class="dimbg"></div>
+      <div class="bs">
+        <div class="grab"></div>
+        <div class="row" style="gap:12px;margin-bottom:6px"><div class="ico" style="margin:0;width:48px;height:48px;border-radius:14px;background:var(--pri-soft)"><svg width="22" height="22" fill="#015594"><path d="M11 2 19 11h-5v9H8v-9H3z"/></svg></div><div><div style="font-size:18px;font-weight:700">Tovarni ko‘tarish</div><div class="muted" style="font-size:13px">Tikurilla kraska</div></div></div>
+        <div class="bd" style="text-align:left;margin:8px 0 14px">Tovar «Bo‘yoqlar va laklar» qidiruvida birinchi qatorlarda «Tavsiya» belgisi bilan ko‘rinadi.</div>
+        <div class="opt sel"><div class="rad"></div><div class="n">3 kun<small>Tarifdagi bepul ko‘tarish · 2 ta qoldi</small></div><span class="free">Bepul</span></div>
+        <div class="opt"><div class="rad"></div><div class="n">3 kun</div><b>9 000 so‘m</b></div>
+        <div class="opt"><div class="rad"></div><div class="n">7 kun<small>~5× ko‘proq ko‘rish</small></div><b>19 000 so‘m</b></div>
+        <div class="btn p" style="margin-top:8px">Bepul ko‘tarish</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Tariflar va narxlar</h4>
+      <table class="ptable">
+        <tr><th></th><th>Start</th><th>Standart</th><th>Biznes</th></tr>
+        <tr><td>Oylik</td><td>Bepul</td><td>99 000</td><td>249 000</td></tr>
+        <tr><td>Yillik</td><td>—</td><td>990 000</td><td>2 490 000</td></tr>
+        <tr><td>Tovarlar</td><td>20</td><td>200</td><td>Cheksiz</td></tr>
+        <tr><td>Rasm</td><td>5</td><td>10 + video</td><td>20 + video</td></tr>
+        <tr><td>Ko‘tarish</td><td>—</td><td>2 / oy</td><td>10 / oy</td></tr>
+      </table>
+      <div style="margin-top:8px">Alohida «Ko‘tarish»: 3 kun — 9 000, 7 kun — 19 000 so‘m. Barcha sotuvchi turlari uchun bir xil.</div>
+    </div>
+    <div class="nb"><h4><i>2</i>UX qoidalar</h4>
+      <ul>
+        <li><b>Paywall faqat kontekstda chiqadi:</b> 21-tovar qo‘shilganda, «Chegirma qo‘shish» bosilganda, 90 kunlik statistika tanlanganda. Bosh ekranda reklama banneri bo‘lmaydi.</li>
+        <li>Tariflar ekranida yillik to‘lov standart tanlangan va oylik narxga bo‘lib ko‘rsatiladi (82 500 so‘m).</li>
+        <li><b>Hech narsa o‘chirilmaydi.</b> Tarif tugasa limitdan ortiq tovarlar yashiriladi va 3 kun imtiyozli davr beriladi. Ko‘rinadigan tovarlar avtomatik «eng ko‘p ko‘rilganlar» bo‘yicha tanlanadi, sotuvchi ularni o‘zgartira oladi.</li>
+        <li>Eslatmalar: 3 kun va 1 kun qolganda push-bildirishnoma, ilovada esa sariq banner.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>3</i>To‘lov va ishga tushirish</h4>
+      <ul>
+        <li>Click, Payme yoki Uzum ilovasiga deep link orqali o‘tiladi. Qaytgach server to‘lov holatini tekshiradi va «To‘lov tekshirilmoqda…» holati ko‘rsatiladi. MChJ’lar uchun hisob-faktura bilan bank o‘tkazmasi bor.</li>
+        <li><b>Ishga tushirish:</b> birinchi 3 oy hammaga Biznes bepul beriladi. Birinchi 50 ta sotuvchi umrbod −30% chegirma va «Asoschi sotuvchi» belgisini oladi.</li>
+        <li>⚠️ <b>App Store va Google Play:</b> raqamli obuna uchun ilovadan tashqi to‘lovga havola qo‘yish qoidalarga zid bo‘lishi mumkin. Muqobil yo‘l: to‘lov veb-sayt yoki Telegram-bot orqali, ilovada esa faqat tarif holati. Chiqarishdan oldin albatta tekshiring.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+const sb=(w)=>`<div class="sb" style="${w?'color:#fff':''}">9:41<span style="display:flex;gap:6px;align-items:center"><svg width="18" height="12" fill="${w?'#fff':'#000'}"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="27" height="13" fill="${w?'#fff':'#000'}"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="${w?'#fff':'#000'}" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/></svg></span></div>`;
+document.querySelectorAll('.sbx').forEach(e=>e.outerHTML=sb(false));
+document.querySelectorAll('.navx').forEach(e=>e.outerHTML=`<div class="nav"><span class="bk"><svg width="22" height="22" fill="none" stroke="#0F1729" stroke-width="1.8" stroke-linecap="round"><path d="M19 11H4m6-6-6 6 6 6"/></svg></span>${e.dataset.t}</div>`);
+document.querySelectorAll('.hdx').forEach(e=>e.outerHTML=`<div class="hd">${sb(true)}<div class="hrow"><div class="av"></div><div><div class="t1">Xo‘jalik mollari do‘koni</div><div class="t2">Sabridinxon Sharofidinov</div></div><div class="bell"><svg width="22" height="22" fill="none" stroke="#fff" stroke-width="1.7"><path d="M5 16V10a6 6 0 0 1 12 0v6l1.5 2h-15zM9 20h4"/></svg><i>3</i></div></div></div>`);
+const tabs=[['Bosh sahifa','<path d="M8 1 1 7v8h5v-5h4v5h5V7z"/>'],['Izohlar','<path d="m8 1 2 4.5 5 .6-3.7 3.3 1 4.9L8 11.9 3.7 14.3l1-4.9L1 6.1l5-.6z"/>'],['Statistika','<path d="M2 14V8h3v6zm4.5 0V4h3v10zm4.5 0V1h3v13z"/>'],['Sozlamalar','<circle cx="8" cy="8" r="2.5"/><path d="M8 1v2.5M8 12.5V15M1 8h2.5M12.5 8H15M3 3l1.8 1.8M11.2 11.2 13 13M3 13l1.8-1.8M11.2 4.8 13 3"/>']];
+document.querySelectorAll('.tbx').forEach(e=>{const a=+e.dataset.a;e.outerHTML='<div class="tb">'+tabs.map((t,i)=>i===a?`<div class="a"><svg width="16" height="16" fill="#fff" stroke="#fff" stroke-width="1.2">${t[1]}</svg>${t[0]}</div>`:`<div><svg width="16" height="16" fill="${i==3?'none':'none'}" stroke="#015594" stroke-width="1.5">${t[1]}</svg></div>`).join('')+'</div>'});
+</script>
+</body></html>
