@@ -1,0 +1,312 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=2400"><title>Har bir narxga chegirma</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--faint:#9CA3AF;--red:#E5484D;--red-soft:#FDECEC;--green:#15803D;--green-soft:#E8F5EC;--amber:#B45309;--amber-soft:#FEF3C7;--orange:#F97316}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1100px}
+.frames{display:flex;gap:48px;align-items:flex-start;margin-top:44px}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46;max-width:375px}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;background:#fff;position:relative;overflow:hidden}
+.sb{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:600;font-size:17px}
+.nav{height:50px;display:flex;align-items:center;justify-content:center;position:relative;font-size:16px;border-bottom:1px solid #F1F1F1}
+.nav svg{position:absolute;left:16px}
+.ct{padding:0 16px}
+.h{font-size:17px;font-weight:600;margin:20px 0 10px}
+.hint{font-size:13px;line-height:19px;color:var(--muted);margin:-2px 0 12px}
+.fld{background:var(--field);border-radius:14px;padding:9px 16px;min-height:56px;position:relative}
+.fld .l{font-size:12px;color:var(--muted)}
+.fld .v{font-size:16px;margin-top:2px}
+.fld .sfx{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--muted)}
+.fld.focus{background:#fff;box-shadow:inset 0 0 0 1.5px var(--pri)}.fld.focus .l{color:var(--pri)}
+.fld.err{background:var(--red-soft);box-shadow:inset 0 0 0 1.5px var(--red)}.fld.err .l{color:var(--red)}
+.caret{display:inline-block;width:1.5px;height:18px;background:var(--pri);vertical-align:-3px;margin-left:1px}
+.two{display:flex;gap:8px;margin-bottom:8px}.two .fld{flex:1}
+.card{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px;background:#fff}
+.card.act{border-color:#F6C9A4}
+.ch{display:flex;align-items:center;justify-content:space-between}
+.ct1{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.ct2{font-size:12px;color:var(--muted);margin-top:2px}
+.pill{font-size:11px;font-weight:700;color:#fff;background:var(--red);border-radius:6px;padding:2px 6px}
+.pill.o{background:#FFF1E6;color:#C2410C}
+.tg{width:52px;height:32px;border-radius:20px;background:var(--pri);position:relative;flex:none}
+.tg::after{content:'';position:absolute;right:3px;top:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tg.off{background:#E4E4E7}.tg.off::after{right:auto;left:3px}
+.tg.sm{width:44px;height:26px}.tg.sm::after{width:20px;height:20px}
+/* add discount link */
+.add{display:flex;align-items:center;gap:8px;margin-top:10px;height:40px;border-radius:12px;border:1.5px dashed #D4D4D8;justify-content:center;font-size:14px;font-weight:600;color:var(--pri)}
+/* discount block */
+.dz{margin-top:10px;border-radius:14px;background:#FFF8F1;padding:12px;border:1px solid #FBE3CF}
+.dz.err{background:#FFF5F5;border-color:#F8CACB}
+.dzh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.dzt{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#C2410C}
+.rm{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.dzr{display:flex;gap:8px;align-items:stretch}
+.dzr .fld{flex:1;background:#fff;min-height:52px;padding:7px 14px}
+.dzr .fld.focus{box-shadow:inset 0 0 0 1.5px var(--pri)}
+.dzr .fld.err{background:#fff}
+.sg{display:flex;flex-direction:column;background:#fff;border-radius:12px;padding:3px;width:64px;gap:2px;box-shadow:inset 0 0 0 1px #F0E2D6}
+.sg div{flex:1;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--faint)}
+.sg div.on{background:var(--pri);color:#fff}
+.res{display:flex;align-items:baseline;justify-content:space-between;margin-top:10px;font-size:13px;color:var(--muted)}
+.res b{font-size:16px;color:var(--ink)}
+.res s{color:var(--faint);margin-right:6px;font-size:13px}
+.res .sv{color:var(--green);font-weight:600;font-size:12px}
+.copy{margin-top:10px;padding-top:10px;border-top:1px dashed #F3D3B8;font-size:13px;color:var(--pri);font-weight:600;display:flex;align-items:center;gap:6px}
+.msg{display:flex;gap:8px;font-size:12px;line-height:17px;border-radius:10px;padding:9px 10px;margin-top:10px}
+.msg.e{color:#B42318;background:var(--red-soft)}
+.msg.w{color:var(--amber);background:var(--amber-soft)}
+.msg a{font-weight:600;text-decoration:underline;color:inherit}
+.msg svg{flex:none;margin-top:1px}
+/* summary */
+.sum{border-radius:18px;padding:16px;margin-bottom:12px;background:var(--field)}
+.sum .row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0}
+.sum .row span:first-child{color:var(--muted)}
+.sum .row b{font-weight:600}
+.date{display:flex;align-items:center;justify-content:space-between}
+.foot{padding:12px 16px 8px;display:flex;gap:10px;border-top:1px solid #F1F1F1;background:#fff}
+.btn{flex:1;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600}
+.btn.p{background:var(--pri);color:#fff}.btn.s{background:var(--pri-soft);color:var(--pri)}
+.home{height:5px;width:140px;border-radius:3px;background:#000;margin:10px auto 8px}
+.dim{opacity:.45}
+.kb{background:#D1D5DB;padding:6px 4px 4px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kb div{background:#fff;border-radius:6px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.kb div small{font-size:9px;letter-spacing:1.5px;font-weight:600}
+.kb .n{background:transparent;box-shadow:none}
+/* buyer */
+.img{height:240px;background:linear-gradient(135deg,#DCE7F1,#F4F7FA);display:flex;align-items:center;justify-content:center;position:relative}
+.can{width:110px;height:130px;border-radius:12px 12px 16px 16px;background:linear-gradient(180deg,#fff,#E9EEF3);box-shadow:0 12px 28px rgba(1,85,148,.18);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--pri);font-size:13px}
+.bk{position:absolute;left:16px;top:56px;width:40px;height:40px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.promo{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,#FFF1E6,#FFF8F1);border-radius:14px;padding:12px 14px;margin:14px 0}
+.promo .t{font-size:14px;font-weight:600;color:#C2410C}
+.promo .s{font-size:12px;color:#9A3412;opacity:.8}
+.pt{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.ptr{display:flex;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
+.ptr:first-child{border-top:0}
+.ptr .k{flex:1}
+.ptr .k b{font-size:14px;font-weight:600;display:block}
+.ptr .k span{font-size:12px;color:var(--muted)}
+.ptr .p{text-align:right}
+.ptr .p b{font-size:16px;font-weight:700;color:var(--red)}
+.ptr .p s{display:block;font-size:12px;color:var(--faint)}
+.ptr.best{background:#F7FAFD}
+.cta{display:flex;gap:8px;padding:12px 16px 0}
+.cta div{flex:1;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px}
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+</style></head><body>
+<div class="board">
+  <div class="btitle">Chegirma — har bir narx uchun alohida</div>
+  <div class="bsub">Chegirma endi alohida blok emas, har bir narx kartasining ichida, aynan o‘zi o‘zgartiradigan narxning tagida turadi. Dona, Ulgurji va Partiya uchun turli chegirma qo‘yish mumkin, har biri foizda yoki summada. Muddat hamma narxlar uchun bitta.</div>
+
+  <div class="frames">
+
+  <!-- 1 -->
+  <div>
+    <div class="fl">1 · Boshlang‘ich <span>— har kartada «+ Chegirma qo‘shish»</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx"></div>
+      <div class="ct">
+        <div class="h">Narxlar</div>
+        <div class="hint">Miqdorga qarab narx belgilang. Har bir narxga alohida chegirma qo‘shishingiz mumkin.</div>
+        <div class="card">
+          <div class="ch"><div><div class="ct1">Dona</div><div class="ct2">Chakana savdo</div></div><span class="ct2">Majburiy</span></div>
+          <div class="two" style="margin-top:12px"><div class="fld"><div class="l">Dan, litr</div><div class="v">1</div></div><div class="fld"><div class="l">Gacha, litr</div><div class="v">50</div></div></div>
+          <div class="fld"><div class="l">Narxi, UZS</div><div class="v">35 500</div></div>
+          <div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Chegirma qo‘shish</div>
+        </div>
+        <div class="card">
+          <div class="ch"><div><div class="ct1">Ulgurji</div><div class="ct2">Katta hajmdagi buyurtmalar</div></div><div class="tg"></div></div>
+          <div class="two" style="margin-top:12px"><div class="fld"><div class="l">Dan, litr</div><div class="v">51</div></div><div class="fld"><div class="l">Gacha, litr</div><div class="v">100</div></div></div>
+          <div class="fld"><div class="l">Narxi, UZS</div><div class="v">25 500</div></div>
+          <div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Chegirma qo‘shish</div>
+        </div>
+        <div class="card">
+          <div class="ch"><div><div class="ct1">Partiya</div><div class="ct2">To‘liq partiya narxi</div></div><div class="tg"></div></div>
+          <div class="two" style="margin-top:12px"><div class="fld"><div class="l">Partiya hajmi, litr</div><div class="v">500</div></div><div class="fld"><div class="l">Narxi, UZS</div><div class="v">10 500 000</div></div></div>
+          <div class="ct2" style="margin:-2px 0 0 4px">1 litr uchun 21 000 UZS</div>
+          <div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>Chegirma qo‘shish</div>
+        </div>
+        <div style="height:4px"></div>
+      </div>
+      <div class="foot"><div class="btn s">Bekor qilish</div><div class="btn p">Saqlash</div></div>
+      <div class="home"></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div>
+    <div class="fl">2 · Donaga chegirma kiritilmoqda <span>— natija darhol</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx"></div>
+      <div class="ct" style="padding-top:12px">
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Dona <span class="pill">−10%</span></div><div class="ct2">Chakana savdo · 1–50 litr</div></div><span class="ct2">Majburiy</span></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">35 500</div></div>
+          <div class="dz">
+            <div class="dzh"><div class="dzt"><svg width="14" height="14" fill="none" stroke="#C2410C" stroke-width="1.8" stroke-linecap="round"><path d="M3 11 11 3"/><circle cx="4" cy="4" r="1.6"/><circle cx="10" cy="10" r="1.6"/></svg>Chegirma</div><div class="rm"><svg width="12" height="12" fill="none" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l6 6M9 3 3 9"/></svg>Olib tashlash</div></div>
+            <div class="dzr"><div class="fld focus"><div class="l">Chegirma miqdori</div><div class="v">10<span class="caret"></span></div><span class="sfx">%</span></div><div class="sg"><div class="on">%</div><div>UZS</div></div></div>
+            <div class="res"><span>Yangi narx</span><span><s>35 500</s><b>31 950 UZS</b></span></div>
+            <div class="res" style="margin-top:2px"><span></span><span class="sv">Mijoz 3 550 UZS tejaydi</span></div>
+            <div class="copy"><svg width="15" height="15" fill="none" stroke="#015594" stroke-width="1.6"><rect x="5" y="5" width="8" height="8" rx="2"/><path d="M10 5V3.5A1.5 1.5 0 0 0 8.5 2h-5A1.5 1.5 0 0 0 2 3.5v5A1.5 1.5 0 0 0 3.5 10H5"/></svg>Shu 10% ni Ulgurji va Partiyaga ham qo‘llash</div>
+          </div>
+        </div>
+        <div class="card dim">
+          <div class="ch"><div><div class="ct1">Ulgurji</div><div class="ct2">51–100 litr · 25 500 UZS</div></div><div class="tg"></div></div>
+          <div class="add">+ Chegirma qo‘shish</div>
+        </div>
+      </div>
+      <div class="kb"><div>1</div><div>2<small>ABC</small></div><div>3<small>DEF</small></div><div>4<small>GHI</small></div><div>5<small>JKL</small></div><div>6<small>MNO</small></div><div>7<small>PQRS</small></div><div>8<small>TUV</small></div><div>9<small>WXYZ</small></div><div class="n"></div><div>0</div><div class="n"><svg width="24" height="18" fill="none" stroke="#000" stroke-width="1.6"><path d="M8 2h13v14H8L2 9z"/><path d="m11 6 6 6m0-6-6 6"/></svg></div></div>
+      <div style="background:#D1D5DB;height:34px"><div class="home" style="margin:0 auto;position:relative;top:20px"></div></div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div>
+    <div class="fl">3 · Uchala narxga turli chegirma <span>— asosiy holat</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx"></div>
+      <div class="ct" style="padding-top:12px">
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Dona <span class="pill">−10%</span></div><div class="ct2">Chakana savdo · 1–50 litr</div></div><span class="ct2">Majburiy</span></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">35 500</div></div>
+          <div class="dz">
+            <div class="dzh"><div class="dzt">%&nbsp; Chegirma</div><div class="rm">✕ Olib tashlash</div></div>
+            <div class="dzr"><div class="fld"><div class="l">Chegirma miqdori</div><div class="v">10</div><span class="sfx">%</span></div><div class="sg"><div class="on">%</div><div>UZS</div></div></div>
+            <div class="res"><span>Yangi narx</span><span><s>35 500</s><b>31 950 UZS</b></span></div>
+          </div>
+        </div>
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Ulgurji <span class="pill">−8%</span></div><div class="ct2">51–100 litr</div></div><div class="tg"></div></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">25 500</div></div>
+          <div class="dz">
+            <div class="dzh"><div class="dzt">%&nbsp; Chegirma</div><div class="rm">✕ Olib tashlash</div></div>
+            <div class="dzr"><div class="fld"><div class="l">1 litr uchun chegirma</div><div class="v">2 000</div><span class="sfx">UZS</span></div><div class="sg"><div>%</div><div class="on">UZS</div></div></div>
+            <div class="res"><span>Yangi narx</span><span><s>25 500</s><b>23 500 UZS</b></span></div>
+          </div>
+        </div>
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Partiya <span class="pill">−5%</span></div><div class="ct2">500 litr</div></div><div class="tg"></div></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">10 500 000</div></div>
+          <div class="dz">
+            <div class="dzh"><div class="dzt">%&nbsp; Chegirma</div><div class="rm">✕ Olib tashlash</div></div>
+            <div class="dzr"><div class="fld"><div class="l">Partiyaga chegirma</div><div class="v">500 000</div><span class="sfx">UZS</span></div><div class="sg"><div>%</div><div class="on">UZS</div></div></div>
+            <div class="res"><span>Yangi narx</span><span><s>10 500 000</s><b>10 000 000 UZS</b></span></div>
+            <div class="res" style="margin-top:2px"><span></span><span style="font-size:12px">1 litr uchun 20 000 UZS</span></div>
+          </div>
+        </div>
+        <div class="sum">
+          <div class="ct1" style="margin-bottom:4px"><svg width="16" height="16" fill="none" stroke="#0F1729" stroke-width="1.6"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 7h12M5.5 1.5v3m5-3v3"/></svg>Chegirma muddati</div>
+          <div class="ct2" style="margin-bottom:12px">Barcha narxlardagi chegirmalar uchun umumiy</div>
+          <div class="two"><div class="fld" style="background:#fff"><div class="l">Boshlanishi</div><div class="v">Bugun</div></div><div class="fld" style="background:#fff"><div class="l">Tugashi</div><div class="v">31.10.2026</div></div></div>
+          <div class="ch" style="margin-top:4px"><span style="font-size:13px">Muddatsiz</span><div class="tg sm off"></div></div>
+        </div>
+        <div style="height:2px"></div>
+      </div>
+      <div class="foot"><div class="btn s">Bekor qilish</div><div class="btn p">Saqlash</div></div>
+      <div class="home"></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div>
+    <div class="fl">4 · Tekshiruvlar <span>— xato va ogohlantirish</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx"></div>
+      <div class="ct" style="padding-top:12px">
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Dona <span class="pill">−35%</span></div><div class="ct2">Chakana savdo · 1–50 litr</div></div><span class="ct2">Majburiy</span></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">35 500</div></div>
+          <div class="dz">
+            <div class="dzh"><div class="dzt">%&nbsp; Chegirma</div><div class="rm">✕ Olib tashlash</div></div>
+            <div class="dzr"><div class="fld"><div class="l">Chegirma miqdori</div><div class="v">35</div><span class="sfx">%</span></div><div class="sg"><div class="on">%</div><div>UZS</div></div></div>
+            <div class="res"><span>Yangi narx</span><span><s>35 500</s><b>23 075 UZS</b></span></div>
+            <div class="msg w"><svg width="16" height="16" fill="none" stroke="#B45309" stroke-width="1.6"><path d="M8 2 15 14H1z" stroke-linejoin="round"/><path d="M8 6.5v3.5" stroke-linecap="round"/><circle cx="8" cy="12" r=".5" fill="#B45309"/></svg><span>Dona narxi Ulgurjidan (23 500) arzon bo‘lib qoldi. Mijozlarga ko‘p olish foydasiz bo‘ladi. <a>Ulgurjini ham tushirish</a></span></div>
+          </div>
+        </div>
+        <div class="card act">
+          <div class="ch"><div><div class="ct1">Ulgurji <span class="pill">−8%</span></div><div class="ct2">51–100 litr · 25 500 UZS</div></div><div class="tg"></div></div>
+          <div class="res" style="margin-top:8px"><span>2 000 UZS chegirma</span><span><s>25 500</s><b>23 500 UZS</b></span></div>
+        </div>
+        <div class="card" style="border-color:#F8CACB">
+          <div class="ch"><div><div class="ct1">Partiya</div><div class="ct2">500 litr</div></div><div class="tg"></div></div>
+          <div class="fld" style="margin-top:12px"><div class="l">Narxi, UZS</div><div class="v">10 500 000</div></div>
+          <div class="dz err">
+            <div class="dzh"><div class="dzt" style="color:#B42318">%&nbsp; Chegirma</div><div class="rm">✕ Olib tashlash</div></div>
+            <div class="dzr"><div class="fld err"><div class="l">Partiyaga chegirma</div><div class="v">12 000 000</div><span class="sfx" style="color:var(--red)">UZS</span></div><div class="sg"><div>%</div><div class="on">UZS</div></div></div>
+            <div class="msg e"><svg width="16" height="16" fill="none" stroke="#B42318" stroke-width="1.6"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4" stroke-linecap="round"/><circle cx="8" cy="11" r=".5" fill="#B42318"/></svg><span>Chegirma narxdan (10 500 000 UZS) kam bo‘lishi kerak</span></div>
+          </div>
+        </div>
+        <div style="height:2px"></div>
+      </div>
+      <div class="foot"><div class="btn s">Bekor qilish</div><div class="btn p" style="opacity:.4">Saqlash</div></div>
+      <div class="home"></div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div>
+    <div class="fl">5 · Xaridor ko‘rinishi <span>— Material haqida</span></div>
+    <div class="ph" style="height:880px">
+      <div class="img"><div style="position:absolute;top:0;left:0;right:0"><div class="sbx"></div></div><div class="bk"><svg width="20" height="20" fill="none" stroke="#0F1729" stroke-width="1.8" stroke-linecap="round"><path d="M17 10H3m5-5-5 5 5 5"/></svg></div><div class="can">TIKURILLA</div></div>
+      <div class="ct">
+        <div style="font-size:12px;color:var(--muted);margin-top:16px">Bo‘yoqlar va laklar · Xo‘jalik mollari do‘koni</div>
+        <div style="font-size:22px;font-weight:700;margin-top:4px">Tikurilla kraska</div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:8px"><b style="font-size:24px;color:var(--red)">20 000 UZS</b><span style="font-size:13px;color:var(--muted)">dan / litr</span><span class="pill" style="margin-left:4px">−10% gacha</span></div>
+        <div class="promo"><svg width="32" height="32" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#fff"/><path d="M10 22 22 10" stroke="#F97316" stroke-width="2" stroke-linecap="round"/><circle cx="11.5" cy="11.5" r="2.3" fill="none" stroke="#F97316" stroke-width="2"/><circle cx="20.5" cy="20.5" r="2.3" fill="none" stroke="#F97316" stroke-width="2"/></svg><div><div class="t">Chegirma 31-oktabrgacha</div><div class="s">15 kun qoldi</div></div></div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:8px">Narxlar</div>
+        <div class="pt">
+          <div class="ptr"><div class="k"><b>Dona</b><span>1–50 litr</span></div><div class="p"><s>35 500</s><b>31 950</b></div><span class="pill" style="margin-left:10px;width:42px;text-align:center">−10%</span></div>
+          <div class="ptr"><div class="k"><b>Ulgurji</b><span>51–100 litr</span></div><div class="p"><s>25 500</s><b>23 500</b></div><span class="pill" style="margin-left:10px;width:42px;text-align:center">−8%</span></div>
+          <div class="ptr best"><div class="k"><b>Partiya</b><span>500 litr · 20 000 / litr</span></div><div class="p"><s>10 500 000</s><b>10 000 000</b></div><span class="pill" style="margin-left:10px;width:42px;text-align:center">−5%</span></div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px">Narxlar UZS da, 1 litr uchun. Partiya — butun partiya narxi.</div>
+      </div>
+      <div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #F1F1F1">
+        <div class="cta"><div style="background:var(--pri-soft);color:var(--pri)">✈ Telegram</div><div style="background:var(--pri);color:#fff">📞 Qo‘ng‘iroq qilish</div></div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Nega chegirma narx kartasining ichida</h4>
+      <ul>
+        <li>Chegirma <b>bevosita o‘zgartiradigan narxning tagida</b> turadi. Sotuvchi «bu qaysi narxga ta’sir qiladi?» deb o‘ylab o‘tirmaydi.</li>
+        <li>Alohida blok va katakchalar faqat hammaga bitta chegirma qo‘yilganda yaxshi ishlaydi. Har narxga alohida qiymat bo‘lsa, ma’lumot ikki joyga bo‘linib ketadi.</li>
+        <li>Chegirma qo‘shilgan karta to‘q sariq chegara va <b>−N%</b> belgisi oladi. Ekran yig‘iq bo‘lsa ham qaysi narxda chegirma borligi bir qarashda ko‘rinadi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>2</i>Kiritishni tezlashtirish</h4>
+      <ul>
+        <li><b>% / UZS</b> almashtirgichi har bir narxda alohida. Donaga foiz, Partiyaga summa qo‘yish odatiy holat.</li>
+        <li>Summa <b>o‘lchov birligi bo‘yicha</b> («1 litr uchun») kiritiladi, Partiyada esa butun partiyaga. Maydon nomi buni aniq aytib turadi.</li>
+        <li><b>«Shu 10% ni boshqa narxlarga ham qo‘llash»</b> eng ko‘p uchraydigan holatni bitta bosishga qisqartiradi.</li>
+        <li>Yangi narx va mijoz qancha tejashi darhol hisoblanib ko‘rinadi. Kalkulyator kerak bo‘lmaydi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>3</i>Qoidalar va tekshiruvlar</h4>
+      <ul>
+        <li><b>Xato (bloklaydi):</b> chegirma narxdan katta yoki teng; foiz 0 yoki 90% dan katta.</li>
+        <li><b>Ogohlantirish (bloklamaydi):</b> chegirmadan keyin Dona Ulgurjidan yoki Ulgurji Partiyaning 1 litr narxidan arzon bo‘lib qolsa. Tuzatish havolasi shu yerning o‘zida.</li>
+        <li><b>Muddat bitta</b>, hamma narxlar uchun umumiy. Alohida muddatlar sotuvchini chalg‘itadi, xaridorda esa «qaysi qachon tugaydi?» degan savol tug‘diradi.</li>
+        <li>Xaridor eng past narxni <b>«20 000 dan»</b> deb ko‘radi, belgida eng katta chegirma (<b>−10% gacha</b>) chiqadi. Jadvalda har bir narx eski narx bilan yonma-yon turadi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+const sb='<div class="sb">9:41<span style="display:flex;gap:6px;align-items:center"><svg width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="#000" opacity=".35"/><rect x="2" y="2" width="20" height="9" rx="2"/></svg></span></div>';
+const nav='<div class="nav"><svg width="22" height="22" fill="none" stroke="#0F1729" stroke-width="1.8" stroke-linecap="round"><path d="M19 11H4m6-6-6 6 6 6"/></svg>Tovarni tahrirlash</div>';
+document.querySelectorAll('.sbx').forEach(e=>e.outerHTML=sb);
+document.querySelectorAll('.navx').forEach(e=>e.outerHTML=nav);
+</script>
+</body></html>
