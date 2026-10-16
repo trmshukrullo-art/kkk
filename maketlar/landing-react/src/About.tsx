@@ -1,7 +1,6 @@
 import { PrimaryButton, SectionBadge } from './ui'
-
-const SMALL = './img/kurs.webp'
-const LARGE = './img/dashboard.webp'
+import SMALL from './assets/kurs.webp'
+import LARGE from './assets/dashboard.webp'
 
 export default function About() {
   return (

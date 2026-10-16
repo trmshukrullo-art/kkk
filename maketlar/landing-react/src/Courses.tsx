@@ -1,5 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { SectionBadge } from './ui'
+import DARS from './assets/dars.webp'
+import NATIJA from './assets/natija.webp'
 
 function LinkIcon({ className = '' }: { className?: string }) {
   return (
@@ -26,7 +28,7 @@ export default function Courses() {
             <a href="#" className="group relative block aspect-[329/246] cursor-pointer overflow-hidden rounded-2xl bg-[#0F2552]">
               <div className="girih absolute inset-0 opacity-[0.12]" />
               <img
-                src="./img/dars.webp"
+                src={DARS}
                 alt="HR menejment kursidagi dars sahifasi"
                 className="absolute inset-x-[7%] top-[9%] w-[86%] rounded-t-xl shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)] transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-2"
               />
@@ -48,7 +50,7 @@ export default function Courses() {
             <a href="#" className="group relative block aspect-square cursor-pointer overflow-hidden rounded-2xl bg-[#0D7C78]">
               <div className="girih absolute inset-0 opacity-[0.14]" />
               <img
-                src="./img/natija.webp"
+                src={NATIJA}
                 alt="Test natijasi sahifasi"
                 className="absolute left-[9%] top-[12%] w-[130%] max-w-none rounded-tl-xl shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)] transition-transform duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-hover:-translate-y-2"
               />
