@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asosiy sahifa — Raqamli Malaka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sb:#071230;--sb-text:#B4BED6;--sb-dim:#6F7C9C;--sb-line:#16244A;
+  --bg:#F3F5F9;--card:#FFFFFF;--line:#E3E8F1;--line-2:#EDF0F5;--grid:#E6EAF2;
+  --ink:#0B1324;--text:#1F2A44;--muted:#5B6782;--subtle:#8A94AB;
+  --navy-900:#0B1A3F;--navy-800:#12275A;--blue-700:#1E3F9A;--blue:#2550C0;--blue-300:#9DB8F5;--blue-100:#DCE6FB;--blue-50:#EEF3FD;
+  --green:#0E7A52;--green-50:#E5F4EC;--amber:#B7791F;--amber-50:#FCF1E1;--red:#B4232F;--red-50:#FBEDEE;
+  --sh:0 0 0 1px var(--line),0 1px 2px rgba(11,26,63,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;font-feature-settings:"cv11";background:var(--sb);color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.app{display:grid;grid-template-columns:240px 1fr;width:1440px;min-height:100vh}
+
+/* Sidebar */
+.sb{display:flex;flex-direction:column;padding:18px 12px 16px;color:var(--sb-text)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px 22px}
+.mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(140deg,#3B6CE0,#1E3F9A);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.brand .t{line-height:1.15}
+.brand b{color:#fff;font-size:14.5px;font-weight:700}
+.brand small{display:block;font-size:11.5px;color:var(--sb-dim);font-weight:500}
+.brand>.ic{margin-left:auto;color:var(--sb-dim)}
+.grp{font:600 11px Inter;letter-spacing:.08em;color:var(--sb-dim);padding:18px 10px 8px}
+.nv{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;font-size:13.5px;font-weight:500;margin-bottom:2px}
+.nv .ic{color:var(--sb-dim)}
+.nv.on{color:#fff;background:rgba(59,108,224,.2);box-shadow:inset 0 0 0 1px rgba(157,184,245,.16)}
+.nv.on .ic{color:var(--blue-300)}
+.cnt{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:#1A2A55;color:#DCE6FB;font-size:11px;font-weight:600;display:grid;place-items:center}
+.cnt.hot{background:var(--blue);color:#fff}
+.sb-b{margin-top:auto}
+.me{display:flex;align-items:center;gap:10px;padding:14px 8px 0;margin-top:12px;border-top:1px solid var(--sb-line)}
+.me b{display:block;color:#fff;font-size:13.5px;font-weight:600;line-height:1.25}
+.me span{font-size:12px;color:var(--sb-dim)}
+.me>.ic{margin-left:auto;color:var(--sb-dim)}
+.me .av{color:#fff}
+.kv b,.kv small,.pt,.dt,.when b,.wk-v b,.ring b,.dl,.cl{font-variant-numeric:tabular-nums}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+
+/* Panel */
+.panel{background:var(--bg);margin:8px 8px 8px 0;border-radius:16px;overflow:hidden;min-width:0}
+.hd{display:flex;align-items:center;gap:10px;height:64px;padding:0 24px;border-bottom:1px solid var(--line);background:#FAFBFD}
+.hd h1{font-size:15px;font-weight:600;color:var(--ink)}
+.search{margin-left:auto;width:340px;height:38px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;gap:10px;padding:0 6px 0 12px;color:var(--subtle);font-size:13.5px}
+.search kbd{margin-left:auto;font:600 11px Inter;color:var(--muted);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;padding:3px 7px}
+.ib{height:38px;min-width:38px;padding:0 10px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);position:relative}
+.ib .ic{color:var(--muted)}
+.ib .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #fff}
+
+.ct{padding:24px;display:grid;grid-template-columns:1fr 348px;gap:16px;align-items:start}
+.hello{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px}
+.hello h2{font-size:24px;line-height:1.2;letter-spacing:-.02em;color:var(--ink);font-weight:700}
+.hello p{color:var(--muted);margin-top:4px;font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border-radius:9px;background:#fff;box-shadow:var(--sh);font-size:13px;color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+.pill .ic{width:16px;height:16px;color:var(--amber)}
+.col{display:grid;gap:16px;min-width:0}
+.card{background:var(--card);border-radius:14px;box-shadow:var(--sh)}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 20px}
+.ch h3{font-size:14.5px;font-weight:600;color:var(--ink)}
+.ch .lnk{margin-left:auto;font-size:13px;font-weight:600;color:var(--blue)}
+.cap{font:600 11px Inter;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}
+
+/* Buttons & chips */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.btn .ic{width:16px;height:16px}
+.b-pri{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px -4px rgba(37,80,192,.55)}
+.b-white{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+.b-on-dark{background:#fff;color:var(--navy-900)}
+.b-ghost-dark{color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.26)}
+.b-sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.st{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 1px 1px rgba(11,26,63,.04);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.st i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px currentColor}
+.st.blue i{color:var(--blue)}.st.green i{color:var(--green);background:var(--green)}.st.amber i{color:var(--amber)}.st.red i{color:var(--red)}
+.st.live i{color:var(--green);background:var(--green);box-shadow:0 0 0 3px rgba(14,122,82,.18)}
+.dl{display:inline-flex;align-items:center;gap:3px;height:22px;padding:0 7px;border-radius:6px;font-size:12px;font-weight:600}
+.dl .ic{width:12px;height:12px;stroke-width:2.2}
+.up{background:var(--green-50);color:var(--green)}
+.seg{display:inline-flex;padding:3px;border-radius:9px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);margin-left:auto}
+.seg span{height:28px;padding:0 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.seg span em{font-style:normal;color:var(--subtle)}
+.seg .on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(11,26,63,.1),0 0 0 1px var(--line)}
+
+/* Continue */
+.cont{position:relative;overflow:hidden;border-radius:14px;padding:24px 28px;color:#fff;background:linear-gradient(135deg,var(--navy-900) 0%,var(--navy-800) 45%,var(--blue-700) 100%);display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.cont:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(90deg,transparent 35%,#000);-webkit-mask-image:linear-gradient(90deg,transparent 35%,#000)}
+.cont>*{position:relative}
+.cont .cap{color:rgba(255,255,255,.6)}
+.cont h3{font-size:21px;line-height:1.3;letter-spacing:-.015em;margin:8px 0 12px;max-width:500px;font-weight:700}
+.metas{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.metas span{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 9px;border-radius:7px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);font-size:12.5px;color:rgba(255,255,255,.86)}
+.metas .ic{width:14px;height:14px}
+.acts{display:flex;gap:8px}
+.ring{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#fff 0 29%,rgba(255,255,255,.14) 0)}
+.ring>div{width:104px;height:104px;border-radius:50%;background:#163486;display:grid;place-items:center;text-align:center}
+.ring b{display:block;font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.ring span{font-size:11.5px;color:rgba(255,255,255,.66)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.kpi{padding:16px 18px 18px}
+.kpi-h{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;font-weight:500;color:var(--ink)}
+.kpi-h .ki{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+.kpi-h .ki .ic{width:16px;height:16px}
+.kv{display:flex;align-items:center;gap:8px;margin-top:16px}
+.kv b{font-size:30px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.kv small{font-size:14px;font-weight:500;color:var(--subtle)}
+.kf{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.kf a{color:var(--blue);font-weight:600}
+
+/* Courses */
+.crs-list{border-top:1px solid var(--line)}
+.crs{display:grid;grid-template-columns:40px 1fr 200px 120px;gap:18px;align-items:center;padding:14px 20px}
+.crs+.crs{border-top:1px solid var(--line-2)}
+.crs-i{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--blue);background:var(--blue-50);box-shadow:inset 0 0 0 1px var(--blue-100)}
+.crs-i.g{color:var(--green);background:var(--green-50);box-shadow:inset 0 0 0 1px #CBE8D9}
+.crs-i .ic{width:19px;height:19px}
+.crs h4{font-size:14px;font-weight:600;color:var(--ink);line-height:1.35}
+.crs p{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.crs p>i{width:3px;height:3px;border-radius:50%;background:var(--subtle)}
+.pt{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.pt b{color:var(--ink);font-weight:600}
+.bar{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--blue)}
+.bar.g i{background:var(--green)}
+.crs .btn{width:100%}
+
+/* Right rail */
+.alert{display:flex;gap:10px;margin:0 16px 8px;padding:10px 12px;border-radius:10px;background:var(--red-50);box-shadow:inset 0 0 0 1px #F0C9CD;color:#7A1F27;font-size:12.5px;line-height:1.45}
+.alert .ic{width:16px;height:16px;color:var(--red);margin-top:1px}
+.alert b{color:#5C141B;font-weight:600}
+.dlx{display:flex;gap:12px;padding:12px 20px;border-top:1px solid var(--line-2);align-items:flex-start}
+.dlx .di{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted);flex:none}
+.dlx .di .ic{width:16px;height:16px}
+.dlx b{display:block;font-size:13.5px;font-weight:600;color:var(--ink)}
+.dlx span.s{display:block;font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.dlx .dt{font-size:12.5px;color:var(--muted);margin-left:8px}
+.cl{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:5px;background:var(--bg);font-size:11.5px;font-weight:600;color:var(--muted);margin-left:6px;vertical-align:1px}
+.cl .ic{width:11px;height:11px}
+.mt{display:flex;align-items:center;gap:12px;padding:12px 20px;border-top:1px solid var(--line-2)}
+.when{width:44px;flex:none;text-align:center;border-radius:9px;box-shadow:inset 0 0 0 1px var(--line);padding:5px 0;line-height:1.1}
+.when b{display:block;font-size:16px;font-weight:700;color:var(--ink)}
+.when span{font-size:10.5px;font-weight:600;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.mt strong{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.mt small{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.mt .st{margin-top:6px}
+.wk{padding:0 20px 18px}
+.wk-v{display:flex;align-items:baseline;gap:8px}
+.wk-v b{font-size:24px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.wk-v span{font-size:12.5px;color:var(--muted)}
+.wk-bar{margin:10px 0 14px}
+.wk-bar .pt{margin-bottom:6px}
+.chart{position:relative;height:88px;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end;padding-top:6px;background-image:linear-gradient(var(--grid) 1px,transparent 1px);background-size:100% 24px}
+.chart:after{content:"";position:absolute;left:0;right:0;top:22px;border-top:1.4px dashed var(--muted)}
+.chart:before{content:"Maqsad";position:absolute;right:0;top:4px;font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.04em}
+.chart i{display:block;border-radius:5px 5px 2px 2px;background:var(--blue-100)}
+.chart i.td{background:var(--blue)}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:8px;font-size:11.5px;color:var(--subtle);text-align:center}
+.days .td{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sb" aria-label="Yon panel">
+  <div class="brand"><span class="mark">R</span><span class="t"><b>Raqamli Malaka</b><small>Oshirish platformasi</small></span><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/></svg></div>
+  <a class="nv on" aria-current="page"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Asosiy sahifa</a>
+  <div class="grp">OʻQUV</div>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Mening kurslarim</a>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17V11M13 17V7M18 17v-4"/></svg>Natijalarim</a>
+  <div class="grp">MULOQOT</div>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Videokonferensiyalar</a>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Chat<span class="cnt hot">2</span></a>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M17 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10l4-4h2"/><path d="M21 21l-4-4h-6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/></svg>Forum</a>
+  <div class="grp">RESURSLAR</div>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19V5M8 19V5M12 19l-2-14M16 5h4v14h-4z"/></svg>Kutubxona</a>
+  <a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Arizalar</a>
+  <div class="sb-b">
+    <a class="nv"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>Yordam markazi</a>
+    <div class="me"><span class="av">BS</span><span><b>Baxtiyorov Sarvar</b><span>Tinglovchi</span></span><svg class="ic" viewBox="0 0 24 24"><path d="m8 9 4-4 4 4M16 15l-4 4-4-4"/></svg></div>
+  </div>
+</aside>
+
+<div class="panel">
+  <header class="hd">
+    <h1>Asosiy sahifa</h1>
+    <div class="search" role="search"><svg class="ic" viewBox="0 0 24 24" style="width:16px;height:16px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Kurs, dars yoki kitob qidirish<kbd>Ctrl K</kbd></div>
+    <span class="ib"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>UZ</span>
+    <span class="ib" aria-label="Bildirishnomalar"><svg class="ic" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="dot"></span></span>
+  </header>
+
+  <main class="ct">
+    <div class="hello">
+      <div><h2>Xayrli kun, Sarvar</h2><p>Bugun 3-darsni tugatsangiz, haftalik maqsadingizga erishasiz.</p></div>
+      <span class="pill"><svg class="ic" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.2.3 1.4 1.3 2.7 2.5 2.7z"/></svg><b>5 kun</b> ketma-ket oʻqiyapsiz</span>
+    </div>
+
+    <div class="col">
+      <section class="cont" aria-label="Davom ettirish">
+        <div>
+          <span class="cap">Davom etamizmi?</span>
+          <h3>3-dars. HR funksiyalari: klassik va zamonaviy yondashuv</h3>
+          <div class="metas">
+            <span><svg class="ic" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>1-modul</span>
+            <span><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>12 daqiqa qoldi</span>
+            <span><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Case study bor</span>
+          </div>
+          <div class="acts">
+            <a class="btn b-on-dark"><svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor"><path d="M6 4v16l14-8z"/></svg>Davom etish</a>
+            <a class="btn b-ghost-dark">Kurs rejasi</a>
+          </div>
+        </div>
+        <div class="ring" role="img" aria-label="Kurs 29% bajarilgan"><div><div><b>29%</b><span>2 / 7 dars</span></div></div></div>
+      </section>
+
+      <div class="kpis">
+        <section class="card kpi">
+          <div class="kpi-h">Oʻrtacha ball<span class="ki"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span></div>
+          <div class="kv"><b>78</b><small>/ 100</small><span class="dl up">+6<svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="kf">oʻtgan oyga nisbatan</div>
+        </section>
+        <section class="card kpi">
+          <div class="kpi-h">Tugatilgan darslar<span class="ki"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="kv"><b>30</b><small>/ 35</small><span class="dl up">+12%<svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+          <div class="kf">3 ta kurs boʻyicha jami</div>
+        </section>
+        <section class="card kpi">
+          <div class="kpi-h">Sertifikatlar<span class="ki"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1"/></svg></span></div>
+          <div class="kv"><b>2</b><span class="st green"><i></i>Tayyor</span></div>
+          <div class="kf"><a>Yuklab olish →</a></div>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="ch"><h3>Mening kurslarim</h3>
+          <div class="seg"><span class="on">Barchasi <em>4</em></span><span>Faol <em>1</em></span><span>Rejada <em>1</em></span><span>Tugatilgan <em>2</em></span></div>
+        </div>
+        <div class="crs-list">
+          <article class="crs">
+            <span class="crs-i"><svg class="ic" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <div><h4>Zamonaviy inson resurslarini boshqarish</h4><p><span class="st blue"><i></i>Joriy</span>17-26-guruh<i></i>30.11.2026 gacha</p></div>
+            <div><div class="pt"><span>7 ta darsdan 2 tasi</span><b>29%</b></div><div class="bar"><i style="width:29%"></i></div></div>
+            <a class="btn b-sm b-pri">Davom etish</a>
+          </article>
+          <article class="crs">
+            <span class="crs-i" style="color:var(--amber);background:var(--amber-50);box-shadow:inset 0 0 0 1px #F1D9B5"><svg class="ic" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <div><h4>Mehnat muhofazasi asoslari</h4><p><span class="st amber"><i></i>Rejada</span>21-04-guruh<i></i>Boshlanish: 08.11.2026</p></div>
+            <div><div class="pt"><span>8 modul · 72 soat</span><b>0%</b></div><div class="bar"><i style="width:0"></i></div></div>
+            <a class="btn b-sm b-white">Kurs dasturi</a>
+          </article>
+          <article class="crs">
+            <span class="crs-i g"><svg class="ic" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+            <div><h4>Mustaqil taʼlim</h4><p><span class="st green"><i></i>Tugatilgan</span>Test guruhi<i></i>Ball: 86</p></div>
+            <div><div class="pt"><span>12 ta darsdan 12 tasi</span><b>100%</b></div><div class="bar g"><i style="width:100%"></i></div></div>
+            <a class="btn b-sm b-white"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Sertifikat</a>
+          </article>
+          <article class="crs">
+            <span class="crs-i g"><svg class="ic" viewBox="0 0 24 24"><path d="m1 6 7-3 8 3 7-3v15l-7 3-8-3-7 3z"/><path d="M8 3v15M16 6v15"/></svg></span>
+            <div><h4>Ishlarni muvofiqlashtirish</h4><p><span class="st green"><i></i>Tugatilgan</span>8-guruh<i></i>Ball: 70</p></div>
+            <div><div class="pt"><span>16 ta darsdan 16 tasi</span><b>100%</b></div><div class="bar g"><i style="width:100%"></i></div></div>
+            <a class="btn b-sm b-white"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Sertifikat</a>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <aside class="col" aria-label="Qoʻshimcha">
+      <section class="card">
+        <div class="ch"><h3>Muddatlar</h3><span class="st red" style="margin-left:auto"><i></i>2 ta yaqin</span></div>
+        <div class="dlx">
+          <span class="di"><svg class="ic" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <div><b>Yakuniy test<span class="cl"><svg class="ic" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>0/1</span></b><span class="s">Zamonaviy inson resurslarini boshqarish</span><span class="st red"><i></i>2 kun qoldi</span><span class="dt">18.10.2026</span></div>
+        </div>
+        <div class="dlx">
+          <span class="di"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>
+          <div><b>Case study topshirigʻi<span class="cl"><svg class="ic" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>1/4</span></b><span class="s">1-modul, 3-dars</span><span class="st amber"><i></i>5 kun qoldi</span><span class="dt">21.10.2026</span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="ch"><h3>Yaqin uchrashuvlar</h3><a class="lnk">Barchasi</a></div>
+        <div class="mt">
+          <div class="when"><b>16</b><span>okt</span></div>
+          <div style="flex:1;min-width:0"><strong>HR asoslari: ochiq maʼruza</strong><small style="display:flex;align-items:center;gap:6px"><span class="st live" style="margin:0;height:20px;padding:0 7px;font-size:11.5px"><i></i>Jonli</span>10:00–11:30</small></div>
+          <a class="btn b-sm b-pri">Qoʻshilish</a>
+        </div>
+        <div class="mt">
+          <div class="when"><b>16</b><span>okt</span></div>
+          <div style="flex:1"><strong>Case study tahlili</strong><small>14:00 · Atabayev S.</small></div>
+        </div>
+        <div class="mt">
+          <div class="when"><b>17</b><span>okt</span></div>
+          <div style="flex:1"><strong>Yakuniy suhbat</strong><small>11:00 · Karimova M.</small></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="ch"><h3>Bu hafta</h3><span class="cap" style="margin-left:auto">Oʻqish vaqti</span></div>
+        <div class="wk">
+          <div class="wk-v"><b>4 s 20 daq</b><span>/ 5 soat maqsad</span></div>
+          <div class="wk-bar"><div class="bar"><i style="width:87%"></i></div></div>
+          <div class="chart" aria-hidden="true">
+            <i style="height:38%"></i><i style="height:66%"></i><i style="height:28%"></i><i class="td" style="height:80%"></i><i style="height:4%"></i><i style="height:4%"></i><i style="height:4%"></i>
+          </div>
+          <div class="days"><span>Du</span><span>Se</span><span>Ch</span><span class="td">Pa</span><span>Ju</span><span>Sh</span><span>Ya</span></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+</div>
+</div>
+</body>
+</html>
