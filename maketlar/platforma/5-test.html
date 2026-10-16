@@ -44,7 +44,7 @@ svg{display:block}
 .me b{display:block;color:#fff;font-size:13.5px;font-weight:600;line-height:1.25}
 .me span span{font-size:12px;color:var(--sb-dim)}
 .me>.ic{margin-left:auto;color:var(--sb-dim)}
-.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff!important;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
 .av.sm{width:26px;height:26px;font-size:10.5px}
 .av.lg{width:44px;height:44px;font-size:15px}
 .av.blue{background:var(--blue)}.av.navy{background:var(--navy-800)}.av.amber{background:var(--amber)}
@@ -67,7 +67,7 @@ svg{display:block}
 .ml{margin-left:auto}
 /* layout */
 .ct{padding:24px;display:grid;gap:16px;align-items:start}
-.two{grid-template-columns:1fr 348px}
+.two{grid-template-columns:minmax(0,1fr) 348px}
 .col{display:grid;gap:16px;min-width:0;align-content:start}
 .card{background:var(--card);border-radius:14px;box-shadow:var(--sh)}
 .ch{display:flex;align-items:center;gap:12px;padding:16px 20px}

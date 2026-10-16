@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat — Raqamli Malaka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sb:#071230;--sb-text:#B4BED6;--sb-dim:#6F7C9C;--sb-line:#16244A;
+  --bg:#F3F5F9;--card:#FFFFFF;--line:#E3E8F1;--line-2:#EDF0F5;--grid:#E6EAF2;--soft:#F8FAFC;
+  --ink:#0B1324;--text:#1F2A44;--muted:#5B6782;--subtle:#8A94AB;
+  --navy-900:#0B1A3F;--navy-800:#12275A;--blue-700:#1E3F9A;--blue:#2550C0;--blue-500:#3B6CE0;--blue-300:#9DB8F5;--blue-100:#DCE6FB;--blue-50:#EEF3FD;
+  --green:#0E7A52;--green-100:#CBE8D9;--green-50:#E5F4EC;--amber:#B7791F;--amber-100:#F1D9B5;--amber-50:#FCF1E1;--red:#B4232F;--red-100:#F0C9CD;--red-50:#FBEDEE;
+  --sh:0 0 0 1px var(--line),0 1px 2px rgba(11,26,63,.04);
+  --sh-lg:0 0 0 1px var(--line),0 12px 32px -12px rgba(11,26,63,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;font-feature-settings:"cv11";background:var(--sb);color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.num{font-variant-numeric:tabular-nums}
+.app{display:grid;grid-template-columns:240px 1fr;width:1440px;min-height:100vh}
+.app.focus{grid-template-columns:1fr}
+/* sidebar */
+.sb{display:flex;flex-direction:column;padding:18px 12px 16px;color:var(--sb-text)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px 22px}
+.mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(140deg,#3B6CE0,#1E3F9A);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);flex:none}
+.brand .t{line-height:1.15}
+.brand b{color:#fff;font-size:14.5px;font-weight:700}
+.brand small{display:block;font-size:11.5px;color:var(--sb-dim);font-weight:500}
+.brand>.ic{margin-left:auto;color:var(--sb-dim)}
+.grp{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--sb-dim);padding:18px 10px 8px}
+.nv{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;font-size:13.5px;font-weight:500;margin-bottom:2px}
+.nv .ic{color:var(--sb-dim)}
+.nv.on{color:#fff;background:rgba(59,108,224,.2);box-shadow:inset 0 0 0 1px rgba(157,184,245,.16)}
+.nv.on .ic{color:var(--blue-300)}
+.cnt{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--blue);color:#fff;font-size:11px;font-weight:600;display:grid;place-items:center}
+.sb-b{margin-top:auto}
+.me{display:flex;align-items:center;gap:10px;padding:14px 8px 0;margin-top:12px;border-top:1px solid var(--sb-line)}
+.me b{display:block;color:#fff;font-size:13.5px;font-weight:600;line-height:1.25}
+.me span span{font-size:12px;color:var(--sb-dim)}
+.me>.ic{margin-left:auto;color:var(--sb-dim)}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff!important;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.av.sm{width:26px;height:26px;font-size:10.5px}
+.av.lg{width:44px;height:44px;font-size:15px}
+.av.blue{background:var(--blue)}.av.navy{background:var(--navy-800)}.av.amber{background:var(--amber)}
+/* panel + header */
+.panel{background:var(--bg);margin:8px 8px 8px 0;border-radius:16px;overflow:hidden;min-width:0}
+.focus .panel{margin:8px}
+.hd{display:flex;align-items:center;gap:10px;height:64px;padding:0 24px;border-bottom:1px solid var(--line);background:#FAFBFD}
+.hd h1{font-size:15px;font-weight:600;color:var(--ink);white-space:nowrap}
+.crumb{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.crumb .ic{width:14px;height:14px;color:var(--subtle)}
+.crumb b{color:var(--ink);font-weight:600}
+.bk{width:34px;height:34px;border-radius:9px;background:#fff;box-shadow:var(--sh);display:grid;place-items:center;color:var(--ink);flex:none}
+.bk .ic{width:16px;height:16px}
+.search{margin-left:auto;width:300px;height:38px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;gap:10px;padding:0 6px 0 12px;color:var(--subtle);font-size:13.5px}
+.search .ic{width:16px;height:16px}
+.search kbd{margin-left:auto;font:600 11px Inter;color:var(--muted);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;padding:3px 7px}
+.ib{height:38px;min-width:38px;padding:0 10px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);position:relative}
+.ib .ic{color:var(--muted)}
+.ib .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #fff}
+.ml{margin-left:auto}
+/* layout */
+.ct{padding:24px;display:grid;gap:16px;align-items:start}
+.two{grid-template-columns:minmax(0,1fr) 348px}
+.col{display:grid;gap:16px;min-width:0;align-content:start}
+.card{background:var(--card);border-radius:14px;box-shadow:var(--sh)}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 20px}
+.ch h3{font-size:14.5px;font-weight:600;color:var(--ink)}
+.ch .lnk{margin-left:auto;font-size:13px;font-weight:600;color:var(--blue)}
+.bt{border-top:1px solid var(--line)}
+.cap{font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}
+.mut{color:var(--muted)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.btn .ic{width:16px;height:16px}
+.b-pri{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px -4px rgba(37,80,192,.55)}
+.b-white{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+.b-ghost{color:var(--muted)}
+.b-sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.b-dis{background:#E9EDF4;color:var(--subtle);box-shadow:none}
+/* status pills */
+.st{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 1px 1px rgba(11,26,63,.04);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.st i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px currentColor;flex:none}
+.st.blue i{color:var(--blue)}.st.green i{color:var(--green);background:var(--green)}.st.amber i{color:var(--amber)}.st.red i{color:var(--red)}.st.gray i{color:var(--subtle)}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.t-blue{background:var(--blue-50);color:var(--blue)}.t-green{background:var(--green-50);color:var(--green)}.t-amber{background:var(--amber-50);color:var(--amber)}.t-gray{background:var(--bg);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}.t-red{background:var(--red-50);color:var(--red)}
+.cl{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:5px;background:var(--bg);font-size:11.5px;font-weight:600;color:var(--muted)}
+.cl .ic{width:11px;height:11px}
+.seg{display:inline-flex;padding:3px;border-radius:9px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line)}
+.seg span{height:28px;padding:0 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.seg span em{font-style:normal;color:var(--subtle)}
+.seg .on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(11,26,63,.1),0 0 0 1px var(--line)}
+.utabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--line)}
+.utabs span{display:inline-flex;align-items:center;gap:7px;height:44px;font-size:13.5px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.utabs span .ic{width:16px;height:16px}
+.utabs span em{font-style:normal;color:var(--subtle)}
+.utabs .on{color:var(--blue);border-color:var(--blue);font-weight:600}
+.utabs .on em{color:var(--blue)}
+.bar{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--blue)}
+.bar.g i{background:var(--green)}
+.alert{display:flex;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.45}
+.alert .ic{width:16px;height:16px;margin-top:1px}
+.a-red{background:var(--red-50);box-shadow:inset 0 0 0 1px var(--red-100);color:#7A1F27}.a-red .ic{color:var(--red)}
+.a-blue{background:var(--blue-50);box-shadow:inset 0 0 0 1px var(--blue-100);color:#1B2F6B}.a-blue .ic{color:var(--blue)}
+.a-amber{background:var(--amber-50);box-shadow:inset 0 0 0 1px var(--amber-100);color:#6B4610}.a-amber .ic{color:var(--amber)}
+.alert b{font-weight:600}
+.kvrow{display:grid;grid-template-columns:120px 1fr;gap:10px 12px;align-items:center;font-size:13px}
+.kvrow dt{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.kvrow dt .ic{width:15px;height:15px;color:var(--subtle)}
+.kvrow dd{color:var(--ink);font-weight:500}
+.fileic{width:34px;height:40px;border-radius:5px;background:linear-gradient(180deg,#F3F5F9,#E6EAF2);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:8.5px;font-weight:700;color:var(--muted);letter-spacing:.03em;flex:none}
+.fileic.pdf{color:var(--red)}.fileic.doc{color:var(--blue)}.fileic.ppt{color:var(--amber)}
+.dotc{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;box-shadow:inset 0 0 0 1.5px var(--line);color:var(--muted);background:#fff;flex:none}
+.dotc.done{box-shadow:inset 0 0 0 1.5px var(--green);color:var(--green);background:var(--green-50)}
+.dotc.cur{background:var(--blue);color:#fff;box-shadow:none}
+.dotc .ic{width:14px;height:14px;stroke-width:2.4}
+
+.chat{margin:24px;display:grid;grid-template-columns:300px minmax(0,1fr) 280px;height:calc(900px - 64px - 48px - 16px);background:#fff;border-radius:14px;box-shadow:var(--sh);overflow:hidden}
+.cl1{border-right:1px solid var(--line);display:flex;flex-direction:column}
+.cl1 .top{padding:16px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+.cs{height:36px;border-radius:9px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:13px;color:var(--subtle)}
+.cs .ic{width:15px;height:15px}
+.cv{display:flex;gap:12px;padding:12px 16px;align-items:center;border-bottom:1px solid var(--line-2)}
+.cv.on{background:var(--blue-50);box-shadow:inset 3px 0 0 var(--blue)}
+.avw{position:relative;flex:none}
+.avw .on{position:absolute;right:0;bottom:0;width:10px;height:10px;border-radius:50%;background:#1BAA74;box-shadow:0 0 0 2px #fff}
+.cv .t{min-width:0;flex:1}
+.cv b{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;color:var(--ink)}
+.cv b em{font-style:normal;font-weight:500;font-size:11.5px;color:var(--subtle);font-variant-numeric:tabular-nums}
+.cv span.p{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-top:2px}
+.cv span.p i{font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv .cnt{margin-left:0}
+.mid{display:flex;flex-direction:column;min-width:0}
+.mh{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.mh b{display:block;font-size:14.5px;font-weight:600;color:var(--ink)}
+.mh span.s{font-size:12.5px;color:var(--green)}
+.mh .acts{margin-left:auto;display:flex;gap:6px}
+.icb{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--muted);box-shadow:var(--sh);background:#fff}
+.icb .ic{width:16px;height:16px}
+.msgs{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:10px;background:var(--soft);overflow:hidden}
+.day{align-self:center;font-size:11.5px;font-weight:600;color:var(--muted);background:#fff;box-shadow:var(--sh);padding:4px 10px;border-radius:99px;margin:4px 0}
+.m{max-width:68%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.55}
+.m small{display:block;font-size:11px;margin-top:4px;text-align:right;font-variant-numeric:tabular-nums}
+.m.in{align-self:flex-start;background:#fff;box-shadow:var(--sh);color:var(--text);border-bottom-left-radius:4px}
+.m.in small{color:var(--subtle)}
+.m.out{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:4px}
+.m.out small{color:rgba(255,255,255,.7)}
+.fm{display:flex;gap:10px;align-items:center;min-width:240px}
+.fm b{display:block;font-size:13px;font-weight:600;color:var(--ink)}
+.fm span{font-size:12px;color:var(--muted)}
+.fm .ic{margin-left:auto;width:16px;height:16px;color:var(--muted)}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:10px 14px;border-radius:14px;background:#fff;box-shadow:var(--sh)}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--subtle)}
+.comp{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
+.comp .in{flex:1;height:40px;border-radius:10px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;padding:0 14px;font-size:13.5px;color:var(--subtle)}
+.side{border-left:1px solid var(--line);padding:24px 20px;display:flex;flex-direction:column;gap:18px}
+.prof{text-align:center}
+.prof .av{width:64px;height:64px;font-size:20px;margin:0 auto}
+.prof b{display:block;font-size:15px;font-weight:600;color:var(--ink);margin-top:12px}
+.prof span{font-size:12.5px;color:var(--muted)}
+.side .kvrow{grid-template-columns:118px 1fr;padding-top:16px;border-top:1px solid var(--line)}
+.sf{display:flex;gap:10px;align-items:center}
+.sf b{display:block;font-size:13px;font-weight:600;color:var(--ink)}
+.sf span{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sb" aria-label="Yon panel">
+<div class="brand"><span class="mark">R</span><span class="t"><b>Raqamli Malaka</b><small>Oshirish platformasi</small></span><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/></svg></div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Asosiy sahifa</a>
+<div class="grp">OʻQUV</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Mening kurslarim</a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17V11M13 17V7M18 17v-4"/></svg>Natijalarim</a>
+<div class="grp">MULOQOT</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Videokonferensiyalar</a>
+<a class="nv on" aria-current="page"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Chat<span class="cnt">2</span></a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M17 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10l4-4h2"/><path d="M21 21l-4-4h-6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/></svg>Forum</a>
+<div class="grp">RESURSLAR</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19V5M8 19V5M12 19l-2-14M16 5h4v14h-4z"/></svg>Kutubxona</a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Arizalar</a>
+<div class="sb-b"><a class="nv"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>Yordam markazi</a><div class="me"><span class="av">BS</span><span><b>Baxtiyorov Sarvar</b><span>Tinglovchi</span></span><svg class="ic" viewBox="0 0 24 24"><path d="m8 9 4-4 4 4M16 15l-4 4-4-4"/></svg></div></div></aside>
+<div class="panel">
+<header class="hd"><h1>Chat</h1><div class="search" role="search"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Kurs, dars yoki kitob qidirish<kbd>Ctrl K</kbd></div><span class="ib"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>UZ</span><span class="ib" aria-label="Bildirishnomalar"><svg class="ic" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="dot"></span></span></header>
+
+<div class="chat">
+  <div class="cl1">
+    <div class="top"><div class="cs"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Suhbatlardan qidirish</div><div class="seg"><span class="on">Barchasi</span><span>Oʻqituvchilar</span><span>Guruh</span></div></div>
+    <div class="cv on"><span class="avw"><span class="av navy">AS</span><span class="on"></span></span><div class="t"><b>Atabayev Sirojiddin<em>10:24</em></b><span class="p"><i>Baholash mezonlarini ham yubordim</i><span class="cnt">2</span></span></div></div>
+    <div class="cv"><span class="avw"><span class="av blue">17</span></span><div class="t"><b>17-26-guruh<em>09:40</em></b><span class="p"><i>Doniyorov T.: Ertangi suhbat soat nechada?</i><span class="cnt">5</span></span></div></div>
+    <div class="cv"><span class="avw"><span class="av amber">KM</span><span class="on"></span></span><div class="t"><b>Karimova Malika<em>Kecha</em></b><span class="p"><i>Mehnat muhofazasi kursi 8-noyabrdan</i></span></div></div>
+    <div class="cv"><span class="avw"><span class="av ">QX</span></span><div class="t"><b>Qoʻllab-quvvatlash<em>14.10</em></b><span class="p"><i>Arizangiz qabul qilindi. Raqami A-2026-0412</i></span></div></div>
+    <div class="cv"><span class="avw"><span class="av navy">RA</span></span><div class="t"><b>Rasulov Akmal<em>28.09</em></b><span class="p"><i>Sertifikatingiz tayyor, tabriklayman!</i></span></div></div>
+  </div>
+  <div class="mid">
+    <div class="mh"><span class="avw"><span class="av navy">AS</span><span class="on"></span></span><div><b>Atabayev Sirojiddin</b><span class="s">Oʻqituvchi · onlayn</span></div>
+      <div class="acts"><span class="icb"><svg class="ic" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></span><span class="icb"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><span class="icb"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span></div></div>
+    <div class="msgs">
+      <span class="day">Bugun, 16-oktabr</span>
+      <div class="m out">Assalomu alaykum! 2-modul case study topshirigʻi boʻyicha savolim bor edi.<small>10:12 ✓✓</small></div>
+      <div class="m in">Va alaykum assalom, Sarvar. Albatta, soʻrang.<small>10:15</small></div>
+      <div class="m out">Case study javobini qachongacha yuborish kerak? Savollarga birdaniga javob berish shartmi?<small>10:16 ✓✓</small></div>
+      <div class="m in">21-oktabrgacha. Har bir savolga alohida javob yuboring — yuborganingizdan keyin ekspert javobi ochiladi va solishtirishingiz mumkin.<small>10:20</small></div>
+      <div class="m in"><div class="fm"><span class="fileic pdf">PDF</span><div><b>Baholash_mezonlari.pdf</b><span>180 KB</span></div><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></div><small>10:24</small></div>
+      <div class="typing"><i></i><i></i><i></i></div>
+    </div>
+    <div class="comp"><span class="icb"><svg class="ic" viewBox="0 0 24 24"><path d="m21.4 11-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7L9.4 17.4a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></span><div class="in">Xabar yozing…</div><a class="btn b-pri"><svg class="ic" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>Yuborish</a></div>
+  </div>
+  <div class="side">
+    <div class="prof"><span class="av navy">AS</span><b>Atabayev Sirojiddin</b><span>HR boʻyicha ekspert</span></div>
+    <dl class="kvrow"><dt><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Kurs</dt><dd>Zamonaviy HR</dd><dt><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Konsultatsiya</dt><dd>Pa, 15:00–16:00</dd><dt><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Javob vaqti</dt><dd>~4 soat</dd></dl>
+    <div><span class="cap">Ulashilgan fayllar · 2</span>
+      <div class="sf" style="margin-top:12px"><span class="fileic pdf">PDF</span><div><b>Baholash_mezonlari.pdf</b><span>Bugun · 180 KB</span></div></div>
+      <div class="sf" style="margin-top:10px"><span class="fileic doc">DOC</span><div><b>Case_namuna.docx</b><span>12.10 · 64 KB</span></div></div></div>
+    <a class="btn b-white" style="margin-top:auto"><svg class="ic" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Videoqoʻngʻiroq</a>
+  </div>
+</div>
+</div>
+</div>
+</body>
+</html>

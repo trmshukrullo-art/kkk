@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arizalar — Raqamli Malaka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sb:#071230;--sb-text:#B4BED6;--sb-dim:#6F7C9C;--sb-line:#16244A;
+  --bg:#F3F5F9;--card:#FFFFFF;--line:#E3E8F1;--line-2:#EDF0F5;--grid:#E6EAF2;--soft:#F8FAFC;
+  --ink:#0B1324;--text:#1F2A44;--muted:#5B6782;--subtle:#8A94AB;
+  --navy-900:#0B1A3F;--navy-800:#12275A;--blue-700:#1E3F9A;--blue:#2550C0;--blue-500:#3B6CE0;--blue-300:#9DB8F5;--blue-100:#DCE6FB;--blue-50:#EEF3FD;
+  --green:#0E7A52;--green-100:#CBE8D9;--green-50:#E5F4EC;--amber:#B7791F;--amber-100:#F1D9B5;--amber-50:#FCF1E1;--red:#B4232F;--red-100:#F0C9CD;--red-50:#FBEDEE;
+  --sh:0 0 0 1px var(--line),0 1px 2px rgba(11,26,63,.04);
+  --sh-lg:0 0 0 1px var(--line),0 12px 32px -12px rgba(11,26,63,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;font-feature-settings:"cv11";background:var(--sb);color:var(--text);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.num{font-variant-numeric:tabular-nums}
+.app{display:grid;grid-template-columns:240px 1fr;width:1440px;min-height:100vh}
+.app.focus{grid-template-columns:1fr}
+/* sidebar */
+.sb{display:flex;flex-direction:column;padding:18px 12px 16px;color:var(--sb-text)}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px 22px}
+.mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(140deg,#3B6CE0,#1E3F9A);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);flex:none}
+.brand .t{line-height:1.15}
+.brand b{color:#fff;font-size:14.5px;font-weight:700}
+.brand small{display:block;font-size:11.5px;color:var(--sb-dim);font-weight:500}
+.brand>.ic{margin-left:auto;color:var(--sb-dim)}
+.grp{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--sb-dim);padding:18px 10px 8px}
+.nv{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:9px;font-size:13.5px;font-weight:500;margin-bottom:2px}
+.nv .ic{color:var(--sb-dim)}
+.nv.on{color:#fff;background:rgba(59,108,224,.2);box-shadow:inset 0 0 0 1px rgba(157,184,245,.16)}
+.nv.on .ic{color:var(--blue-300)}
+.cnt{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--blue);color:#fff;font-size:11px;font-weight:600;display:grid;place-items:center}
+.sb-b{margin-top:auto}
+.me{display:flex;align-items:center;gap:10px;padding:14px 8px 0;margin-top:12px;border-top:1px solid var(--sb-line)}
+.me b{display:block;color:#fff;font-size:13.5px;font-weight:600;line-height:1.25}
+.me span span{font-size:12px;color:var(--sb-dim)}
+.me>.ic{margin-left:auto;color:var(--sb-dim)}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff!important;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.av.sm{width:26px;height:26px;font-size:10.5px}
+.av.lg{width:44px;height:44px;font-size:15px}
+.av.blue{background:var(--blue)}.av.navy{background:var(--navy-800)}.av.amber{background:var(--amber)}
+/* panel + header */
+.panel{background:var(--bg);margin:8px 8px 8px 0;border-radius:16px;overflow:hidden;min-width:0}
+.focus .panel{margin:8px}
+.hd{display:flex;align-items:center;gap:10px;height:64px;padding:0 24px;border-bottom:1px solid var(--line);background:#FAFBFD}
+.hd h1{font-size:15px;font-weight:600;color:var(--ink);white-space:nowrap}
+.crumb{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.crumb .ic{width:14px;height:14px;color:var(--subtle)}
+.crumb b{color:var(--ink);font-weight:600}
+.bk{width:34px;height:34px;border-radius:9px;background:#fff;box-shadow:var(--sh);display:grid;place-items:center;color:var(--ink);flex:none}
+.bk .ic{width:16px;height:16px}
+.search{margin-left:auto;width:300px;height:38px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;gap:10px;padding:0 6px 0 12px;color:var(--subtle);font-size:13.5px}
+.search .ic{width:16px;height:16px}
+.search kbd{margin-left:auto;font:600 11px Inter;color:var(--muted);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;padding:3px 7px}
+.ib{height:38px;min-width:38px;padding:0 10px;border-radius:10px;background:#fff;box-shadow:var(--sh);display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:13px;font-weight:600;color:var(--ink);position:relative}
+.ib .ic{color:var(--muted)}
+.ib .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 2px #fff}
+.ml{margin-left:auto}
+/* layout */
+.ct{padding:24px;display:grid;gap:16px;align-items:start}
+.two{grid-template-columns:minmax(0,1fr) 348px}
+.col{display:grid;gap:16px;min-width:0;align-content:start}
+.card{background:var(--card);border-radius:14px;box-shadow:var(--sh)}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 20px}
+.ch h3{font-size:14.5px;font-weight:600;color:var(--ink)}
+.ch .lnk{margin-left:auto;font-size:13px;font-weight:600;color:var(--blue)}
+.bt{border-top:1px solid var(--line)}
+.cap{font-size:11px;font-weight:600;letter-spacing:.07em;color:var(--muted);text-transform:uppercase}
+.mut{color:var(--muted)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;font-weight:600;font-size:13.5px;white-space:nowrap}
+.btn .ic{width:16px;height:16px}
+.b-pri{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px -4px rgba(37,80,192,.55)}
+.b-white{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+.b-ghost{color:var(--muted)}
+.b-sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.b-dis{background:#E9EDF4;color:var(--subtle);box-shadow:none}
+/* status pills */
+.st{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 1px 1px rgba(11,26,63,.04);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.st i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px currentColor;flex:none}
+.st.blue i{color:var(--blue)}.st.green i{color:var(--green);background:var(--green)}.st.amber i{color:var(--amber)}.st.red i{color:var(--red)}.st.gray i{color:var(--subtle)}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap}
+.t-blue{background:var(--blue-50);color:var(--blue)}.t-green{background:var(--green-50);color:var(--green)}.t-amber{background:var(--amber-50);color:var(--amber)}.t-gray{background:var(--bg);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}.t-red{background:var(--red-50);color:var(--red)}
+.cl{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 6px;border-radius:5px;background:var(--bg);font-size:11.5px;font-weight:600;color:var(--muted)}
+.cl .ic{width:11px;height:11px}
+.seg{display:inline-flex;padding:3px;border-radius:9px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line)}
+.seg span{height:28px;padding:0 10px;border-radius:7px;font-size:12.5px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.seg span em{font-style:normal;color:var(--subtle)}
+.seg .on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(11,26,63,.1),0 0 0 1px var(--line)}
+.utabs{display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--line)}
+.utabs span{display:inline-flex;align-items:center;gap:7px;height:44px;font-size:13.5px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.utabs span .ic{width:16px;height:16px}
+.utabs span em{font-style:normal;color:var(--subtle)}
+.utabs .on{color:var(--blue);border-color:var(--blue);font-weight:600}
+.utabs .on em{color:var(--blue)}
+.bar{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--blue)}
+.bar.g i{background:var(--green)}
+.alert{display:flex;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.45}
+.alert .ic{width:16px;height:16px;margin-top:1px}
+.a-red{background:var(--red-50);box-shadow:inset 0 0 0 1px var(--red-100);color:#7A1F27}.a-red .ic{color:var(--red)}
+.a-blue{background:var(--blue-50);box-shadow:inset 0 0 0 1px var(--blue-100);color:#1B2F6B}.a-blue .ic{color:var(--blue)}
+.a-amber{background:var(--amber-50);box-shadow:inset 0 0 0 1px var(--amber-100);color:#6B4610}.a-amber .ic{color:var(--amber)}
+.alert b{font-weight:600}
+.kvrow{display:grid;grid-template-columns:120px 1fr;gap:10px 12px;align-items:center;font-size:13px}
+.kvrow dt{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.kvrow dt .ic{width:15px;height:15px;color:var(--subtle)}
+.kvrow dd{color:var(--ink);font-weight:500}
+.fileic{width:34px;height:40px;border-radius:5px;background:linear-gradient(180deg,#F3F5F9,#E6EAF2);box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:8.5px;font-weight:700;color:var(--muted);letter-spacing:.03em;flex:none}
+.fileic.pdf{color:var(--red)}.fileic.doc{color:var(--blue)}.fileic.ppt{color:var(--amber)}
+.dotc{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;box-shadow:inset 0 0 0 1.5px var(--line);color:var(--muted);background:#fff;flex:none}
+.dotc.done{box-shadow:inset 0 0 0 1.5px var(--green);color:var(--green);background:var(--green-50)}
+.dotc.cur{background:var(--blue);color:#fff;box-shadow:none}
+.dotc .ic{width:14px;height:14px;stroke-width:2.4}
+
+.split{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:16px;padding:24px;align-items:start}
+.drw{background:#fff;border-radius:14px;box-shadow:var(--sh-lg);overflow:hidden;display:flex;flex-direction:column}
+.drw-h{display:flex;gap:12px;align-items:flex-start;padding:20px 20px 16px}
+.drw-h h2{font-size:18px;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.drw-h p{font-size:12.5px;color:var(--muted);margin-top:4px}
+.x{margin-left:auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--muted);box-shadow:var(--sh);flex:none}
+.x .ic{width:15px;height:15px}
+.drw .kvrow{padding:0 20px 16px;border-bottom:1px dashed var(--line);margin:0}
+.drw-b{padding:16px 20px}
+.drw-f{display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid var(--line);background:var(--soft)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12.5px;font-weight:500;color:var(--muted);padding:10px 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#FAFBFD;white-space:nowrap}
+td{padding:0 20px;height:56px;border-bottom:1px solid var(--line-2);font-size:13.5px;color:var(--ink)}
+tr:last-child td{border-bottom:0}
+tr.on td{background:var(--blue-50)}
+tr.on td:first-child{box-shadow:inset 3px 0 0 var(--blue)}
+td small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.icb{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--muted);box-shadow:var(--sh);background:#fff}
+.icb .ic{width:15px;height:15px}
+.fsearch{height:36px;border-radius:9px;background:#fff;box-shadow:var(--sh);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:13px;color:var(--subtle)}
+.fsearch .ic{width:15px;height:15px}
+.sel{height:36px;padding:0 12px;border-radius:9px;background:#fff;box-shadow:var(--sh);display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);white-space:nowrap}
+.sel b{color:var(--ink);font-weight:600}
+.sel .ic{width:15px;height:15px}
+
+.tl{position:relative;display:grid;gap:14px;margin-top:4px}
+.tl>div{display:flex;gap:12px;position:relative}
+.tl>div:not(:last-child):after{content:"";position:absolute;left:13px;top:30px;bottom:-14px;width:2px;background:var(--line)}
+.tl>div.d:not(:last-child):after{background:var(--green-100)}
+.tl b{display:block;font-size:13.5px;font-weight:600;color:var(--ink)}
+.tl span.s{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tl .p .dotc{background:#fff;box-shadow:inset 0 0 0 1.5px var(--amber);color:var(--amber)}
+.sec{padding:16px 20px;border-top:1px solid var(--line)}
+.sec .cap{display:block;margin-bottom:12px}
+.doc{display:flex;gap:10px;align-items:center;padding:10px 0}
+.doc+.doc{border-top:1px solid var(--line-2)}
+.doc b{display:block;font-size:13px;font-weight:600;color:var(--ink)}
+.doc span{font-size:12px;color:var(--muted)}
+.ds{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em}
+.ds i{width:8px;height:8px;border-radius:50%}
+.ds.ok{color:var(--green)}.ds.ok i{background:var(--green)}
+.ds.wt{color:var(--amber)}.ds.wt i{box-shadow:inset 0 0 0 2px var(--amber)}
+.drop{display:flex;align-items:center;justify-content:center;gap:8px;height:52px;border-radius:10px;border:1.5px dashed var(--line);background:var(--soft);font-size:13px;color:var(--muted);margin-bottom:6px}
+.drop .ic{width:16px;height:16px}
+.drop u{color:var(--ink);font-weight:600}
+.b-danger{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sb" aria-label="Yon panel">
+<div class="brand"><span class="mark">R</span><span class="t"><b>Raqamli Malaka</b><small>Oshirish platformasi</small></span><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18"/></svg></div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Asosiy sahifa</a>
+<div class="grp">OʻQUV</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Mening kurslarim</a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17V11M13 17V7M18 17v-4"/></svg>Natijalarim</a>
+<div class="grp">MULOQOT</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Videokonferensiyalar</a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Chat<span class="cnt">2</span></a>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M17 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10l4-4h2"/><path d="M21 21l-4-4h-6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/></svg>Forum</a>
+<div class="grp">RESURSLAR</div>
+<a class="nv"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19V5M8 19V5M12 19l-2-14M16 5h4v14h-4z"/></svg>Kutubxona</a>
+<a class="nv on" aria-current="page"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Arizalar</a>
+<div class="sb-b"><a class="nv"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg>Yordam markazi</a><div class="me"><span class="av">BS</span><span><b>Baxtiyorov Sarvar</b><span>Tinglovchi</span></span><svg class="ic" viewBox="0 0 24 24"><path d="m8 9 4-4 4 4M16 15l-4 4-4-4"/></svg></div></div></aside>
+<div class="panel">
+<header class="hd"><h1>Arizalar</h1><span class="ml"></span><a class="btn b-pri"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Yangi ariza</a><span class="ib"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>UZ</span><span class="ib"><svg class="ic" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg><span class="dot"></span></span></header>
+
+<main class="split">
+  <div class="col">
+    <section class="card">
+      <div class="ch"><div class="seg"><span class="on">Barchasi <em>4</em></span><span>Koʻrib chiqilmoqda <em>1</em></span><span>Yakunlangan <em>3</em></span></div><span class="sel ml">Turi: <b>Barchasi</b><svg class="ic" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></div>
+      <table><thead><tr><th>Ariza</th><th style="width:132px">Turi</th><th style="width:108px">Yuborilgan</th><th style="width:164px">Holat</th><th style="width:36px"></th></tr></thead><tbody><tr class="on"><td><b style="font-weight:600">Individual oʻqish arizasi</b><small>№ A-2026-0412</small></td><td class="mut">Yozilish</td><td class="num mut">14.10.2026</td><td><span class="st amber"><i></i>Koʻrib chiqilmoqda</span></td><td style="width:40px;color:var(--subtle)"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></td></tr><tr class=""><td><b style="font-weight:600">Sertifikat nusxasi</b><small>№ A-2026-0388</small></td><td class="mut">Hujjat</td><td class="num mut">05.10.2026</td><td><span class="st green"><i></i>Tasdiqlangan</span></td><td style="width:40px;color:var(--subtle)"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></td></tr><tr class=""><td><b style="font-weight:600">Guruhni oʻzgartirish</b><small>№ A-2026-0351</small></td><td class="mut">Guruh</td><td class="num mut">28.09.2026</td><td><span class="st red"><i></i>Rad etilgan</span></td><td style="width:40px;color:var(--subtle)"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></td></tr><tr class=""><td><b style="font-weight:600">Test natijasiga eʼtiroz</b><small>№ A-2026-0297</small></td><td class="mut">Baholash</td><td class="num mut">11.09.2026</td><td><span class="st green"><i></i>Tasdiqlangan</span></td><td style="width:40px;color:var(--subtle)"><svg class="ic" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></td></tr></tbody></table>
+    </section>
+    <div class="alert a-blue"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span>Arizalar <b>3 ish kuni</b> ichida koʻrib chiqiladi. Holat oʻzgarganda SMS va platforma orqali xabar beramiz.</span></div>
+  </div>
+
+  <aside class="drw">
+    <div class="drw-h"><div><h2>Individual oʻqish uchun ariza</h2><p>Yuborilgan: 14.10.2026, 11:40</p></div><span class="x"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span></div>
+    <dl class="kvrow">
+      <dt><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Holat</dt><dd><span class="st amber"><i></i>Koʻrib chiqilmoqda</span></dd>
+      <dt><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Raqam</dt><dd>A-2026-0412</dd>
+      <dt><svg class="ic" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Kurs</dt><dd>Xodimlarni baholash va attestatsiya</dd>
+      <dt><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Javob muddati</dt><dd class="num">17.10.2026 <span class="mut" style="font-weight:400">· 1 kun qoldi</span></dd>
+    </dl>
+    <div class="drw-b"><span class="cap">Jarayon</span>
+      <div class="tl" style="margin-top:12px">
+        <div class="d"><span class="dotc done"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Ariza yuborildi</b><span class="s">14.10.2026, 11:40</span></div></div>
+        <div class="d"><span class="dotc done"><svg class="ic" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Hujjatlar tekshirildi</b><span class="s">15.10.2026, 09:12 · Qoʻllab-quvvatlash</span></div></div>
+        <div class="p"><span class="dotc">3</span><div><b>Komissiya koʻrib chiqmoqda</b><span class="s">Kutilmoqda</span></div></div>
+        <div><span class="dotc">4</span><div><b>Qaror va guruhga biriktirish</b><span class="s">—</span></div></div>
+      </div>
+    </div>
+    <div class="sec"><span class="cap">Hujjatlar · 2</span>
+      <div class="drop"><svg class="ic" viewBox="0 0 24 24" style="transform:rotate(180deg)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Fayllarni shu yerga tashlang yoki <u>yuklang</u></div>
+      <div class="doc"><span class="fileic pdf">PDF</span><div><b>Pasport_nusxasi.pdf</b><span>Yuklangan: 14.10.2026</span></div><span class="ds ok">TASDIQLANDI<i></i></span></div>
+      <div class="doc"><span class="fileic pdf">PDF</span><div><b>Ish_joyidan_malumotnoma.pdf</b><span>Yuklangan: 14.10.2026</span></div><span class="ds wt">KUTILMOQDA<i></i></span></div>
+    </div>
+    <div class="drw-f"><a class="btn b-ghost b-danger">Arizani bekor qilish</a><a class="btn b-white ml"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Izoh qoʻshish</a></div>
+  </aside>
+</main>
+</div>
+</div>
+</body>
+</html>

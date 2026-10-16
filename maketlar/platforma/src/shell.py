@@ -51,6 +51,7 @@ ICONS = dict(
     dots='<circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/>',
     save='<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/>',
     exit='<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+    x='<path d="M18 6 6 18M6 6l12 12"/>',
 )
 
 
@@ -96,7 +97,7 @@ svg{display:block}
 .me b{display:block;color:#fff;font-size:13.5px;font-weight:600;line-height:1.25}
 .me span span{font-size:12px;color:var(--sb-dim)}
 .me>.ic{margin-left:auto;color:var(--sb-dim)}
-.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.av{width:32px;height:32px;border-radius:50%;background:var(--green);color:#fff!important;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
 .av.sm{width:26px;height:26px;font-size:10.5px}
 .av.lg{width:44px;height:44px;font-size:15px}
 .av.blue{background:var(--blue)}.av.navy{background:var(--navy-800)}.av.amber{background:var(--amber)}
@@ -119,7 +120,7 @@ svg{display:block}
 .ml{margin-left:auto}
 /* layout */
 .ct{padding:24px;display:grid;gap:16px;align-items:start}
-.two{grid-template-columns:1fr 348px}
+.two{grid-template-columns:minmax(0,1fr) 348px}
 .col{display:grid;gap:16px;min-width:0;align-content:start}
 .card{background:var(--card);border-radius:14px;box-shadow:var(--sh)}
 .ch{display:flex;align-items:center;gap:12px;padding:16px 20px}
@@ -183,7 +184,7 @@ NAV = [
 ]
 
 
-def sidebar(active):
+def sidebar(active, badges=True):
     out = ['<aside class="sb" aria-label="Yon panel">',
            f'<div class="brand"><span class="mark">R</span><span class="t"><b>Raqamli Malaka</b><small>Oshirish platformasi</small></span>{ic("panel")}</div>']
     for grp, items in NAV:
@@ -191,7 +192,7 @@ def sidebar(active):
             out.append(f'<div class="grp">{grp}</div>')
         for icon, label, key in items:
             on = ' on" aria-current="page' if key == active else ''
-            extra = '<span class="cnt">2</span>' if key == "chat" else ''
+            extra = '<span class="cnt">2</span>' if key == "chat" and badges else ''
             out.append(f'<a class="nv{on}">{ic(icon)}{label}{extra}</a>')
     out.append(f'<div class="sb-b"><a class="nv">{ic("help")}Yordam markazi</a>'
                f'<div class="me"><span class="av">BS</span><span><b>Baxtiyorov Sarvar</b><span>Tinglovchi</span></span>{ic("updown")}</div></div></aside>')
@@ -204,8 +205,8 @@ def tools(search=True):
             f'<span class="ib" aria-label="Bildirishnomalar">{ic("bell")}<span class="dot"></span></span>')
 
 
-def page(title, header, body, css="", active=None, focus=False):
-    sb = "" if focus else sidebar(active)
+def page(title, header, body, css="", active=None, focus=False, badges=True):
+    sb = "" if focus else sidebar(active, badges)
     return f"""<!doctype html>
 <html lang="uz">
 <head>
