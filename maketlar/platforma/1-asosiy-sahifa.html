@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asosiy sahifa — Raqamli Malaka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#071230;--navy-900:#0B1A3F;--navy-800:#12275A;--blue-700:#1E3F9A;--blue-600:#2550C0;--blue-500:#3B6CE0;--blue-300:#9DB8F5;--blue-100:#DCE6FB;--blue-50:#EEF3FD;
+  --ink:#0B1324;--text:#1F2A44;--muted:#5B6782;--subtle:#8A94AB;--line:#E3E8F1;--line-strong:#CDD5E3;--bg:#F5F7FB;
+  --green-700:#0E7A52;--green-50:#E5F4EC;--amber-700:#A8550A;--amber-50:#FCF1E1;--red-600:#D23B48;--red-50:#FDECEE;
+  --sh-sm:0 1px 2px rgba(11,26,63,.06),0 1px 1px rgba(11,26,63,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--bg);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+a{color:inherit;text-decoration:none}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+svg{display:block}
+:focus-visible{outline:3px solid var(--blue-500);outline-offset:2px;border-radius:6px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.app{display:grid;grid-template-columns:264px 1fr;min-height:100vh;width:1440px}
+
+/* Sidebar */
+.sb{background:var(--navy-950);color:rgba(255,255,255,.72);display:flex;flex-direction:column;padding:20px 16px}
+.logo{display:flex;align-items:center;gap:12px;color:#fff;padding:4px 8px 24px}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(140deg,#3B6CE0,#1E3F9A);display:grid;place-items:center;font-weight:800;font-size:17px;box-shadow:0 0 0 1px rgba(255,255,255,.14) inset}
+.logo b{display:block;font-size:14px;letter-spacing:.04em;line-height:1.2}
+.logo b+span{font-size:12px;color:rgba(255,255,255,.56)}
+.grp{font-size:11.5px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.4);padding:20px 12px 8px}
+.nv{display:flex;align-items:center;gap:12px;height:42px;padding:0 12px;border-radius:10px;font-weight:500;position:relative}
+.nv:hover{background:rgba(255,255,255,.05);color:#fff}
+.nv.on{background:rgba(59,108,224,.16);color:#fff}
+.nv.on:before{content:"";position:absolute;left:-16px;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--blue-500)}
+.nv.on .ic{color:var(--blue-300)}
+.nv .badge{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--blue-500);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+.sb-foot{margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}
+.me{display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px}
+.me:hover{background:rgba(255,255,255,.05)}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:var(--green-700);flex:none}
+.me b{display:block;color:#fff;font-size:14px;font-weight:600;line-height:1.3}
+.me span{font-size:12.5px;color:rgba(255,255,255,.5)}
+.me .ic{margin-left:auto;width:18px;height:18px;color:rgba(255,255,255,.5)}
+
+/* Topbar */
+.main{min-width:0}
+.top{height:72px;display:flex;align-items:center;gap:16px;padding:0 40px;background:rgba(245,247,251,.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--line)}
+.crumb{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.crumb b{color:var(--ink);font-weight:600}
+.search{margin-left:auto;width:380px;height:42px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:10px;padding:0 8px 0 14px;color:var(--subtle);font-size:14.5px}
+.search kbd{margin-left:auto;font:600 12px Inter;color:var(--muted);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;padding:3px 7px}
+.ib{width:42px;height:42px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);display:grid;place-items:center;color:var(--text);position:relative}
+.ib:hover{background:var(--bg)}
+.ib .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--red-600);box-shadow:0 0 0 2px #fff}
+.lang{height:42px;padding:0 12px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.lang .ic{width:18px;height:18px;color:var(--muted)}
+
+/* Content */
+.ct{padding:32px 40px 48px;display:grid;grid-template-columns:1fr 344px;gap:24px;align-items:start}
+.hello{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between}
+.hello h1{font-size:28px;line-height:1.2;letter-spacing:-.025em;color:var(--ink);font-weight:700}
+.hello p{color:var(--muted);margin-top:6px;font-size:15.5px}
+.streak{display:flex;align-items:center;gap:10px;height:40px;padding:0 14px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:14px;color:var(--muted)}
+.streak b{color:var(--ink)}
+.streak .ic{color:var(--amber-700);width:18px;height:18px}
+.col{display:grid;gap:24px;min-width:0}
+.card{background:#fff;border-radius:16px;box-shadow:var(--sh-sm),inset 0 0 0 1px var(--line)}
+.card-h{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 0}
+.card-h h2{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.card-h a{font-size:14px;font-weight:600;color:var(--blue-600)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.c-blue{background:var(--blue-50);color:var(--blue-700)}
+.c-green{background:var(--green-50);color:var(--green-700)}
+.c-amber{background:var(--amber-50);color:var(--amber-700)}
+.c-red{background:var(--red-50);color:var(--red-600)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font-weight:600;font-size:14.5px;white-space:nowrap}
+.btn .ic{width:18px;height:18px}
+.b-white{background:#fff;color:var(--navy-900)}
+.b-glass{color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.b-pri{background:var(--blue-600);color:#fff}
+.b-out{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.btn-sm{height:34px;padding:0 12px;font-size:13.5px;border-radius:8px}
+
+/* Continue */
+.cont{position:relative;overflow:hidden;border-radius:20px;padding:28px 32px;color:#fff;background:radial-gradient(520px 300px at 100% 0%,rgba(59,108,224,.55),transparent 65%),linear-gradient(135deg,var(--navy-900),var(--blue-700));display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.cont:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(90deg,transparent 40%,#000);-webkit-mask-image:linear-gradient(90deg,transparent 40%,#000)}
+.cont>*{position:relative}
+.cont small{font-size:12px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.62)}
+.cont h2{font-size:24px;line-height:1.25;letter-spacing:-.02em;margin:8px 0 12px;max-width:520px}
+.metas{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.metas span{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:8px;background:rgba(255,255,255,.1);font-size:13px;color:rgba(255,255,255,.86)}
+.metas .ic{width:15px;height:15px}
+.cont .acts{display:flex;gap:10px}
+.ring{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#fff 0 29%,rgba(255,255,255,.16) 0)}
+.ring>div{width:112px;height:112px;border-radius:50%;background:#183590;display:grid;place-items:center;text-align:center}
+.ring b{display:block;font-size:30px;letter-spacing:-.03em;line-height:1}
+.ring span{font-size:12px;color:rgba(255,255,255,.7)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.st{padding:20px;display:flex;flex-direction:column;gap:14px}
+.st-h{display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--muted);font-weight:500}
+.st-i{width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
+.st-i .ic{width:18px;height:18px}
+.st-v{font-size:30px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.st-v small{font-size:15px;font-weight:500;color:var(--subtle);letter-spacing:0}
+.st-f{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.up{color:var(--green-700);font-weight:600}
+.st-f a{color:var(--blue-600);font-weight:600}
+
+/* Courses */
+.tabs{display:inline-flex;padding:3px;border-radius:10px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--line)}
+.tabs button{height:32px;padding:0 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:var(--sh-sm)}
+.tabs button i{font-style:normal;color:var(--subtle);font-weight:500;margin-left:4px}
+.list{padding:12px 12px 12px}
+.crs{display:grid;grid-template-columns:48px 1fr 220px 108px;gap:20px;align-items:center;padding:14px 12px;border-radius:12px}
+.crs+.crs{border-top:1px solid var(--line);border-radius:0}
+.crs:hover{background:#FAFBFD}
+.crs-i{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;color:#fff}
+.crs-i .ic{width:22px;height:22px}
+.crs h3{font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.crs p{white-space:nowrap;font-size:13.5px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:8px}
+.crs p i{width:3px;height:3px;border-radius:50%;background:var(--subtle)}
+.prog-t{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.prog-t b{color:var(--ink);font-weight:600}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--blue-600)}
+.bar.done i{background:var(--green-700)}
+.crs .btn{width:100%}
+
+/* Right rail */
+.rail-list{padding:12px 12px 16px}
+.dl{display:flex;gap:14px;padding:12px;border-radius:12px;align-items:flex-start}
+.dl+.dl{margin-top:2px}
+.dl:hover{background:#FAFBFD}
+.dl-i{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;flex:none}
+.dl-i .ic{width:19px;height:19px}
+.dl b{display:block;font-size:14.5px;color:var(--ink);font-weight:600;line-height:1.35}
+.dl span{font-size:13px;color:var(--muted)}
+.dl .chip{margin-top:8px}
+.dl .btn{margin-top:10px}
+.meet{display:flex;align-items:center;gap:14px;padding:12px;border-radius:12px}
+.meet+.meet{border-top:1px solid var(--line);border-radius:0}
+.when{width:48px;text-align:center;flex:none;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);padding:6px 0;line-height:1.1}
+.when b{display:block;font-size:17px;color:var(--ink)}
+.when span{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.meet strong{display:block;font-size:14.5px;color:var(--ink);font-weight:600;line-height:1.35}
+.meet small{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.live{width:7px;height:7px;border-radius:50%;background:#1BAA74;box-shadow:0 0 0 3px rgba(27,170,116,.2)}
+.week{padding:20px 24px 24px}
+.week-v{display:flex;align-items:baseline;gap:8px;margin:12px 0 18px}
+.week-v b{font-size:26px;letter-spacing:-.03em;color:var(--ink)}
+.week-v span{font-size:13px;color:var(--muted)}
+.bars{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end;height:84px}
+.bars div{display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
+.bars i{width:100%;border-radius:6px;background:var(--blue-100)}
+.bars .td i{background:var(--blue-600)}
+.bars span{font-size:11.5px;color:var(--subtle);font-weight:500}
+.bars .td span{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17V11M13 17V7M18 17v-4"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-forum" viewBox="0 0 24 24"><path d="M17 9V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10l4-4h2"/><path d="M21 21l-4-4h-6a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 19V5M8 19V5M12 19l-2-14M16 5h4v14h-4z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 9 4-4 4 4M16 15l-4 4-4-4"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4v16l14-8z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m1 6 7-3 8 3 7-3v15l-7 3-8-3-7 3z"/><path d="M8 3v15M16 6v15"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.2.3 1.4 1.3 2.7 2.5 2.7z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+</svg>
+
+<div class="app">
+<aside class="sb" aria-label="Yon panel">
+  <a class="logo" href="#"><span class="logo-mark" aria-hidden="true">R</span><span><b>RAQAMLI MALAKA</b><span>Oshirish platformasi</span></span></a>
+  <nav aria-label="Asosiy menyu">
+    <div class="grp">OʻQUV</div>
+    <a class="nv on" href="#" aria-current="page"><svg class="ic"><use href="#i-home"/></svg>Asosiy sahifa</a>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-book"/></svg>Mening kurslarim</a>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-chart"/></svg>Natijalarim</a>
+    <div class="grp">MULOQOT</div>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-video"/></svg>Videokonferensiyalar</a>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-chat"/></svg>Chat<span class="badge">2</span></a>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-forum"/></svg>Forum</a>
+    <div class="grp">RESURSLAR</div>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-library"/></svg>Kutubxona</a>
+    <a class="nv" href="#"><svg class="ic"><use href="#i-file"/></svg>Arizalar</a>
+  </nav>
+  <div class="sb-foot">
+    <button class="me" style="width:100%;text-align:left"><span class="av">BS</span><span><b>Baxtiyorov Sarvar</b><span>Tinglovchi</span></span><svg class="ic"><use href="#i-chev"/></svg></button>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="top">
+    <div class="crumb"><b>Asosiy sahifa</b></div>
+    <div class="search" role="search"><svg class="ic" style="width:18px;height:18px"><use href="#i-search"/></svg>Kurs, dars yoki kitob qidirish<kbd>Ctrl K</kbd></div>
+    <button class="lang" aria-label="Til: Oʻzbekcha"><svg class="ic"><use href="#i-globe"/></svg>UZ</button>
+    <button class="ib" aria-label="Bildirishnomalar, 3 ta yangi"><svg class="ic"><use href="#i-bell"/></svg><span class="dot"></span></button>
+  </header>
+
+  <main class="ct">
+    <div class="hello">
+      <div><h1>Xayrli kun, Sarvar</h1><p>Bugun 3-darsni tugatsangiz, haftalik maqsadingizga erishasiz.</p></div>
+      <div class="streak"><svg class="ic"><use href="#i-flame"/></svg><span><b>5 kun</b> ketma-ket oʻqiyapsiz</span></div>
+    </div>
+
+    <div class="col">
+      <section class="cont" aria-label="Davom ettirish">
+        <div>
+          <small>DAVOM ETAMIZMI?</small>
+          <h2>3-dars. HR funksiyalari: klassik va zamonaviy yondashuv</h2>
+          <div class="metas">
+            <span><svg class="ic"><use href="#i-layers"/></svg>1-modul</span>
+            <span><svg class="ic"><use href="#i-clock"/></svg>12 daqiqa qoldi</span>
+            <span><svg class="ic"><use href="#i-case"/></svg>Case study bor</span>
+          </div>
+          <div class="acts">
+            <a class="btn b-white" href="#"><svg class="ic" style="fill:currentColor;stroke:none;width:14px;height:14px"><use href="#i-play"/></svg>Davom etish</a>
+            <a class="btn b-glass" href="#">Kurs rejasi</a>
+          </div>
+        </div>
+        <div class="ring" role="img" aria-label="Kurs 29% bajarilgan"><div><div><b>29%</b><span>2 / 7 dars</span></div></div></div>
+      </section>
+
+      <div class="stats">
+        <div class="card st">
+          <div class="st-h">Oʻrtacha ball<span class="st-i c-blue"><svg class="ic"><use href="#i-target"/></svg></span></div>
+          <div class="st-v">78 <small>/ 100</small></div>
+          <div class="st-f"><span class="up">↑ 6 ball</span>oʻtgan oyga nisbatan</div>
+        </div>
+        <div class="card st">
+          <div class="st-h">Tugatilgan darslar<span class="st-i c-green"><svg class="ic"><use href="#i-check"/></svg></span></div>
+          <div class="st-v">30 <small>/ 35</small></div>
+          <div class="st-f">3 ta kurs boʻyicha jami</div>
+        </div>
+        <div class="card st">
+          <div class="st-h">Sertifikatlar<span class="st-i c-amber"><svg class="ic"><use href="#i-award"/></svg></span></div>
+          <div class="st-v">2</div>
+          <div class="st-f"><a href="#">Yuklab olish →</a></div>
+        </div>
+      </div>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>Mening kurslarim</h2>
+          <div class="tabs" role="tablist"><button role="tab" aria-selected="true">Barchasi<i>3</i></button><button role="tab" aria-selected="false">Faol<i>1</i></button><button role="tab" aria-selected="false">Tugatilgan<i>2</i></button></div>
+        </div>
+        <div class="list">
+          <article class="crs">
+            <span class="crs-i" style="background:linear-gradient(135deg,#1E3F9A,#3B6CE0)"><svg class="ic"><use href="#i-users"/></svg></span>
+            <div><h3>Zamonaviy inson resurslarini boshqarish</h3><p><span class="chip c-blue">Joriy</span>17-26-guruh</p></div>
+            <div><div class="prog-t"><span>7 ta darsdan 2 tasi</span><b>29%</b></div><div class="bar"><i style="width:29%"></i></div></div>
+            <a class="btn btn-sm b-pri" href="#">Davom etish</a>
+          </article>
+          <article class="crs">
+            <span class="crs-i" style="background:linear-gradient(135deg,#0E7A52,#1BAA74)"><svg class="ic"><use href="#i-layers"/></svg></span>
+            <div><h3>Mustaqil taʼlim</h3><p><span class="chip c-green">Tugatilgan</span>Test guruhi<i></i>Ball: 86</p></div>
+            <div><div class="prog-t"><span>12 ta darsdan 12 tasi</span><b>100%</b></div><div class="bar done"><i style="width:100%"></i></div></div>
+            <a class="btn btn-sm b-out" href="#"><svg class="ic" style="width:16px;height:16px"><use href="#i-download"/></svg>Sertifikat</a>
+          </article>
+          <article class="crs">
+            <span class="crs-i" style="background:linear-gradient(135deg,#12275A,#1E3F9A)"><svg class="ic"><use href="#i-map"/></svg></span>
+            <div><h3>Ishlarni muvofiqlashtirish</h3><p><span class="chip c-green">Tugatilgan</span>8-guruh<i></i>Ball: 70</p></div>
+            <div><div class="prog-t"><span>16 ta darsdan 16 tasi</span><b>100%</b></div><div class="bar done"><i style="width:100%"></i></div></div>
+            <a class="btn btn-sm b-out" href="#"><svg class="ic" style="width:16px;height:16px"><use href="#i-download"/></svg>Sertifikat</a>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <aside class="col" aria-label="Qoʻshimcha">
+      <section class="card">
+        <div class="card-h"><h2>Muddatlar</h2><span class="chip c-red">2 ta yaqin</span></div>
+        <div class="rail-list">
+          <div class="dl">
+            <span class="dl-i c-red"><svg class="ic"><use href="#i-alert"/></svg></span>
+            <div><b>Yakuniy test</b><span>Zamonaviy inson resurslarini boshqarish</span><br><span class="chip c-red">2 kun qoldi · 18-oktabr</span></div>
+          </div>
+          <div class="dl">
+            <span class="dl-i c-amber"><svg class="ic"><use href="#i-case"/></svg></span>
+            <div><b>Case study topshirigʻi</b><span>1-modul, 3-dars</span><br><span class="chip c-amber">5 kun qoldi · 21-oktabr</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>Yaqin uchrashuvlar</h2><a href="#">Barchasi</a></div>
+        <div class="rail-list">
+          <div class="meet">
+            <div class="when"><b>16</b><span>okt</span></div>
+            <div style="flex:1;min-width:0"><strong>HR asoslari: ochiq maʼruza</strong><small><span class="live"></span>Jonli · 10:00–11:30</small></div>
+            <a class="btn btn-sm b-pri" href="#">Qoʻshilish</a>
+          </div>
+          <div class="meet">
+            <div class="when"><b>16</b><span>okt</span></div>
+            <div style="flex:1"><strong>Case study tahlili</strong><small>14:00 · Atabayev S.</small></div>
+          </div>
+          <div class="meet">
+            <div class="when"><b>17</b><span>okt</span></div>
+            <div style="flex:1"><strong>Yakuniy suhbat</strong><small>11:00 · Karimova M.</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card week">
+        <h2 style="font-size:17px;color:var(--ink)">Bu hafta</h2>
+        <div class="week-v"><b>4 soat 20 daq</b><span>maqsad: 5 soat</span></div>
+        <div class="bars" aria-hidden="true">
+          <div><i style="height:40%"></i><span>Du</span></div>
+          <div><i style="height:70%"></i><span>Se</span></div>
+          <div><i style="height:30%"></i><span>Ch</span></div>
+          <div class="td"><i style="height:85%"></i><span>Pa</span></div>
+          <div><i style="height:6%"></i><span>Ju</span></div>
+          <div><i style="height:6%"></i><span>Sh</span></div>
+          <div><i style="height:6%"></i><span>Ya</span></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+</div>
+</div>
+</body>
+</html>
