@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raqamli malaka oshirish platformasi</title>
+<meta name="description" content="Kambagʻallikni qisqartirish va bandlik vazirligi tizimi xodimlari uchun onlayn, gibrid va anʼanaviy malaka oshirish platformasi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#071230;--navy-900:#0B1A3F;--navy-800:#12275A;--navy-700:#1A3470;
+  --blue-700:#1E3F9A;--blue-600:#2550C0;--blue-500:#3B6CE0;--blue-300:#9DB8F5;--blue-100:#DCE6FB;--blue-50:#EEF3FD;
+  --ink:#0B1324;--text:#1F2A44;--muted:#5B6782;--subtle:#8A94AB;--line:#E3E8F1;--line-2:#EDF0F5;--bg:#F3F5F9;--soft:#F8FAFC;
+  --green:#0E7A52;--green-100:#CBE8D9;--green-50:#E5F4EC;--amber:#B7791F;--amber-100:#F1D9B5;--amber-50:#FCF1E1;--red:#B4232F;
+  --sh:0 0 0 1px var(--line),0 1px 2px rgba(11,26,63,.04);
+  --sh-md:0 0 0 1px var(--line),0 8px 20px -8px rgba(11,26,63,.12);
+  --sh-lg:0 24px 48px -16px rgba(7,18,48,.32),0 0 0 1px rgba(11,26,63,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:"cv11";color:var(--text);background:#fff;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--blue-500);outline-offset:3px;border-radius:6px}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.page{container-type:inline-size;container-name:page;width:100%}
+.wrap{max-width:1232px;margin:0 auto;padding:0 32px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:8px;z-index:99;background:#fff;padding:8px 14px;border-radius:8px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:12px;font-weight:600;font-size:15.5px;white-space:nowrap}
+.btn .ic{width:18px;height:18px}
+.b-pri{background:var(--blue-600);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 18px -8px rgba(37,80,192,.7)}
+.b-pri:hover{background:var(--blue-700)}
+.b-white{background:#fff;color:var(--navy-900)}
+.b-glass{color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.b-glass:hover{background:rgba(255,255,255,.07)}
+.b-out{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+.b-sm{height:40px;padding:0 16px;font-size:14.5px;border-radius:10px}
+
+/* type */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600)}
+.h2{font-size:42px;line-height:1.12;letter-spacing:-.028em;font-weight:700;color:var(--ink);text-wrap:balance}
+.lead{font-size:17.5px;line-height:1.65;color:var(--muted);text-wrap:pretty}
+.sec{padding:104px 0}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:48px}
+.sh .h2{margin-top:12px;max-width:620px}
+.sh .lead{max-width:430px}
+
+/* top utility bar */
+.util{background:var(--navy-950);color:rgba(255,255,255,.66);font-size:13px;border-bottom:1px solid rgba(255,255,255,.08)}
+.util .wrap{display:flex;align-items:center;gap:20px;height:40px}
+.util a{display:inline-flex;align-items:center;gap:6px}
+.util a:hover{color:#fff}
+.util .ic{width:15px;height:15px}
+.util .r{margin-left:auto;display:flex;gap:18px;align-items:center}
+.lng{display:inline-flex;gap:2px;padding:2px;border-radius:7px;background:rgba(255,255,255,.07)}
+.lng span{padding:1px 8px;border-radius:5px;font-weight:600;font-size:12px}
+.lng span.on{background:#fff;color:var(--navy-900)}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(12px);-webkit-backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;height:76px;gap:32px}
+.brand{display:flex;align-items:center;gap:12px}
+.emb{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#EEF3FD);box-shadow:inset 0 0 0 1.5px var(--blue-100),0 1px 2px rgba(11,26,63,.06);color:var(--blue-700);flex:none}
+.emb .ic{width:22px;height:22px}
+.brand b{display:block;white-space:nowrap;font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.005em}
+.brand small{display:block;font-size:12px;color:var(--muted);line-height:1.3}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{font-size:14.5px;font-weight:500;color:var(--text);padding:8px 11px;border-radius:8px;white-space:nowrap}
+.nav a:hover{background:var(--bg)}
+.nav a.on{color:var(--blue-600)}
+.burger{display:none;width:44px;height:44px;border-radius:10px;box-shadow:var(--sh);place-items:center;color:var(--ink)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(900px 520px at 85% 15%,rgba(59,108,224,.34),transparent 60%),radial-gradient(700px 420px at 0% 100%,rgba(30,63,154,.45),transparent 60%),var(--navy-950);color:#fff;padding:80px 0 0}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 80% 70% at 65% 30%,#000 25%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 65% 30%,#000 25%,transparent 75%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:5px 14px 5px 5px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);font-size:13.5px;color:rgba(255,255,255,.86)}
+.pill i{font-style:normal;font-size:11.5px;font-weight:700;letter-spacing:.05em;background:var(--blue-500);color:#fff;padding:3px 10px;border-radius:999px}
+.h1{font-size:56px;line-height:1.06;letter-spacing:-.034em;font-weight:800;margin:22px 0 20px;text-wrap:balance}
+.h1 em{font-style:normal;background:linear-gradient(92deg,#9DB8F5,#fff 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:18px;line-height:1.6;color:rgba(255,255,255,.74);max-width:540px}
+.hsearch{display:flex;align-items:center;gap:10px;margin-top:32px;max-width:560px;padding:6px 6px 6px 18px;border-radius:14px;background:#fff;box-shadow:0 16px 40px -16px rgba(0,0,0,.5)}
+.hsearch .ic{color:var(--subtle)}
+.hsearch span{flex:1;min-width:0;font-size:15px;color:var(--subtle)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-size:13px;color:rgba(255,255,255,.6);align-items:center}
+.chips a{padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);color:rgba(255,255,255,.86)}
+
+/* hero visual */
+.hv{position:relative;height:520px}
+.hv-main{position:absolute;left:24px;right:0;top:0;background:#fff;color:var(--text);border-radius:20px;box-shadow:var(--sh-lg);padding:20px;overflow:hidden}
+.hv-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.hv-top b{font-size:14px;color:var(--ink)}
+.st{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 1px 1px rgba(11,26,63,.04);font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}
+.st i{width:8px;height:8px;border-radius:50%;box-shadow:inset 0 0 0 2px currentColor;flex:none}
+.st.blue i{color:var(--blue-600)}.st.green i{color:var(--green);background:var(--green)}.st.amber i{color:var(--amber)}
+.sched{display:grid;gap:8px}
+.si{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;box-shadow:inset 0 0 0 1px var(--line)}
+.si.on{background:var(--blue-50);box-shadow:inset 0 0 0 1.5px var(--blue-600)}
+.si .tm{width:52px;flex:none;text-align:center;font-weight:700;font-size:15px;color:var(--ink);line-height:1.15}
+.si .tm small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.04em}
+.si .bd{width:3px;align-self:stretch;border-radius:3px;background:var(--blue-100)}
+.si.on .bd{background:var(--blue-600)}
+.si b{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.si span.s{font-size:12px;color:var(--muted)}
+.si .st{margin-left:auto}
+.fl{position:absolute;background:#fff;color:var(--text);border-radius:16px;box-shadow:var(--sh-lg);padding:14px 16px}
+.f-cert{left:-12px;bottom:-6px;display:flex;gap:12px;align-items:center;width:300px}
+.f-cert .ico{width:42px;height:42px;border-radius:11px;background:var(--green-50);color:var(--green);display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 1px var(--green-100)}
+.f-cert b{display:block;font-size:13.5px;color:var(--ink);line-height:1.3}
+.f-cert span{font-size:12px;color:var(--muted)}
+.f-prog{right:-14px;bottom:-6px;width:230px}
+.f-prog .row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--muted)}
+.f-prog b{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.03em}
+.bar{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--blue-600)}
+.stats{position:relative;margin-top:80px;border-top:1px solid rgba(255,255,255,.1)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{padding:30px 0 34px}
+.stat+.stat{padding-left:28px;border-left:1px solid rgba(255,255,255,.1)}
+.stat b{display:block;font-size:36px;line-height:1.1;font-weight:700;letter-spacing:-.03em}
+.stat span{font-size:14px;color:rgba(255,255,255,.62)}
+
+/* about / formats */
+.about{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:start}
+.about .h2{margin:12px 0 18px}
+.org{margin-top:28px;display:flex;gap:14px;align-items:center;padding:16px 18px;border-radius:14px;background:var(--soft);box-shadow:var(--sh)}
+.org b{display:block;font-size:14px;color:var(--ink);line-height:1.4}
+.org span{font-size:12.5px;color:var(--muted)}
+.fmts{display:grid;gap:14px}
+.fmt{display:grid;grid-template-columns:52px 1fr auto;gap:18px;align-items:center;padding:22px 24px;border-radius:16px;background:#fff;box-shadow:var(--sh)}
+.fmt .fi{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:var(--blue-50);color:var(--blue-600);box-shadow:inset 0 0 0 1px var(--blue-100)}
+.fmt .fi .ic{width:24px;height:24px}
+.fmt h3{font-size:18px;color:var(--ink);letter-spacing:-.01em;line-height:1.3}
+.fmt p{font-size:14.5px;color:var(--muted);line-height:1.55;margin-top:4px}
+.fmt .tag{font-size:12px;font-weight:600;color:var(--muted);background:var(--bg);box-shadow:inset 0 0 0 1px var(--line);padding:4px 10px;border-radius:7px;white-space:nowrap}
+
+/* courses */
+.cbg{background:var(--bg)}
+.tabs{display:inline-flex;padding:4px;border-radius:12px;background:#fff;box-shadow:var(--sh)}
+.tabs span{height:38px;padding:0 14px;border-radius:9px;font-size:14px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.tabs span em{font-style:normal;font-weight:500;color:var(--subtle)}
+.tabs span.on{background:var(--navy-900);color:#fff}
+.tabs span.on em{color:rgba(255,255,255,.6)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cc{display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:var(--sh);overflow:hidden;transition:box-shadow .2s,transform .2s}
+.cc:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.cov{position:relative;height:120px;padding:18px;display:flex;justify-content:space-between;align-items:flex-start;overflow:hidden}
+.cov:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;mask-image:linear-gradient(120deg,transparent 35%,#000);-webkit-mask-image:linear-gradient(120deg,transparent 35%,#000)}
+.cov>*{position:relative}
+.cov.hr{background:linear-gradient(135deg,#1E3F9A,#3B6CE0)}
+.cov.mm{background:linear-gradient(135deg,#0A4A33,#0E7A52)}
+.cov.as{background:linear-gradient(135deg,#0B1A3F,#1A3470)}
+.cico{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);display:grid;place-items:center;color:#fff}
+.cico .ic{width:22px;height:22px}
+.ctag{height:26px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;font-size:12px;font-weight:600;display:inline-flex;align-items:center}
+.hrs{position:absolute;right:18px;bottom:14px;font-size:30px;font-weight:800;letter-spacing:-.03em;color:rgba(255,255,255,.95);line-height:1}
+.hrs small{font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.7);margin-left:4px}
+.cb{padding:20px 22px;flex:1;display:flex;flex-direction:column}
+.cb h3{font-size:17px;line-height:1.38;letter-spacing:-.01em;color:var(--ink);font-weight:600}
+.cm{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:auto;padding-top:18px;font-size:13.5px;color:var(--muted)}
+.cm span{display:inline-flex;align-items:center;gap:6px}
+.cm .ic{width:15px;height:15px;color:var(--subtle)}
+.cf{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-top:1px solid var(--line-2);background:#FCFDFE;font-size:13px;color:var(--muted)}
+.cf a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--blue-600)}
+.cf a .ic{width:16px;height:16px}
+.center{display:flex;justify-content:center;margin-top:40px}
+
+/* features */
+.fbg{background:var(--navy-950);color:#fff}
+.fbg .eyebrow{color:var(--blue-300)}
+.fbg .h2{color:#fff}
+.fbg .lead{color:rgba(255,255,255,.64)}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.b{border-radius:20px;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);display:flex;flex-direction:column;overflow:hidden}
+.b h3{font-size:19px;letter-spacing:-.01em;margin-bottom:6px}
+.b p{font-size:14.5px;color:rgba(255,255,255,.62);line-height:1.6}
+.bi{width:42px;height:42px;border-radius:11px;background:rgba(59,108,224,.18);color:var(--blue-300);display:grid;place-items:center;margin-bottom:18px}
+.bi .ic{width:21px;height:21px}
+.b1{grid-column:span 3}.b2{grid-column:span 3}.b3{grid-column:span 2}.b4{grid-column:span 2}.b5{grid-column:span 2}
+.vis{margin-top:22px}
+.ann{display:grid;gap:8px}
+.ann div{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.05);font-size:13px;color:rgba(255,255,255,.86)}
+.ann i{width:8px;height:8px;border-radius:50%;flex:none}
+.ann span{margin-left:auto;color:rgba(255,255,255,.5);font-size:12px}
+.jr{display:grid;grid-template-columns:1.6fr repeat(5,1fr);gap:6px;font-size:12px;color:rgba(255,255,255,.6)}
+.jr>span{padding:7px 8px;border-radius:7px;background:rgba(255,255,255,.04);text-align:center}
+.jr>span:nth-child(6n+1){text-align:left;color:rgba(255,255,255,.86)}
+.jr .h{background:none;font-weight:600;color:rgba(255,255,255,.45)}
+.jr .p{background:rgba(52,195,143,.16);color:#7FE0B4;font-weight:700}
+.jr .a{background:rgba(240,164,75,.16);color:#F6BE7C;font-weight:700}
+.docs{display:flex;gap:8px}
+.docs div{flex:1;height:72px;border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:.04em}
+.docs div span{font-weight:500;opacity:.85;letter-spacing:0}
+.mini{display:flex;align-items:end;gap:6px;height:64px}
+.mini i{flex:1;border-radius:4px 4px 2px 2px;background:rgba(59,108,224,.35)}
+.mini i.on{background:var(--blue-500)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;list-style:none}
+.steps:before{content:"";position:absolute;top:27px;left:28px;right:calc((100% - 72px)/4);height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
+.sn{position:relative;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:#fff;box-shadow:var(--sh-md);color:var(--blue-600);margin-bottom:22px}
+.sn .ic{width:24px;height:24px}
+.step.last .sn{background:var(--blue-600);color:#fff;box-shadow:0 10px 22px -10px rgba(37,80,192,.8)}
+.step small{font-size:12.5px;font-weight:700;letter-spacing:.06em;color:var(--blue-600)}
+.step h3{font-size:19px;color:var(--ink);margin:4px 0 8px;letter-spacing:-.01em}
+.step p{font-size:14.5px;color:var(--muted);line-height:1.6}
+
+/* certificate check */
+.cert{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center;padding:56px;border-radius:28px;background:radial-gradient(500px 300px at 100% 0%,var(--blue-100),transparent 70%),var(--blue-50);box-shadow:inset 0 0 0 1px var(--blue-100)}
+.cert .h2{font-size:36px;margin:12px 0 14px}
+.cform{display:flex;gap:10px;margin-top:28px}
+.cin{flex:1;display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border-radius:12px;background:#fff;box-shadow:var(--sh);font-size:15px;color:var(--subtle)}
+.cin .ic{color:var(--subtle)}
+.cnote{display:flex;gap:16px;margin-top:16px;font-size:13px;color:var(--muted)}
+.cnote span{display:inline-flex;align-items:center;gap:6px}
+.cnote .ic{width:15px;height:15px;color:var(--green)}
+.res{background:#fff;border-radius:18px;box-shadow:var(--sh-lg);overflow:hidden}
+.res-h{display:flex;align-items:center;gap:12px;padding:18px 20px;background:var(--green-50);box-shadow:inset 0 -1px 0 var(--green-100)}
+.res-h .ok{width:36px;height:36px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;flex:none}
+.res-h .ok .ic{width:18px;height:18px;stroke-width:2.6}
+.res-h b{display:block;font-size:15px;color:#0A4A33}
+.res-h span{font-size:12.5px;color:#2C6E52}
+.res dl{display:grid;grid-template-columns:128px 1fr;gap:12px 14px;padding:20px;font-size:14px}
+.res dt{color:var(--muted)}
+.res dd{color:var(--ink);font-weight:600}
+
+/* faq */
+.faq-g{display:grid;grid-template-columns:1fr 1.6fr;gap:72px;align-items:start}
+.faq-g .h2{margin:12px 0 18px}
+.help{margin-top:28px;display:grid;gap:10px}
+.help a{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:#fff;box-shadow:var(--sh);font-size:14.5px;color:var(--ink);font-weight:500}
+.help a .ic{color:var(--blue-600)}
+.help a span{margin-left:auto;color:var(--muted);font-weight:400;font-size:13.5px}
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;font-size:17px;font-weight:600;color:var(--ink);cursor:pointer;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.pm{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line);display:grid;place-items:center;flex:none;color:var(--muted)}
+.pm .ic{width:15px;height:15px}
+.faq details[open] .pm{transform:rotate(45deg);background:var(--navy-900);color:#fff;box-shadow:none}
+.faq details p{padding:0 54px 22px 0;color:var(--muted);font-size:15.5px;line-height:1.65}
+
+/* footer */
+.ftr{background:var(--navy-950);color:rgba(255,255,255,.66);padding:64px 0 28px;font-size:14.5px}
+.ftop{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:56px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ftr .brand b{color:#fff}
+.ftr .brand small{color:rgba(255,255,255,.55)}
+.ftr .emb{background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.16);color:var(--blue-300)}
+.ftr p{margin-top:18px;max-width:420px;line-height:1.65}
+.soc{display:flex;gap:8px;margin-top:22px}
+.soc a{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);color:#fff;font-size:12px;font-weight:700}
+.ftr h4{color:#fff;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:16px}
+.ftr ul{list-style:none;display:grid;gap:10px}
+.ftr ul a:hover{color:#fff}
+.fcon li{display:flex;gap:10px;align-items:flex-start}
+.fcon .ic{width:18px;height:18px;color:var(--blue-300);margin-top:2px}
+.fbot{display:flex;justify-content:space-between;gap:20px;padding-top:24px;font-size:13px;flex-wrap:wrap}
+.fbot div{display:flex;gap:20px}
+
+/* responsive */
+@container page (max-width:1180px){
+  .nav{display:none}.burger{display:grid}
+  .hero .wrap,.about,.faq-g,.cert{grid-template-columns:minmax(0,1fr);gap:48px}
+  .hv{max-width:620px;width:100%;margin:0 auto}
+  .grid3{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:repeat(2,1fr)}.b1,.b2{grid-column:span 2}.b3,.b4,.b5{grid-column:span 1}
+  .ftop{grid-template-columns:1fr 1fr}
+}
+@container page (max-width:760px){
+  .wrap{padding:0 20px}
+  .util .hide-m{display:none}
+  .hdr .wrap{height:64px}
+  .hdr .b-pri{display:none}
+  .brand small{display:none}
+  .sec{padding:72px 0}
+  .hero{padding-top:44px}
+  .h1{font-size:36px;line-height:1.1}
+  .hero p.sub{font-size:16.5px}
+  .hsearch .btn{padding:0 14px}
+  .hsearch span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
+  .pill{font-size:12px;white-space:nowrap;gap:8px}.pill i{font-size:10.5px;padding:3px 8px}
+  .si .st{display:none}.si .tm{width:44px;font-size:14px}.si{gap:10px;padding:10px}
+  .tabs{overflow-x:auto}
+  .hv{height:auto;padding-bottom:96px}
+  .hv-main{position:relative;left:0}
+  .si:nth-child(n+3){display:none}
+  .f-cert{display:none}
+  .f-prog{right:-4px;bottom:0;width:210px}
+  .stats{margin-top:56px}
+  .stats .wrap{grid-template-columns:1fr 1fr}
+  .stat{padding:22px 0}
+  .stat+.stat{padding-left:0;border-left:0}
+  .stat:nth-child(even){padding-left:18px;border-left:1px solid rgba(255,255,255,.1)}
+  .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.1)}
+  .stat b{font-size:28px}
+  .h2{font-size:30px}
+  .sh{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:32px}
+  .tabs{width:100%;overflow:hidden}.tabs span{padding:0 10px;font-size:13px}
+  .tabs span em{display:none}
+  .fmt{grid-template-columns:44px 1fr;padding:18px}
+  .fmt .fi{width:44px;height:44px}
+  .fmt .tag{display:none}
+  .grid3{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr}.b1,.b2,.b3,.b4,.b5{grid-column:span 1}
+  .b{padding:22px}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .steps:before{top:28px;bottom:28px;left:27px;right:auto;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--line) 0 8px,transparent 8px 14px)}
+  .step{position:relative;padding-left:78px}
+  .sn{position:absolute;left:0;top:0;margin:0}
+  .cert{padding:28px 20px;border-radius:20px}
+  .cert .h2{font-size:28px}
+  .cform{flex-direction:column}
+  .cnote{flex-direction:column;gap:8px}
+  .res dl{grid-template-columns:1fr;gap:2px 0}
+  .res dd{margin-bottom:10px}
+  .faq details p{padding-right:0}
+  .ftop{grid-template-columns:1fr;gap:36px}
+  .fbot,.fbot div{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-emb" viewBox="0 0 24 24"><path d="M12 2l7 3v6c0 5-3.4 8.7-7 10-3.6-1.3-7-5-7-10V5z"/><path d="M12 7v8M8.5 10.5h7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-hybrid" viewBox="0 0 24 24"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M5 17h6M8 13v4"/><path d="M17 8h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2zM18.5 18h0"/></symbol>
+  <symbol id="i-build" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7l10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M5 7h14M5 7l-3 7a4 4 0 0 0 6 0L5 7zM19 7l-3 7a4 4 0 0 0 6 0l-3-7z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18M8 17V11M13 17V7M18 17v-4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-journal" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></symbol>
+  <symbol id="i-lib" viewBox="0 0 24 24"><path d="M4 19V5M8 19V5M12 19l-2-14M16 5h4v14h-4z"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1"/></symbol>
+  <symbol id="i-login" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+  <symbol id="i-a11y" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="1.5"/><path d="M5 8h14M12 8v6M9 21l3-7 3 7"/></symbol>
+</svg>
+
+<div class="page">
+<a class="skip" href="#main">Asosiy mazmunga oʻtish</a>
+
+<div class="util">
+  <div class="wrap">
+    <span class="hide-m">Kambagʻallikni qisqartirish va bandlik vazirligi huzuridagi Malaka oshirish markazi</span>
+    <div class="r">
+      <a href="#"><svg class="ic"><use href="#i-phone"/></svg>+998 (71) 258-09-12</a>
+      <a href="#" class="hide-m"><svg class="ic"><use href="#i-a11y"/></svg>Koʻzi ojizlar uchun</a>
+      <span class="lng"><span class="on">UZ</span><span>RU</span></span>
+    </div>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Bosh sahifa">
+      <span class="emb" title="Davlat gerbi oʻrni"><svg class="ic"><use href="#i-emb"/></svg></span>
+      <span><b>Raqamli malaka oshirish platformasi</b><small>Malaka oshirish markazi</small></span>
+    </a>
+    <nav class="nav" aria-label="Asosiy menyu">
+      <a href="#kurslar">Kurslar</a>
+      <a href="#imkoniyatlar">Elektron jurnal</a>
+      <a href="#imkoniyatlar">Kutubxona</a>
+      <a href="#sertifikat">Sertifikatni tekshirish</a>
+      <a href="#savollar">Savollar</a>
+      <a href="#aloqa">Aloqa</a>
+    </nav>
+    <a class="btn b-pri b-sm" href="#"><svg class="ic"><use href="#i-login"/></svg>Platformaga kirish</a>
+    <button class="burger" aria-label="Menyu"><svg class="ic"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill"><i>RASMIY PLATFORMA</i>Vazirlik tizimi xodimlari uchun</span>
+      <h1 class="h1">Malaka oshirish — <em>raqamli, shaffof va qulay</em></h1>
+      <p class="sub">Onlayn, gibrid va anʼanaviy shakldagi kurslar, elektron jurnal, oʻquv materiallari va QR kodli sertifikat — barchasi bitta tizimda.</p>
+      <div class="hsearch" role="search"><svg class="ic"><use href="#i-search"/></svg><span>Kurs nomini kiriting, masalan: «Mehnat qonunchiligi»</span><a class="btn b-pri b-sm" href="#kurslar">Qidirish</a></div>
+      <div class="chips">Koʻp qidiriladi: <a href="#">HR menejment</a><a href="#">Mehnatni muhofaza qilish</a><a href="#">Korrupsiyaga qarshi kurashish</a></div>
+    </div>
+
+    <div class="hv" aria-hidden="true">
+      <div class="hv-main">
+        <div class="hv-top"><b>Bugungi dars jadvali</b><span class="st blue" style="margin-left:auto"><i></i>16.10.2026</span></div>
+        <div class="sched">
+          <div class="si"><div class="tm">09:00<small>90 daq</small></div><span class="bd"></span><div><b>Mehnat qonunchiligi va inspeksiya nazorati</b><span class="s">Anʼanaviy · 204-xona</span></div><span class="st green"><i></i>Yakunlandi</span></div>
+          <div class="si on"><div class="tm">11:00<small>60 daq</small></div><span class="bd"></span><div><b>HR menejment: kadrlar siyosati</b><span class="s">Onlayn · ulanish havolasi</span></div><span class="st blue"><i></i>Hozir</span></div>
+          <div class="si"><div class="tm">14:30<small>90 daq</small></div><span class="bd"></span><div><b>Ish beruvchilar bilan ishlashni tashkil etish</b><span class="s">Gibrid · 112-xona / onlayn</span></div><span class="st amber"><i></i>Rejada</span></div>
+          <div class="si"><div class="tm">16:00<small>45 daq</small></div><span class="bd"></span><div><b>Mehnatni muhofaza qilish: nazorat testi</b><span class="s">Onlayn · 20 savol</span></div><span class="st amber"><i></i>Rejada</span></div>
+        </div>
+      </div>
+      <div class="fl f-prog"><div class="row"><span>Kurs progressi</span><b>68%</b></div><div class="bar"><i style="width:68%"></i></div><div class="row" style="margin-top:8px"><span>HR menejment · 5 modul</span></div></div>
+      <div class="fl f-cert"><span class="ico"><svg class="ic"><use href="#i-award"/></svg></span><div><b>Sertifikat berildi</b><span>№ RM-2026-004817 · QR bilan</span></div></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat"><b>18</b><span>Kurslar soni</span></div>
+      <div class="stat"><b>4 850</b><span>Tinglovchilar</span></div>
+      <div class="stat"><b>3 920</b><span>Muvaffaqiyatli tugatganlar</span></div>
+      <div class="stat"><b>1 240</b><span>Shundan yosh tinglovchilar</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap about">
+    <div>
+      <span class="eyebrow">Loyiha haqida</span>
+      <h2 class="h2">Mehnat munosabatlari sohasidagi yangiliklardan doim xabardor boʻling</h2>
+      <p class="lead">Tizim vazirlik xodimlariga normativ-huquqiy hujjatlardagi oʻzgarishlar bilan tanishish, masofadan malaka oshirish va qayta tayyorlashdan oʻtish imkonini beradi.</p>
+      <div class="org"><span class="emb"><svg class="ic"><use href="#i-emb"/></svg></span><div><b>Kambagʻallikni qisqartirish va bandlik vazirligi huzuridagi Malaka oshirish markazi</b><span>Platforma ishlab chiquvchisi va operatori</span></div></div>
+    </div>
+    <div class="fmts">
+      <article class="fmt"><span class="fi"><svg class="ic"><use href="#i-monitor"/></svg></span><div><h3>Onlayn</h3><p>Video darslar, materiallar va testlar — ish joyidan uzilmasdan, oʻzingizga qulay vaqtda.</p></div><span class="tag">Masofaviy</span></article>
+      <article class="fmt"><span class="fi"><svg class="ic"><use href="#i-hybrid"/></svg></span><div><h3>Gibrid</h3><p>Nazariya onlayn, amaliy mashgʻulotlar markazda. Dars jadvalida joy va havola koʻrsatiladi.</p></div><span class="tag">Aralash</span></article>
+      <article class="fmt"><span class="fi"><svg class="ic"><use href="#i-build"/></svg></span><div><h3>Anʼanaviy</h3><p>Markazda oʻqituvchi bilan mashgʻulot. Davomat va baholar elektron jurnalda yuritiladi.</p></div><span class="tag">Markazda</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec cbg" id="kurslar">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="eyebrow">Kurslar</span><h2 class="h2">18 ta kurs, uchta yoʻnalish</h2></div>
+      <div class="tabs" role="tablist"><span class="on">Barchasi <em>18</em></span><span>HR menejment <em>2</em></span><span>Mehnatni muhofaza qilish <em>4</em></span><span>Asosiy <em>12</em></span></div>
+    </div>
+    <div class="grid3">
+      <article class="cc"><div class="cov hr"><span class="cico"><svg class="ic"><use href="#i-users"/></svg></span><span class="ctag">HR menejment</span><span class="hrs">72<small>SOAT</small></span></div>
+        <div class="cb"><h3>HR menejment</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>5 modul</span><span><svg class="ic"><use href="#i-monitor"/></svg>Onlayn</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 01.11.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+      <article class="cc"><div class="cov as"><span class="cico"><svg class="ic"><use href="#i-scale"/></svg></span><span class="ctag">Asosiy</span><span class="hrs">72<small>SOAT</small></span></div>
+        <div class="cb"><h3>Mehnat qonunchiligi va inspeksiya nazorati mexanizmlari</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>5 modul</span><span><svg class="ic"><use href="#i-hybrid"/></svg>Gibrid</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 08.11.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+      <article class="cc"><div class="cov mm"><span class="cico"><svg class="ic"><use href="#i-shield"/></svg></span><span class="ctag">Mehnatni muhofaza qilish</span><span class="hrs">72<small>SOAT</small></span></div>
+        <div class="cb"><h3>Mehnatni muhofaza qilish</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>4 modul</span><span><svg class="ic"><use href="#i-build"/></svg>Anʼanaviy</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 15.11.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+      <article class="cc"><div class="cov as"><span class="cico"><svg class="ic"><use href="#i-chart"/></svg></span><span class="ctag">Asosiy</span><span class="hrs">72<small>SOAT</small></span></div>
+        <div class="cb"><h3>Bandlikka koʻmaklashish va mehnat bozori jarayonlarini tahlil qilish</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>3 modul</span><span><svg class="ic"><use href="#i-monitor"/></svg>Onlayn</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 01.11.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+      <article class="cc"><div class="cov hr"><span class="cico"><svg class="ic"><use href="#i-doc"/></svg></span><span class="ctag">HR menejment</span><span class="hrs">18<small>SOAT</small></span></div>
+        <div class="cb"><h3>Jismoniy va yuridik shaxslar murojaatlari bilan ishlash hamda ijro intizomi</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>2 modul</span><span><svg class="ic"><use href="#i-monitor"/></svg>Onlayn</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 22.10.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+      <article class="cc"><div class="cov as"><span class="cico"><svg class="ic"><use href="#i-ban"/></svg></span><span class="ctag">Asosiy</span><span class="hrs">18<small>SOAT</small></span></div>
+        <div class="cb"><h3>Korrupsiyaga qarshi kurashish va uning samaradorligini oshirish</h3><div class="cm"><span><svg class="ic"><use href="#i-layers"/></svg>2 modul</span><span><svg class="ic"><use href="#i-monitor"/></svg>Onlayn</span></div></div>
+        <div class="cf"><span>Keyingi guruh: 29.10.2026</span><a href="#">Batafsil<svg class="ic"><use href="#i-arrow"/></svg></a></div></article>
+    </div>
+    <div class="center"><a class="btn b-out" href="#">Barcha 18 ta kursni koʻrish<svg class="ic"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<section class="sec fbg" id="imkoniyatlar">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="eyebrow">Imkoniyatlar</span><h2 class="h2">Oʻquv jarayoni boshidan oxirigacha raqamlashtirilgan</h2></div>
+      <p class="lead">Tinglovchi, oʻqituvchi va markaz bitta tizimda ishlaydi — qogʻoz va qoʻngʻiroqlarsiz.</p>
+    </div>
+    <div class="bento">
+      <article class="b b1"><span class="bi"><svg class="ic"><use href="#i-cal"/></svg></span><h3>Dars jadvali va eʼlonlar</h3><p>Darslar vaqti, joyi yoki ulanish havolasi. Jadvaldagi oʻzgarishlar va topshiriqlar boʻyicha ogohlantirishlar darhol keladi.</p>
+        <div class="vis ann"><div><i style="background:#F0A44B"></i>11:00 dagi dars 112-xonaga koʻchirildi<span>10 daq oldin</span></div><div><i style="background:#3B6CE0"></i>2-modul topshirigʻi 21.10.2026 gacha<span>Bugun</span></div><div><i style="background:#34C38F"></i>Yangi material: Mehnat kodeksi sharhi<span>Kecha</span></div></div></article>
+      <article class="b b2"><span class="bi"><svg class="ic"><use href="#i-journal"/></svg></span><h3>Elektron jurnal</h3><p>Davomat, baholar va oʻzlashtirish onlayn yuritiladi — tinglovchi ham, rahbar ham real vaqtda koʻradi.</p>
+        <div class="vis jr"><span class="h">Tinglovchi</span><span class="h">Du</span><span class="h">Se</span><span class="h">Ch</span><span class="h">Pa</span><span class="h">Ju</span>
+          <span>Baxtiyorov S.</span><span class="p">5</span><span class="p">+</span><span class="p">4</span><span class="p">+</span><span class="p">5</span>
+          <span>Karimova M.</span><span class="p">4</span><span class="p">+</span><span class="a">—</span><span class="p">+</span><span class="p">5</span>
+          <span>Doniyorov T.</span><span class="p">5</span><span class="p">+</span><span class="p">5</span><span class="p">+</span><span class="p">4</span></div></article>
+      <article class="b b3"><span class="bi"><svg class="ic"><use href="#i-lib"/></svg></span><h3>Kutubxona</h3><p>Taqdimotlar, qoʻllanmalar va normativ hujjatlarni koʻrish yoki yuklab olish.</p>
+        <div class="vis docs"><div style="background:linear-gradient(160deg,#F0A44B,#A8550A)">PDF<span>Qoʻllanma</span></div><div style="background:linear-gradient(160deg,#3B6CE0,#1E3F9A)">DOC<span>Namuna</span></div><div style="background:linear-gradient(160deg,#34C38F,#0E7A52)">PPT<span>Taqdimot</span></div></div></article>
+      <article class="b b4"><span class="bi"><svg class="ic"><use href="#i-chart"/></svg></span><h3>Onlayn nazorat va baholash</h3><p>Testlar avtomatik tekshiriladi, natijalar mavzular boʻyicha tahlil qilinadi.</p>
+        <div class="vis mini"><i style="height:40%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:75%"></i><i class="on" style="height:88%"></i><i style="height:70%"></i></div></article>
+      <article class="b b5"><span class="bi"><svg class="ic"><use href="#i-award"/></svg></span><h3>Sertifikatlash</h3><p>Kurs yakunida QR kodli sertifikat avtomatik shakllanadi va kabinetda saqlanadi.</p>
+        <div class="vis ann"><div><i style="background:#34C38F"></i>№ RM-2026-004817<span>Haqiqiy</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="eyebrow">Qanday ishlaydi</span><h2 class="h2">Roʻyxatdan sertifikatgacha — 4 qadam</h2></div>
+      <p class="lead">Kursga yozilish markaz tomonidan guruhlar boʻyicha amalga oshiriladi.</p>
+    </div>
+    <ol class="steps">
+      <li class="step"><div class="sn"><svg class="ic"><use href="#i-login"/></svg></div><small>1-QADAM</small><h3>Platformaga kiring</h3><p>Markaz bergan login va parol orqali shaxsiy kabinetingizga kiring.</p></li>
+      <li class="step"><div class="sn"><svg class="ic"><use href="#i-users"/></svg></div><small>2-QADAM</small><h3>Guruhga biriktiriling</h3><p>Markaz sizni kurs va guruhga biriktiradi, dars jadvali kabinetda paydo boʻladi.</p></li>
+      <li class="step"><div class="sn"><svg class="ic"><use href="#i-journal"/></svg></div><small>3-QADAM</small><h3>Oʻqing va topshiring</h3><p>Darslarda qatnashing, materiallarni oʻrganing, topshiriq va testlarni bajaring.</p></li>
+      <li class="step last"><div class="sn"><svg class="ic"><use href="#i-award"/></svg></div><small>4-QADAM</small><h3>Sertifikat oling</h3><p>Yakuniy baholashdan soʻng QR kodli sertifikat avtomatik beriladi.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="sertifikat" style="padding-top:0">
+  <div class="wrap">
+    <div class="cert">
+      <div>
+        <span class="eyebrow">Sertifikatni tekshirish</span>
+        <h2 class="h2">Sertifikat haqiqiyligini bir necha soniyada tekshiring</h2>
+        <p class="lead">Ish beruvchi yoki kadrlar boʻlimi sertifikat raqamini kiritib yoki QR kodni skanerlab, maʼlumotlarni tasdiqlashi mumkin.</p>
+        <div class="cform"><div class="cin"><svg class="ic"><use href="#i-search"/></svg>Masalan: RM-2026-004817</div><a class="btn b-pri" href="#">Tekshirish</a></div>
+        <div class="cnote"><span><svg class="ic"><use href="#i-check"/></svg>Roʻyxatdan oʻtish shart emas</span><span><svg class="ic"><use href="#i-qr"/></svg>QR kod orqali ham tekshiriladi</span></div>
+      </div>
+      <div class="res" aria-label="Tekshiruv natijasi namunasi">
+        <div class="res-h"><span class="ok"><svg class="ic"><use href="#i-check"/></svg></span><div><b>Sertifikat haqiqiy</b><span>Maʼlumotlar reyestrdagi yozuvga mos keladi</span></div></div>
+        <dl><dt>Raqam</dt><dd>RM-2026-004817</dd><dt>Tinglovchi</dt><dd>Baxtiyorov S. B.</dd><dt>Kurs</dt><dd>HR menejment · 72 soat</dd><dt>Berilgan sana</dt><dd>12.06.2026</dd><dt>Yakuniy ball</dt><dd>86 / 100</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec cbg" id="savollar">
+  <div class="wrap faq-g">
+    <div>
+      <span class="eyebrow">Savollar</span>
+      <h2 class="h2">Koʻp beriladigan savollar</h2>
+      <p class="lead">Javob topa olmadingizmi? Bogʻlaning — ish kunlari 9:00–18:00.</p>
+      <div class="help">
+        <a href="#"><svg class="ic"><use href="#i-phone"/></svg>+998 (71) 258-09-12<span>Qoʻngʻiroq</span></a>
+        <a href="#"><svg class="ic"><use href="#i-mail"/></svg>info@rmmk.uz<span>Email</span></a>
+      </div>
+    </div>
+    <div class="faq">
+      <details open><summary>Platformaga qanday kiraman?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>Login va parol guruhga biriktirilganingizdan soʻng markaz tomonidan beriladi. «Platformaga kirish» tugmasi orqali shaxsiy kabinetingizga oʻtasiz.</p></details>
+      <details><summary>Kursga qanday yozilish mumkin?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>Kurslarga yozilish tashkilotingiz yoʻllanmasi asosida markaz tomonidan guruhlar boʻyicha amalga oshiriladi.</p></details>
+      <details><summary>Onlayn, gibrid va anʼanaviy shakllar qanday farq qiladi?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>Onlayn — toʻliq masofadan, gibrid — nazariya onlayn va amaliyot markazda, anʼanaviy — barcha mashgʻulotlar markazda oʻtkaziladi.</p></details>
+      <details><summary>Sertifikat qachon beriladi?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>Kurs dasturini toʻliq bajarib, yakuniy baholashdan muvaffaqiyatli oʻtganingizdan soʻng sertifikat kabinetingizda avtomatik paydo boʻladi.</p></details>
+      <details><summary>Dars jadvali oʻzgarsa qanday bilaman?<span class="pm"><svg class="ic"><use href="#i-plus"/></svg></span></summary><p>Barcha oʻzgarishlar va eʼlonlar kabinetdagi bildirishnomalarda koʻrinadi.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr" id="aloqa">
+  <div class="wrap">
+    <div class="ftop">
+      <div>
+        <a class="brand" href="#"><span class="emb"><svg class="ic"><use href="#i-emb"/></svg></span><span><b>Raqamli malaka oshirish platformasi</b><small>Malaka oshirish markazi</small></span></a>
+        <p>Rahbar xodimlar va mutaxassislarning kasbiy malakasini oshirish jarayonlarini avtomatlashtirish hamda moslashuvchan va samarali oʻquv muhitini yaratish.</p>
+        <div class="soc"><a href="#" aria-label="Telegram">TG</a><a href="#" aria-label="Facebook">FB</a><a href="#" aria-label="Instagram">IG</a><a href="#" aria-label="YouTube">YT</a></div>
+      </div>
+      <div><h4>Yoʻnalish</h4><ul><li><a href="#">Biz haqimizda</a></li><li><a href="#kurslar">Kurslar</a></li><li><a href="#sertifikat">Sertifikatni tekshirish</a></li><li><a href="#savollar">Savollar</a></li><li><a href="#">Maxfiylik siyosati</a></li><li><a href="#">Foydalanish shartlari</a></li></ul></div>
+      <div><h4>Aloqa</h4><ul class="fcon"><li><svg class="ic"><use href="#i-phone"/></svg>+998 (71) 258-09-12</li><li><svg class="ic"><use href="#i-mail"/></svg>info@rmmk.uz</li><li><svg class="ic"><use href="#i-pin"/></svg>100111, Toshkent shahar, Yangihayot tumani, Lutfkor koʻchasi, 33-uy</li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2026 Raqamli malaka oshirish platformasi. Barcha huquqlar himoyalangan.</span><div><a href="#">Oʻzbekcha</a><a href="#">Русский</a></div></div>
+  </div>
+</footer>
+</div>
+</body>
+</html>
