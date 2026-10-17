@@ -14,7 +14,10 @@ Keyingi sessiyada shu fayldan davom etiladi.
 - `5-chegirma-har-narxga` — Dona, Ulgurji va Partiya uchun alohida chegirma (tavsiya etilgan variant)
 - `6-sotuvchi-tariflar` — tariflar: Sozlamalar kartasi, solishtirish, paywall, to‘lov, muvaffaqiyat, tugayapti, tugadi, Ko‘tarish
 - `7-rasmsiz-tovar-va-tahlil` — rasmsiz tovar: yagona katalog, bozor narxi, xaridor kartasi, narx tahlili, talab tahlili, ommaviy narx, Excel import, narxlarni tasdiqlash
-- `8-rol-almashtirish` — bitta ilova, ikki rejim: markaziy tugmada joriy rejim ikonkasi, rejim tanlash oynasi, o‘tish animatsiyasi, do‘kon ochish, push orqali avtomatik o‘tish
+- `8-rol-almashtirish` — bitta ilova, ikki rejim. Almashtirish sarlavhadagi ikonka orqali (xaridorda profil ikonkasi, sotuvchida do‘kon avatari + ⌄), «Til» oynasi stilidagi rejim oynasi. Asl Figma ekranlari ustiga chizilgan (`html/img/`)
+
+## Stil qoidasi
+- Yangi maket chizishda AVVAL Figma’dagi asl ekranni oling (get_screenshot) va uning ustiga chizing yoki aniq takrorlang. O‘zingizdan yangi stil o‘ylab topmang
 
 ## Muhim cheklov
 - Ilovada tovar rasmi, videosi va Stories YO‘Q. Tovar katalog, kategoriya ikonkasi, xususiyat chiplari va «narx yangilangan» belgisi orqali ko‘rsatiladi
@@ -28,7 +31,7 @@ Keyingi sessiyada shu fayldan davom etiladi.
 - Ishga tushirish: birinchi 3 oy hammaga Biznes bepul; birinchi 50 ta sotuvchiga umrbod −30%
 
 ## Ochiq savollar
-- Rol almashtirish: bitta ilova deb hisoblandi (Figma’da «Xaridor rejimiga o‘tish» bor). Agar ikkita alohida ilova bo‘lsa, yechim boshqacha bo‘ladi. Mijozning haqiqiy ikonkalari maketga qo‘yilishi kerak
+- Rol almashtirish: mijozning haqiqiy rol ikonkalari maketga qo‘yilishi kerak (hozir vaqtinchalik sumka/do‘kon belgilari)
 - «100–200» — sotuvchilar sonimi yoki bitta sotuvchidagi tovarlar sonimi? Ikkinchisi bo‘lsa, limitlar 30 / 300 ga o‘zgaradi
 - App Store va Google Play: tashqi to‘lov havolasi qoidalarga to‘g‘ri keladimi, tekshirish kerak (muqobil: veb-sayt yoki Telegram-bot)
 - Figma’dagi izohlar (comment) hali ko‘rib chiqilmagan, MCP ularni o‘qiy olmaydi, foydalanuvchi matn ko‘rinishida beradi
