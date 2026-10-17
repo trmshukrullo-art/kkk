@@ -1,0 +1,356 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1860"><title>Rasmsiz tovar va tahlil</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--faint:#9CA3AF;--red:#E5484D;--red-soft:#FDECEC;--green:#15803D;--green-soft:#E8F5EC;--amber:#B45309;--amber-soft:#FEF3C7;--orange:#F97316}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1150px}
+.frames{display:grid;grid-template-columns:repeat(4,375px);gap:56px 48px;margin-top:44px;align-items:start}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46;white-space:nowrap}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;height:812px;background:#fff;position:relative;overflow:hidden}
+.sb{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:600;font-size:17px}
+.nav{height:50px;display:flex;align-items:center;justify-content:center;position:relative;font-size:16px;border-bottom:1px solid #F1F1F1}
+.nav .bk{position:absolute;left:16px;display:flex}
+.nav .rt{position:absolute;right:16px}
+.ct{padding:0 16px}
+.muted{color:var(--muted)}
+.row{display:flex;align-items:center}
+.h{font-size:17px;font-weight:600;margin:18px 0 10px}
+.btn{height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.btn.p{background:var(--pri);color:#fff}.btn.s{background:var(--pri-soft);color:var(--pri)}.btn.g{color:var(--pri);height:44px;font-size:15px}
+.home{height:5px;width:140px;border-radius:3px;background:#000;margin:10px auto 8px}
+.bottom{position:absolute;left:0;right:0;bottom:0;background:#fff}
+.foot{padding:12px 16px 0;border-top:1px solid #F1F1F1}
+.srch{background:var(--field);border-radius:12px;height:44px;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:15px;margin-top:12px}
+.srch.f{background:#fff;box-shadow:inset 0 0 0 1.5px var(--pri)}
+.caret{display:inline-block;width:1.5px;height:18px;background:var(--pri);vertical-align:-3px;margin-left:1px}
+.chip{height:30px;padding:0 12px;border-radius:100px;border:1px solid var(--line);font-size:13px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+.chips{display:flex;gap:6px;margin:12px 0;overflow:hidden}
+.pro{font-size:10px;font-weight:700;color:#fff;background:linear-gradient(90deg,#015594,#0A73BF);border-radius:6px;padding:3px 7px;letter-spacing:.3px}
+.std{font-size:10px;font-weight:700;color:var(--pri);background:var(--pri-soft);border-radius:6px;padding:3px 7px;letter-spacing:.3px}
+.free{font-size:10px;font-weight:700;color:var(--green);background:var(--green-soft);border-radius:6px;padding:3px 7px;letter-spacing:.3px}
+/* category tile */
+.ct-ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.c-cem{background:#ECEFF3}.c-pnt{background:#FFF1E6}.c-gyp{background:#EEF4FB}.c-mtl{background:#F0F4EC}.c-ins{background:#FDF6E3}.c-arm{background:#F3EEF8}
+.spec{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.spec span{font-size:11px;font-weight:500;color:#3F3F46;background:var(--field);border-radius:6px;padding:3px 6px}
+/* catalog list */
+.cat{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid #F1F1F1}
+.cat .n{flex:1;font-size:15px;font-weight:600}
+.cat .n small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.cat .s{font-size:12px;color:var(--muted);text-align:right}
+.own{display:flex;align-items:center;gap:12px;border:1.5px dashed #D4D4D8;border-radius:14px;padding:12px 14px;margin-top:10px}
+.own .n{font-size:14px;font-weight:600;color:var(--pri)}.own small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+/* form */
+.lock{border-radius:16px;background:var(--field);padding:14px}
+.lock .top{display:flex;gap:12px;align-items:center}
+.lock .t{font-size:16px;font-weight:600}
+.badge{font-size:11px;font-weight:600;color:var(--green);background:var(--green-soft);border-radius:6px;padding:2px 6px;display:inline-flex;gap:4px;align-items:center}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.kv div{background:#fff;border-radius:10px;padding:8px 10px;font-size:14px}
+.kv small{display:block;font-size:11px;color:var(--muted)}
+.fld{background:var(--field);border-radius:14px;padding:9px 16px;min-height:56px;position:relative}
+.fld .l{font-size:12px;color:var(--muted)}.fld .v{font-size:16px;margin-top:2px}
+.fld.focus{background:#fff;box-shadow:inset 0 0 0 1.5px var(--pri)}.fld.focus .l{color:var(--pri)}
+.fld .sfx{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--muted)}
+.mk{border-radius:14px;background:#F7FAFD;border:1px solid #DCE7F1;padding:12px 14px;margin-top:10px}
+.mk .t{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
+.range{position:relative;height:8px;border-radius:4px;background:linear-gradient(90deg,#BBF7D0,#E5E7EB 50%,#FECACA);margin:34px 4px 6px}
+.range i{position:absolute;top:-5px;width:4px;height:18px;border-radius:2px;background:var(--pri);box-shadow:0 0 0 2px #fff}
+.range b{position:absolute;top:-24px;font-size:11px;font-weight:700;color:var(--pri);transform:translateX(-40%);white-space:nowrap}
+.rl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+/* buyer card */
+.bh{display:flex;justify-content:space-between;align-items:baseline;margin:2px 0 10px}
+.bh b{font-size:14px}.bh span{font-size:12px;color:var(--muted)}
+.pc{border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:8px;display:flex;gap:12px}
+.pc.ad{border-color:#DCE7F1;background:#FAFCFE}
+.pc .b{flex:1;min-width:0}
+.pc .t{font-size:15px;font-weight:600;display:flex;justify-content:space-between;gap:6px}
+.pc .pr{display:flex;align-items:baseline;gap:6px;margin-top:6px}
+.pc .pr b{font-size:18px;font-weight:700}
+.pc .pr small{font-size:12px;color:var(--muted)}
+.pc .pr s{font-size:12px;color:var(--faint)}
+.pc .sl{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.dot{width:6px;height:6px;border-radius:50%;background:#22C55E;display:inline-block}
+.dot.o{background:#F59E0B}
+.tav{font-size:10px;font-weight:700;color:var(--pri);background:var(--pri-soft);border-radius:5px;padding:2px 6px;align-self:flex-start}
+.cheap{font-size:10px;font-weight:700;color:var(--green);background:var(--green-soft);border-radius:5px;padding:2px 6px}
+.del{font-size:11px;color:var(--ink);background:var(--field);border-radius:5px;padding:2px 6px}
+/* analytics */
+.sum3{display:flex;gap:8px;margin:12px 0}
+.sum3 div{flex:1;border-radius:12px;padding:10px;font-size:11px;color:var(--muted)}
+.sum3 b{display:block;font-size:20px;margin-top:2px}
+.ai{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.ai .t{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.ai .d{font-size:12px;color:var(--muted);margin-top:2px}
+.up{color:var(--red);font-size:12px;font-weight:700}.dn{color:var(--green);font-size:12px;font-weight:700}.eq{color:var(--muted);font-size:12px;font-weight:600}
+.act{font-size:12px;font-weight:600;color:var(--pri);margin-top:8px}
+.dm{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #F1F1F1}
+.dm .n{flex:1;font-size:14px;font-weight:600}.dm .n small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.dm .q{font-size:15px;font-weight:700;text-align:right}.dm .q small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+.add{width:34px;height:34px;border-radius:10px;background:var(--pri-soft);display:flex;align-items:center;justify-content:center;flex:none}
+.bar{height:6px;border-radius:3px;background:var(--pri-soft);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+/* bulk */
+.seg{display:flex;background:var(--field);border-radius:12px;padding:3px}
+.seg div{flex:1;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--muted);font-weight:500}
+.seg div.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(15,23,41,.12)}
+.sel{display:flex;align-items:center;justify-content:space-between;background:var(--field);border-radius:14px;padding:10px 16px}
+.sel .l{font-size:12px;color:var(--muted)}.sel .v{font-size:16px}
+.pv{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:9px 0;border-top:1px solid #F1F1F1}
+.pv s{color:var(--faint);margin-right:6px}.pv b{color:var(--pri)}
+.tg{width:44px;height:26px;border-radius:20px;background:var(--pri);position:relative;flex:none}
+.tg::after{content:'';position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+/* import */
+.step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.step .i{width:26px;height:26px;border-radius:50%;background:var(--green-soft);color:var(--green);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.step .n{font-size:14px;font-weight:600}.step small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.file{display:flex;gap:10px;align-items:center;background:var(--field);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:13px}
+.res{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+.res div{border-radius:12px;padding:10px;font-size:11px;color:var(--muted);text-align:center}
+.res b{display:block;font-size:20px;margin-bottom:2px}
+.er{display:flex;gap:10px;font-size:13px;padding:9px 0;border-top:1px solid #F1F1F1}
+.er .r{font-size:11px;font-weight:700;color:#B42318;background:var(--red-soft);border-radius:6px;padding:2px 6px;height:20px;flex:none}
+/* home header */
+.hd{background:var(--pri);color:#fff;padding:0 16px 34px}
+.hd .sb{padding:0 8px 0 16px}
+.hrow{display:flex;align-items:center;gap:10px;margin-top:6px}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F7C59F,#4A90C2);flex:none}
+.hrow .t1{font-size:15px;font-weight:600}.hrow .t2{font-size:12px;opacity:.85}
+.sheet{background:#fff;border-radius:22px 22px 0 0;margin-top:-22px;padding:16px;position:relative}
+.dimbg{position:absolute;inset:0;background:rgba(15,23,41,.45)}
+.bs{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:10px 16px 0}
+.grab{width:36px;height:5px;border-radius:3px;background:#D4D4D8;margin:0 auto 14px}
+.cf{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #F1F1F1}
+.cf .n{flex:1;font-size:14px;font-weight:600}.cf .n small{display:block;font-size:11px;color:var(--amber);font-weight:500;margin-top:2px}
+.cf .p{background:var(--field);border-radius:10px;padding:7px 10px;font-size:14px;font-weight:600;min-width:92px;text-align:right}
+.cf .p.ed{background:#fff;box-shadow:inset 0 0 0 1.5px var(--pri)}
+.cf .ok{width:30px;height:30px;border-radius:9px;background:var(--green-soft);display:flex;align-items:center;justify-content:center;flex:none}
+.warn{border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;background:var(--amber-soft);color:#78350F}
+.warn b{display:block;font-size:14px;margin-bottom:2px}.warn span{font-size:12px;line-height:17px}
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+.ptable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+.ptable td,.ptable th{padding:5px 4px;border-top:1px solid #F1F1F1;text-align:left}
+.ptable th{font-weight:600;color:var(--ink)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-cem" viewBox="0 0 28 28"><path d="M7 6h14l2 16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" fill="#9AA5B4"/><path d="M7 6c2 2 12 2 14 0" stroke="#6B7787" stroke-width="1.6" fill="none"/><rect x="9" y="12" width="10" height="6" rx="1.5" fill="#fff" opacity=".8"/></symbol>
+<symbol id="i-pnt" viewBox="0 0 28 28"><path d="M6 9h16v12a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3z" fill="#F97316"/><ellipse cx="14" cy="9" rx="8" ry="2.5" fill="#FDBA74"/><path d="M6 9c0-5 16-5 16 0" stroke="#9A3412" stroke-width="1.5" fill="none"/></symbol>
+<symbol id="i-gyp" viewBox="0 0 28 28"><rect x="4" y="7" width="20" height="14" rx="1.5" fill="#93B4D6" transform="skewX(-12) translate(3 0)"/><rect x="4" y="10" width="20" height="14" rx="1.5" fill="#C9DAEC" transform="skewX(-12) translate(2 0)"/></symbol>
+<symbol id="i-mtl" viewBox="0 0 28 28"><path d="M5 9h18v3H5zM5 16h18v3H5z" fill="#7C9A62"/><path d="M8 9v10M20 9v10" stroke="#55703F" stroke-width="2"/></symbol>
+<symbol id="i-ins" viewBox="0 0 28 28"><rect x="5" y="6" width="18" height="6" rx="1.5" fill="#FCD34D"/><rect x="5" y="13" width="18" height="6" rx="1.5" fill="#FDE68A"/><rect x="5" y="20" width="18" height="3" rx="1.5" fill="#FCD34D"/></symbol>
+<symbol id="i-arm" viewBox="0 0 28 28"><path d="M5 22 22 5M9 23 23 9M5 18 18 5" stroke="#8B6FB1" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</defs></svg>
+<div class="board">
+  <div class="btitle">Rasmsiz tovar va yangi tarif qiymatlari</div>
+  <div class="bsub">Tovarlarda rasm, video va Stories yo‘q. Shuning uchun tovar <b>yagona katalog</b>, kategoriya ikonkasi va xususiyat chiplari orqali tanitiladi. Xaridorni narx, masofa va narx qachon yangilangani qiziqtiradi. Tariflarning asosiy qiymati esa vaqtni tejash va bozor ma’lumotlari: ommaviy narx o‘zgartirish, narx tahlili va talab tahlili.</div>
+
+  <div class="frames">
+
+  <!-- 1 Catalog search -->
+  <div>
+    <div class="fl">1 · Tovar qo‘shish <span>— katalogdan</span> <span class="free">HAMMAGA</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Tovar qo‘shish"></div>
+      <div class="ct">
+        <div class="srch f"><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><path d="m13 13 4 4"/></svg>sement m400<span class="caret"></span></div>
+        <div class="muted" style="font-size:12px;margin:10px 2px 4px">Katalogda 4 ta mos tovar. Tanlasangiz nomi va xususiyatlari avtomatik to‘ldiriladi.</div>
+        <div class="cat"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="n">Sement M400 «Qizilqum»<small>Portlandsement · 50 kg qop</small></div><div class="s">14 ta<br>do‘konda</div></div>
+        <div class="cat"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="n">Sement M400 «Bekobod»<small>Portlandsement · 50 kg qop</small></div><div class="s">9 ta<br>do‘konda</div></div>
+        <div class="cat"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="n">Sement M400 «Quvasoy»<small>Portlandsement · 50 kg qop</small></div><div class="s">6 ta<br>do‘konda</div></div>
+        <div class="cat"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="n">Sement M500 «Qizilqum»<small>Portlandsement · 50 kg qop</small></div><div class="s">11 ta<br>do‘konda</div></div>
+        <div class="own"><div class="add" style="background:#fff;box-shadow:inset 0 0 0 1px #D4D4D8"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></div><div class="n">Katalogda yo‘qmi? O‘zingiz yarating<small>Moderatsiyadan keyin katalogga qo‘shiladi</small></div></div>
+        <div class="row" style="gap:10px;margin-top:14px;background:var(--field);border-radius:14px;padding:12px 14px"><svg width="22" height="22" fill="none" stroke="#15803D" stroke-width="1.7"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M3 8h16M8 8v11"/></svg><div style="font-size:13px"><b>Ko‘p tovaringiz bormi?</b><br><span class="muted">Excel orqali birdaniga yuklang</span></div><span style="margin-left:auto;color:var(--pri);font-weight:600;font-size:13px">Yuklash ›</span></div>
+      </div>
+      <div class="bottom"><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 2 Form with market hint -->
+  <div>
+    <div class="fl">2 · Narx kiritish <span>— bozor narxi shu yerda</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Tovar qo‘shish"></div>
+      <div class="ct" style="padding-top:12px">
+        <div class="lock">
+          <div class="top"><div class="ct-ic c-cem" style="background:#fff"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div style="flex:1"><div class="t">Sement M400 «Qizilqum»</div><span class="badge"><svg width="11" height="11" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m2 6 2.5 2.5L9.5 3"/></svg>Katalogdan</span></div><span style="font-size:13px;color:var(--pri);font-weight:600">O‘zgartirish</span></div>
+          <div class="kv"><div><small>Brend</small>Qizilqumsement</div><div><small>Marka</small>M400 D20</div><div><small>Qadoq</small>50 kg qop</div><div><small>O‘lchov birligi</small>qop</div></div>
+        </div>
+        <div class="h">Narxlar</div>
+        <div class="fld focus"><div class="l">Dona narxi, UZS</div><div class="v">62 000<span class="caret"></span></div><span class="sfx">/ qop</span></div>
+        <div class="mk">
+          <div class="t"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="1.7"><path d="M2 13h12M4 13V8m4 5V4m4 9V6"/></svg>Mirobod tumanida shu tovar narxi</div>
+          <div class="range"><i style="left:62%"></i><b style="left:62%">Siz 62 000</b></div>
+          <div class="rl"><span>58 000<br>eng arzon</span><span style="text-align:center">61 500<br>o‘rtacha</span><span style="text-align:right">66 000<br>eng qimmat</span></div>
+          <div style="font-size:12px;margin-top:10px;color:#3F3F46">Narxingiz o‘rtachadan <b>1% qimmat</b>. «Arzoni bo‘yicha» saralashda 14 tadan <b>8-o‘rinda</b> chiqasiz.</div>
+        </div>
+        <div class="fld" style="margin-top:12px"><div class="l">Ulgurji · 20 qopdan, UZS</div><div class="v">58 500</div><span class="sfx">/ qop</span></div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">E’lon qilish</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 3 Buyer results -->
+  <div>
+    <div class="fl">3 · Xaridor ko‘rinishi <span>— solishtirishga qulay</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Qidiruv"></div>
+      <div class="ct">
+        <div class="srch"><svg width="18" height="18" fill="none" stroke="#9CA3AF" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><path d="m13 13 4 4"/></svg>Sement M400 «Qizilqum»</div>
+        <div class="chips"><span class="chip on">Arzoni</span><span class="chip">Yaqini</span><span class="chip">Reyting</span><span class="chip">Yetkazish</span></div>
+        <div class="bh"><b>14 ta do‘konda</b><span>58 000 – 66 000 so‘m / qop</span></div>
+        <div class="pc ad"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="b"><div class="t">Qurilish Baraka<span class="tav">TAVSIYA</span></div><div class="pr"><b>59 500</b><small>so‘m / qop</small></div><div class="sl"><span>★ 4,8</span>·<span>2,4 km</span>·<span class="del">Yetkazish bor</span></div><div class="sl" style="margin-top:4px"><span class="dot"></span>Narx bugun yangilangan</div></div></div>
+        <div class="pc"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="b"><div class="t">Usta Market<span class="cheap">ENG ARZON</span></div><div class="pr"><b>58 000</b><small>so‘m / qop</small></div><div class="sl"><span>★ 4,5</span>·<span>5,1 km</span></div><div class="sl" style="margin-top:4px"><span class="dot"></span>Narx 2 kun oldin yangilangan</div></div></div>
+        <div class="pc"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="b"><div class="t">Xo‘jalik mollari do‘koni</div><div class="pr"><b>60 000</b><small>so‘m / qop</small><s>62 000</s></div><div class="sl"><span>★ 4,6</span>·<span>1,2 km</span>·<span class="del">20 qopdan 58 500</span></div><div class="sl" style="margin-top:4px"><span class="dot"></span>Narx bugun yangilangan</div></div></div>
+        <div class="pc"><div class="ct-ic c-cem"><svg width="28" height="28"><use href="#i-cem"/></svg></div><div class="b"><div class="t">Mirobod Stroy</div><div class="pr"><b>60 500</b><small>so‘m / qop</small></div><div class="sl"><span>★ 4,2</span>·<span>0,8 km</span></div><div class="sl" style="margin-top:4px"><span class="dot o"></span>Narx 34 kun oldin yangilangan</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 Price analytics -->
+  <div>
+    <div class="fl">4 · Narx tahlili <span>— bozor bilan</span> <span class="pro">BIZNES</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Narx tahlili"></div>
+      <div class="ct">
+        <div class="muted" style="font-size:12px;margin-top:12px">Mirobod tumani · katalogdagi 142 ta tovaringiz</div>
+        <div class="sum3"><div style="background:var(--red-soft)">Bozordan qimmat<b style="color:#B42318">18</b></div><div style="background:var(--field)">O‘rtacha<b>97</b></div><div style="background:var(--green-soft)">Eng arzon<b style="color:var(--green)">27</b></div></div>
+        <div class="chips" style="margin-top:0"><span class="chip on">Qimmatlar · 18</span><span class="chip">Barchasi</span><span class="chip">Eng arzon</span></div>
+        <div class="ai"><div class="t">Tikurilla kraska<span class="up">+8% qimmat</span></div><div class="d">Siz 35 500 · o‘rtacha 32 800 · eng arzon 30 900</div><div class="range" style="margin:22px 4px 4px"><i style="left:84%"></i></div><div class="act">Narxni 32 800 ga tushirish ›</div></div>
+        <div class="ai"><div class="t">Shpaklyovka «Knauf» 25 kg<span class="up">+6% qimmat</span></div><div class="d">Siz 112 000 · o‘rtacha 105 600 · eng arzon 99 000</div><div class="range" style="margin:22px 4px 4px"><i style="left:78%"></i></div><div class="act">Narxni 105 600 ga tushirish ›</div></div>
+        <div class="ai"><div class="t">Profil CD 60×27<span class="up">+4% qimmat</span></div><div class="d">Siz 18 000 · o‘rtacha 17 300 · eng arzon 16 500</div><div class="range" style="margin:22px 4px 4px"><i style="left:70%"></i></div><div class="act">Narxni 17 300 ga tushirish ›</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 Demand -->
+  <div>
+    <div class="fl">5 · Talab tahlili <span>— sizda yo‘q tovarlar</span> <span class="pro">BIZNES</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Talab tahlili"></div>
+      <div class="ct">
+        <div class="chips"><span class="chip on">30 kun</span><span class="chip">Mirobod ▾</span><span class="chip">Barcha kategoriyalar ▾</span></div>
+        <div style="background:linear-gradient(135deg,#015594,#0A73BF);color:#fff;border-radius:16px;padding:14px 16px"><div style="font-size:12px;opacity:.85">Sizda yo‘q tovarlar bo‘yicha qidiruvlar</div><div style="font-size:26px;font-weight:700;margin-top:2px">1 284 ta</div><div style="font-size:12px;opacity:.85;margin-top:2px">Bu tovarlarni qo‘shsangiz shu xaridorlar sizni ko‘radi</div></div>
+        <div class="h" style="font-size:15px">Eng ko‘p qidirilganlar</div>
+        <div class="dm"><div class="ct-ic c-ins" style="width:44px;height:44px"><svg width="24" height="24"><use href="#i-ins"/></svg></div><div class="n">Penoplast 5 sm<small>Atrofda 3 ta do‘konda bor</small><div class="bar"><i style="width:100%"></i></div></div><div class="q">214<small>qidiruv</small></div><div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></div></div>
+        <div class="dm"><div class="ct-ic c-arm" style="width:44px;height:44px"><svg width="24" height="24"><use href="#i-arm"/></svg></div><div class="n">Armatura 12 mm<small>Atrofda 5 ta do‘konda bor</small><div class="bar"><i style="width:87%"></i></div></div><div class="q">186<small>qidiruv</small></div><div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></div></div>
+        <div class="dm"><div class="ct-ic c-cem" style="width:44px;height:44px"><svg width="24" height="24"><use href="#i-cem"/></svg></div><div class="n">Sement M500 «Qizilqum»<small>Sizda M400 bor · 11 do‘konda</small><div class="bar"><i style="width:45%"></i></div></div><div class="q">97<small>qidiruv</small></div><div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></div></div>
+        <div class="dm"><div class="ct-ic c-gyp" style="width:44px;height:44px"><svg width="24" height="24"><use href="#i-gyp"/></svg></div><div class="n">Gipsokarton nam. bardoshli<small>Atrofda faqat 1 ta do‘konda</small><div class="bar"><i style="width:38%"></i></div></div><div class="q">82<small>qidiruv</small></div><div class="add"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 Bulk price -->
+  <div>
+    <div class="fl">6 · Ommaviy narx o‘zgartirish <span>— bir bosishda</span> <span class="std">STANDART</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Narxlarni o‘zgartirish"></div>
+      <div class="ct" style="padding-top:14px">
+        <div class="sel"><div><div class="l">Qaysi tovarlar</div><div class="v">Qurilish aralashmalari · 12 ta</div></div><svg width="18" height="18" fill="none" stroke="#6B7280" stroke-width="1.8"><path d="m5 7 4 4 4-4"/></svg></div>
+        <div class="seg" style="margin-top:12px"><div class="on">↑ Oshirish</div><div>↓ Tushirish</div></div>
+        <div class="row" style="gap:8px;margin-top:12px"><div class="fld focus" style="flex:1"><div class="l">Qancha</div><div class="v">5<span class="caret"></span></div><span class="sfx">%</span></div><div class="seg" style="width:110px;flex:none"><div class="on">%</div><div>UZS</div></div></div>
+        <div class="row" style="justify-content:space-between;margin:14px 2px 6px"><span style="font-size:14px">100 so‘mgacha yaxlitlash</span><div class="tg"></div></div>
+        <div class="h" style="font-size:14px;margin:12px 0 4px">Natija · 12 ta tovar</div>
+        <div class="pv"><span>Sement M400 «Qizilqum»</span><span><s>62 000</s><b>65 100</b></span></div>
+        <div class="pv"><span>Sement M500 «Qizilqum»</span><span><s>71 000</s><b>74 600</b></span></div>
+        <div class="pv"><span>Shpaklyovka «Knauf» 25 kg</span><span><s>112 000</s><b>117 600</b></span></div>
+        <div class="pv"><span>Gips «Satengips» 25 kg</span><span><s>48 000</s><b>50 400</b></span></div>
+        <div class="pv"><span>Plitka yelimi «Ceresit» CM11</span><span><s>89 000</s><b>93 500</b></span></div>
+        <div class="pv" style="color:var(--muted)"><span>yana 7 ta tovar</span><span>›</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:8px">Ulgurji va Partiya narxlari ham shu foizga o‘zgaradi. Chegirmalar saqlanib qoladi.</div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">12 ta tovar narxini yangilash</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 7 Excel import -->
+  <div>
+    <div class="fl">7 · Excel’dan yuklash <span>— 2 daqiqada</span> <span class="free">HAMMAGA</span></div>
+    <div class="ph">
+      <div class="sbx"></div><div class="navx" data-t="Excel’dan yuklash"></div>
+      <div class="ct" style="padding-top:14px">
+        <div class="step"><div class="i">✓</div><div style="flex:1"><div class="n">Shablonni yuklab oling<small>Nomi, o‘lchov birligi, narxlar ustunlari</small></div></div></div>
+        <div class="step"><div class="i">✓</div><div style="flex:1"><div class="n">To‘ldirib, qayta yuklang<small>.xlsx yoki .csv, 5 MB gacha</small><div class="file"><svg width="22" height="22" fill="none" stroke="#15803D" stroke-width="1.6"><rect x="3" y="2" width="16" height="18" rx="3"/><path d="m8 8 6 6m0-6-6 6"/></svg>tovarlar_oktabr.xlsx<span class="muted" style="margin-left:auto">48 KB</span></div></div></div></div>
+        <div class="h" style="font-size:15px;margin-top:16px">Tekshiruv natijasi</div>
+        <div class="res"><div style="background:var(--green-soft)"><b style="color:var(--green)">171</b>katalogga mos</div><div style="background:var(--field)"><b>15</b>yangi tovar</div><div style="background:var(--red-soft)"><b style="color:#B42318">4</b>xato</div></div>
+        <div class="er"><span class="r">23-qator</span><span>Narx kiritilmagan — «Laminat Kronospan 8 mm»</span></div>
+        <div class="er"><span class="r">57-qator</span><span>O‘lchov birligi noto‘g‘ri: «dona.» → «dona»?</span></div>
+        <div class="er"><span class="r">88-qator</span><span>Ulgurji narxi Dona narxidan qimmat</span></div>
+        <div class="er"><span class="r">142-qator</span><span>Takroriy tovar — 12-qator bilan bir xil</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:10px">Xatoli qatorlarni ilovaning o‘zida tuzatishingiz yoki o‘tkazib yuborishingiz mumkin.</div>
+      </div>
+      <div class="bottom"><div class="foot"><div class="btn p">186 ta tovarni qo‘shish</div><div class="btn g">Xatolarni tuzatish</div></div><div class="home"></div></div>
+    </div>
+  </div>
+
+  <!-- 8 Price freshness -->
+  <div>
+    <div class="fl">8 · Narxlarni tasdiqlash <span>— ishonch belgisi</span> <span class="free">HAMMAGA</span></div>
+    <div class="ph">
+      <div class="hd"><div class="sbx" data-w="1"></div><div class="hrow"><div class="av"></div><div><div class="t1">Xo‘jalik mollari do‘koni</div><div class="t2">Sabridinxon Sharofidinov</div></div></div></div>
+      <div class="sheet">
+        <div class="warn"><svg width="20" height="20" fill="none" stroke="#B45309" stroke-width="1.7" style="flex:none"><circle cx="10" cy="10" r="8"/><path d="M10 6v4.5l3 1.8" stroke-linecap="round"/></svg><div><b>12 ta tovar narxi 30 kundan beri tasdiqlanmagan</b><span>Ular qidiruvda pastga tushmoqda.</span></div></div>
+      </div>
+      <div class="dimbg"></div>
+      <div class="bs">
+        <div class="grab"></div>
+        <div style="font-size:18px;font-weight:700">Narxlar hali to‘g‘rimi?</div>
+        <div class="muted" style="font-size:13px;margin:4px 0 10px">To‘g‘ri bo‘lsa ✓ ni bosing, o‘zgargan bo‘lsa yangi narxni yozing. 12 tadan 4 tasi:</div>
+        <div class="cf"><div class="n">Tikurilla kraska<small>45 kun oldin</small></div><div class="p">35 500</div><div class="ok"><svg width="14" height="14" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 7.5 3 3 6-7"/></svg></div></div>
+        <div class="cf"><div class="n">Profil CD 60×27<small>38 kun oldin</small></div><div class="p ed">18 500<span class="caret"></span></div><div class="ok" style="background:var(--pri)"><svg width="14" height="14" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 7.5 3 3 6-7"/></svg></div></div>
+        <div class="cf"><div class="n">Gipsokarton Knauf 12.5 mm<small>33 kun oldin</small></div><div class="p">78 000</div><div class="ok"><svg width="14" height="14" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 7.5 3 3 6-7"/></svg></div></div>
+        <div class="cf"><div class="n">Laminat «Kronospan» 8 mm<small>31 kun oldin</small></div><div class="p">96 000</div><div class="ok"><svg width="14" height="14" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 7.5 3 3 6-7"/></svg></div></div>
+        <div class="btn p" style="margin-top:12px">Hammasi to‘g‘ri — tasdiqlash</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Rasmsiz tovar qanday ishonch uyg‘otadi</h4>
+      <ul>
+        <li><b>Yagona katalog.</b> Sotuvchi tovarni yozmaydi, katalogdan tanlaydi. Nomi, brendi, markasi va qadog‘i bir xil bo‘ladi, shuning uchun xaridor 14 ta do‘kondagi <b>aynan bir tovarni</b> narx bo‘yicha solishtiradi. Qurilish materialida rasmdan ko‘ra «M400, 50 kg» degan aniq ma’lumot muhimroq.</li>
+        <li><b>Kategoriya ikonkasi.</b> Rasm o‘rnida har kategoriyaning rangi va ikonkasi turadi. Ro‘yxat bir xil ko‘rinadi va tez o‘qiladi.</li>
+        <li><b>Narx yangiligi.</b> Kartada «Narx bugun yangilangan» degan yashil nuqta turadi. 30 kundan beri tasdiqlanmagan narxlar qidiruvda pastga tushadi. Sotuvchi narxlarni tasdiqlash oynasi orqali bir bosishda yangilaydi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>2</i>Yangilangan tariflar</h4>
+      <table class="ptable">
+        <tr><th></th><th>Start</th><th>Standart</th><th>Biznes</th></tr>
+        <tr><td>Tovarlar</td><td>20</td><td>200</td><td>Cheksiz</td></tr>
+        <tr><td>Katalog, Excel import</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Narx tasdiqlash</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Chegirma</td><td>—</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Ommaviy narx</td><td>—</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Statistika</td><td>7 kun</td><td>90 kun</td><td>Yil + Excel</td></tr>
+        <tr><td>Narx tahlili</td><td>—</td><td>—</td><td>✅</td></tr>
+        <tr><td>Talab tahlili</td><td>—</td><td>—</td><td>✅</td></tr>
+        <tr><td>Ko‘tarish / oy</td><td>—</td><td>2</td><td>10</td></tr>
+        <tr><td>Filial, xodim</td><td>1</td><td>1</td><td>Ko‘p, 3 xodim</td></tr>
+      </table>
+    </div>
+    <div class="nb"><h4><i>3</i>Nega bu kuchli yechim</h4>
+      <ul>
+        <li><b>Bepul qism tovar kiritishni oson qiladi:</b> katalog, Excel va narx tasdiqlash. Kiritish qanchalik oson bo‘lsa, ilovada shuncha ko‘p tovar va do‘kon bo‘ladi.</li>
+        <li><b>Pullik qism vaqt va pul tejaydi:</b> ommaviy narx o‘zgartirish (inflyatsiya paytida 200 ta narxni qo‘lda yangilash shart emas) va bozor tahlili. Bunday ma’lumotni sotuvchi boshqa joydan ololmaydi.</li>
+        <li>Narx tahlili va talab tahlili katalog bo‘lgani uchungina mumkin. <b>Katalog — platformaning asosi</b>, uni birinchi navbatda qurish kerak.</li>
+        <li>Bozor narxi hammaga tovar qo‘shayotganda <b>bitta tovar uchun</b> ko‘rinadi. To‘liq tahlil esa Biznes tarifida. Bu Biznesga o‘tishga tabiiy sabab beradi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+const sb=(w)=>`<div class="sb" style="${w?'color:#fff;padding:0 8px 0 16px':''}">9:41<span style="display:flex;gap:6px;align-items:center"><svg width="18" height="12" fill="${w?'#fff':'#000'}"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="27" height="13" fill="${w?'#fff':'#000'}"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="${w?'#fff':'#000'}" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/></svg></span></div>`;
+document.querySelectorAll('.sbx').forEach(e=>e.outerHTML=sb(!!e.dataset.w));
+document.querySelectorAll('.navx').forEach(e=>e.outerHTML=`<div class="nav"><span class="bk"><svg width="22" height="22" fill="none" stroke="#0F1729" stroke-width="1.8" stroke-linecap="round"><path d="M19 11H4m6-6-6 6 6 6"/></svg></span>${e.dataset.t}</div>`);
+</script>
+</body></html>
