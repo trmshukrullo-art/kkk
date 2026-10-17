@@ -1,0 +1,276 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=2700"><title>Rol almashtirish</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--faint:#9CA3AF;--red:#E5484D;--green:#15803D;--green-soft:#E8F5EC;--sel:#F97316;--sel-soft:#FFF1E6}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1200px}
+.frames{display:flex;gap:44px;margin-top:44px;align-items:flex-start}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46;white-space:nowrap}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;height:812px;background:#fff;position:relative;overflow:hidden}
+.sb{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:600;font-size:17px}
+.ct{padding:0 16px}
+.muted{color:var(--muted)}
+.row{display:flex;align-items:center}
+.btn{height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.btn.p{background:var(--pri);color:#fff}.btn.g{color:var(--pri);height:44px;font-size:15px}
+.home{height:5px;width:140px;border-radius:3px;background:#000;margin:10px auto 8px}
+.bottom{position:absolute;left:0;right:0;bottom:0;background:#fff}
+/* role icons (placeholders) */
+.ri{border-radius:30%;display:flex;align-items:center;justify-content:center;flex:none;position:relative}
+.ri.b{background:linear-gradient(145deg,#1B79C4,#015594)}
+.ri.s{background:linear-gradient(145deg,#FB923C,#EA580C)}
+.ph-note{position:absolute;font-size:9px;font-weight:600;color:#7C3AED;background:#F3E8FF;border:1px dashed #A855F7;border-radius:4px;padding:1px 4px;white-space:nowrap}
+/* tabbar */
+.tb{display:flex;align-items:center;justify-content:space-around;padding:8px 8px 0;border-top:1px solid #F1F1F1}
+.tb .it{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--muted);width:62px}
+.tb .it.on{color:var(--pri);font-weight:600}
+.tb .mid{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:600;margin-top:-22px;width:70px}
+.tb .mid .ri{width:56px;height:56px;box-shadow:0 6px 16px rgba(1,85,148,.3);border:3px solid #fff}
+.tb .mid .sw{position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.bdg{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid #fff}
+/* seller tabbar */
+.stb{display:flex;gap:8px;padding:12px 16px 0;align-items:center}
+.stb div{width:52px;height:44px;border-radius:22px;background:var(--pri-soft);display:flex;align-items:center;justify-content:center}
+.stb .a{flex:1;background:var(--pri);color:#fff;font-size:13px;font-weight:600;gap:6px}
+.stb .m{width:56px;height:56px;border-radius:30%;padding:0;background:none;position:relative}
+/* buyer home */
+.bhd{padding:4px 16px 0}
+.loc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.loc b{color:var(--ink);font-size:15px}
+.srch{background:var(--field);border-radius:12px;height:46px;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:15px;color:var(--faint);margin-top:12px}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.cats div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;text-align:center}
+.cats i{width:64px;height:64px;border-radius:18px;display:block}
+.lst{background:var(--pri-soft);border-radius:18px;padding:16px;margin-top:16px}
+.lst b{font-size:16px}.lst p{font-size:13px;color:var(--muted);margin-top:4px;line-height:19px}
+.lst .c{display:inline-flex;margin-top:12px;height:38px;padding:0 16px;border-radius:12px;background:var(--pri);color:#fff;font-size:14px;font-weight:600;align-items:center}
+/* seller home */
+.hd{background:var(--pri);color:#fff;padding:0 16px 34px}
+.hd .sb{padding:0 8px 0 16px}
+.hrow{display:flex;align-items:center;gap:10px;margin-top:6px}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#F7C59F,#4A90C2);flex:none}
+.hrow .t1{font-size:15px;font-weight:600}.hrow .t2{font-size:12px;opacity:.85}
+.sheet{background:#fff;border-radius:22px 22px 0 0;margin-top:-22px;padding:16px;position:relative}
+.stats{display:flex;gap:8px;margin-bottom:12px}
+.stats div{flex:1;background:var(--pri-soft);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--muted)}
+.stats b{display:block;color:var(--ink);font-size:16px;margin-top:2px}
+.prd{background:var(--field);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+.prd .t{font-size:16px;font-weight:600}.prd .c{font-size:12px;color:var(--muted);margin-top:2px}
+.prd .price{font-size:20px;font-weight:700;margin-top:8px}.prd .price small{font-size:12px;color:var(--muted);font-weight:400}
+/* sheet */
+.dimbg{position:absolute;inset:0;background:rgba(15,23,41,.45)}
+.bs{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:10px 16px 0}
+.grab{width:36px;height:5px;border-radius:3px;background:#D4D4D8;margin:0 auto 14px}
+.bt{font-size:18px;font-weight:700}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-top:10px}
+.opt.on{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri);background:#FAFCFE}
+.opt .n{flex:1;font-size:15px;font-weight:600}.opt .n small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.opt .ck{width:24px;height:24px;border-radius:50%;background:var(--pri);display:flex;align-items:center;justify-content:center}
+.opt .ar{color:var(--faint);font-size:18px}
+.cnt{font-size:11px;font-weight:700;color:#fff;background:var(--red);border-radius:10px;padding:2px 7px}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+/* transition */
+.tr{position:absolute;inset:0;background:linear-gradient(180deg,#015594,#0A6CB5);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+.tr .ri{width:96px;height:96px;box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.tr .t{font-size:20px;font-weight:700;margin-top:24px}
+.tr .s{font-size:14px;opacity:.8;margin-top:6px}
+.prog{width:120px;height:4px;border-radius:2px;background:rgba(255,255,255,.25);margin-top:28px;overflow:hidden}.prog i{display:block;width:65%;height:100%;background:#fff}
+.ghost{position:absolute;left:50%;transform:translateX(-50%);opacity:.18}
+/* push */
+.lock{position:absolute;inset:0;background:linear-gradient(160deg,#3B4A6B,#1E293B)}
+.lock .time{color:#fff;text-align:center;font-size:76px;font-weight:300;margin-top:90px;letter-spacing:-2px}
+.lock .date{color:#fff;text-align:center;font-size:17px;opacity:.85}
+.push{margin:40px 10px 0;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-radius:20px;padding:12px 14px;display:flex;gap:10px}
+.push .t{font-size:14px;font-weight:600}.push .d{font-size:13px;margin-top:2px;line-height:18px}
+.push .a{font-size:12px;color:var(--muted);margin-left:auto}
+.toast{position:absolute;left:16px;right:16px;bottom:100px;background:#0F1729;color:#fff;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast b{color:#93C5FD;margin-left:auto;font-weight:600;white-space:nowrap}
+.rv{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px}
+.rv .t{display:flex;justify-content:space-between;font-size:15px;font-weight:600}
+.rv p{font-size:14px;line-height:20px;margin-top:6px;color:#3F3F46}
+.rv .re{display:inline-flex;margin-top:10px;height:34px;padding:0 14px;border-radius:10px;background:var(--pri-soft);color:var(--pri);font-size:13px;font-weight:600;align-items:center}
+/* own product banner */
+.own{display:flex;align-items:center;gap:10px;background:var(--sel-soft);border-radius:14px;padding:10px 12px;margin-top:12px;font-size:13px}
+.own b{margin-left:auto;color:#C2410C;white-space:nowrap}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7z" fill="#fff"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="#fff" stroke-width="1.8" fill="none"/></symbol>
+<symbol id="shop" viewBox="0 0 24 24"><path d="M4 9 5.5 4h13L20 9z" fill="#fff"/><path d="M5 10h14v10H5z" fill="#fff" opacity=".9"/><rect x="10" y="14" width="4" height="6" fill="#EA580C"/></symbol>
+<symbol id="swap" viewBox="0 0 12 12"><path d="M2 4h7l-2-2M10 8H3l2 2" stroke="#015594" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+<div class="board">
+  <div class="btitle">Xaridor ⇄ Sotuvchi rejimi</div>
+  <div class="bsub">Bitta ilova, bitta akkaunt (bitta telefon raqami), ikki rejim. Pastki menyuning markazidagi tugmada <b>joriy rejimning ikonkasi</b> turadi. Shu tugma rejimni almashtiradi. Rejim ikonka va sarlavha rangi orqali darhol tanib olinadi. <span style="color:#7C3AED">Binafsha belgi bilan ko‘rsatilgan joylarga o‘zingiz chizgan ikonkalarni qo‘yasiz.</span></div>
+
+  <div class="frames">
+
+  <!-- 1 Buyer home -->
+  <div>
+    <div class="fl">1 · Xaridor rejimi <span>— markazda xaridor ikonkasi</span></div>
+    <div class="ph">
+      <div class="sbx"></div>
+      <div class="bhd">
+        <div class="loc"><svg width="16" height="16" fill="none" stroke="#015594" stroke-width="1.7"><path d="M8 14s5-4.5 5-8a5 5 0 0 0-10 0c0 3.5 5 8 5 8z"/><circle cx="8" cy="6" r="1.8"/></svg><b>Mirobod tumani</b> ▾</div>
+        <div class="srch"><svg width="18" height="18" fill="none" stroke="#9CA3AF" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><path d="m13 13 4 4"/></svg>Material qidiring</div>
+        <div class="cats">
+          <div><i style="background:#ECEFF3"></i>Sement va aralashma</div><div><i style="background:#FFF1E6"></i>Bo‘yoq va lak</div><div><i style="background:#EEF4FB"></i>Gipsokarton</div><div><i style="background:#F0F4EC"></i>Metall profil</div>
+          <div><i style="background:#FDF6E3"></i>Izolyatsiya</div><div><i style="background:#F3EEF8"></i>Armatura</div><div><i style="background:#E8F5EC"></i>Santexnika</div><div><i style="background:#FDECEC"></i>Elektr</div>
+        </div>
+        <div class="lst"><b>Ro‘yxat tuzing — narxlarni biz solishtiramiz</b><p>Kerakli materiallarni yozing, eng arzon va eng yaqin do‘konlarni topamiz.</p><span class="c">Ro‘yxat yaratish</span></div>
+      </div>
+      <div class="bottom">
+        <div class="tb">
+          <div class="it on"><svg width="22" height="22" fill="#015594"><path d="M11 2 2 10v10h6v-6h6v6h6V10z"/></svg>Bosh</div>
+          <div class="it"><svg width="22" height="22" fill="none" stroke="#6B7280" stroke-width="1.7"><rect x="4" y="3" width="14" height="17" rx="2"/><path d="M8 8h6M8 12h6M8 16h3"/></svg>Ro‘yxatlar</div>
+          <div class="mid"><div class="ri b"><svg width="28" height="28"><use href="#bag"/></svg><span class="sw"><svg width="12" height="12"><use href="#swap"/></svg></span><span class="bdg">3</span></div><span style="color:var(--pri)">Xaridor</span></div>
+          <div class="it"><svg width="22" height="22" fill="none" stroke="#6B7280" stroke-width="1.7"><path d="M11 19s-7-4.4-7-9.5A4 4 0 0 1 11 7a4 4 0 0 1 7 2.5C18 14.6 11 19 11 19z"/></svg>Tanlangan</div>
+          <div class="it"><svg width="22" height="22" fill="none" stroke="#6B7280" stroke-width="1.7"><circle cx="11" cy="8" r="4"/><path d="M3 20c1-4 4.5-6 8-6s7 2 8 6"/></svg>Profil</div>
+        </div>
+        <div class="home"></div>
+      </div>
+      <span class="ph-note" style="left:150px;bottom:110px">Xaridor ikonkangiz</span>
+      <span class="ph-note" style="left:212px;bottom:72px;background:#FEE2E2;color:#B42318;border-color:#F87171">Sotuvchi rejimida 3 ta yangi</span>
+    </div>
+  </div>
+
+  <!-- 2 Switch sheet -->
+  <div>
+    <div class="fl">2 · Markaziy tugma bosildi <span>— rejimni tanlash</span></div>
+    <div class="ph">
+      <div class="sbx"></div>
+      <div class="bhd"><div class="loc"><b>Mirobod tumani</b> ▾</div><div class="srch">Material qidiring</div></div>
+      <div class="dimbg"></div>
+      <div class="bs">
+        <div class="grab"></div>
+        <div class="bt">Rejimni tanlang</div>
+        <div class="muted" style="font-size:13px;margin-top:4px">Azizbek Kamolov · +998 91 123 45 67</div>
+        <div class="opt on"><div class="ri b" style="width:48px;height:48px"><svg width="24" height="24"><use href="#bag"/></svg></div><div class="n">Xaridor<small>Material qidirish, ro‘yxatlar</small></div><div class="ck"><svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="m2.5 6.2 2.4 2.4 4.6-5"/></svg></div></div>
+        <div class="opt"><div class="ri s" style="width:48px;height:48px"><svg width="24" height="24"><use href="#shop"/></svg></div><div class="n">Xo‘jalik mollari do‘koni<small>Sotuvchi · Standart tarif</small></div><span class="cnt">3</span><span class="ar">›</span></div>
+        <div class="opt" style="border-style:dashed"><div style="width:48px;height:48px;border-radius:14px;background:var(--field);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" fill="none" stroke="#015594" stroke-width="2" stroke-linecap="round"><path d="M10 4v12M4 10h12"/></svg></div><div class="n" style="color:var(--pri)">Yana do‘kon qo‘shish<small>Biznes tarifida bir nechta filial</small></div></div>
+        <div class="hint">Maslahat: markaziy tugmani 1 soniya bosib tursangiz, rejim darhol almashadi</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Transition -->
+  <div>
+    <div class="fl">3 · O‘tish animatsiyasi <span>— 0,6 soniya</span></div>
+    <div class="ph">
+      <div class="tr">
+        <div class="ri s"><svg width="48" height="48"><use href="#shop"/></svg></div>
+        <div class="t">Sotuvchi rejimi</div>
+        <div class="s">Xo‘jalik mollari do‘koni</div>
+        <div class="prog"><i></i></div>
+      </div>
+      <span class="ph-note" style="left:126px;top:300px">Sotuvchi ikonkangiz</span>
+    </div>
+  </div>
+
+  <!-- 4 Seller home -->
+  <div>
+    <div class="fl">4 · Sotuvchi rejimi <span>— markazda sotuvchi ikonkasi</span></div>
+    <div class="ph">
+      <div class="hdx"></div>
+      <div class="sheet">
+        <div class="stats"><div>Sotuvda<b>198 ta</b></div><div>Ko‘rishlar<b>12 840</b></div><div>Qo‘ng‘iroqlar<b>312</b></div></div>
+        <div class="prd"><div class="t">Tikurilla kraska</div><div class="c">Bo‘yoqlar va laklar</div><div class="price">35 500 UZS <small>/ litr</small></div></div>
+        <div class="prd"><div class="t">Sement M400 «Qizilqum»</div><div class="c">Qurilish aralashmalari</div><div class="price">62 000 UZS <small>/ qop</small></div></div>
+        <div class="prd"><div class="t">Gipsokarton Knauf 12.5 mm</div><div class="c">Gipsokarton</div><div class="price">78 000 UZS <small>/ list</small></div></div>
+      </div>
+      <div class="toast"><svg width="18" height="18" fill="none" stroke="#22C55E" stroke-width="1.7"><circle cx="9" cy="9" r="7.5"/><path d="m5.8 9.2 2.2 2.2 4.2-4.4"/></svg>Sotuvchi rejimiga o‘tdingiz<b>Ortga</b></div>
+      <div class="bottom">
+        <div class="stb">
+          <div class="a"><svg width="16" height="16" fill="#fff"><path d="M8 1 1 7v8h5v-5h4v5h5V7z"/></svg>Bosh sahifa</div>
+          <div><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.6"><path d="m9 2 2.2 4.5 5 .7-3.6 3.5.8 5L9 13.3 4.6 15.7l.8-5L1.8 7.2l5-.7z"/></svg></div>
+          <div class="m"><div class="ri s" style="width:56px;height:56px;margin-top:-14px;border:3px solid #fff;box-shadow:0 6px 16px rgba(234,88,12,.3)"><svg width="28" height="28"><use href="#shop"/></svg><span class="sw" style="position:absolute;right:-4px;bottom:-4px;width:20px;height:20px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2)"><svg width="12" height="12"><use href="#swap"/></svg></span></div></div>
+          <div><svg width="18" height="18" fill="none" stroke="#015594" stroke-width="1.6"><circle cx="9" cy="9" r="2.5"/><path d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.7 3.7l1.4 1.4M12.9 12.9l1.4 1.4M3.7 14.3l1.4-1.4M12.9 5.1l1.4-1.4"/></svg></div>
+        </div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 No store yet -->
+  <div>
+    <div class="fl">5 · Do‘koni yo‘q xaridor <span>— markaziy tugma</span></div>
+    <div class="ph">
+      <div class="sbx"></div>
+      <div class="bhd"><div class="loc"><b>Mirobod tumani</b> ▾</div><div class="srch">Material qidiring</div></div>
+      <div class="dimbg"></div>
+      <div class="bs">
+        <div class="grab"></div>
+        <div style="display:flex;justify-content:center;margin:6px 0 16px"><div class="ri s" style="width:72px;height:72px"><svg width="36" height="36"><use href="#shop"/></svg></div></div>
+        <div class="bt" style="text-align:center;font-size:20px">Materiallar sotasizmi?</div>
+        <div class="muted" style="font-size:14px;line-height:21px;text-align:center;margin:6px 10px 16px">Mirobod tumanida har kuni <b style="color:var(--ink)">1 200+</b> xaridor material qidiradi. Do‘kon ochish bepul va 3 daqiqa vaqt oladi.</div>
+        <div style="display:grid;gap:8px;margin-bottom:16px">
+          <div class="row" style="gap:10px;font-size:14px;background:var(--field);border-radius:12px;padding:10px 12px"><svg width="18" height="18" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m4 9.5 3 3 7-7.5"/></svg>Shu akkaunt, shu raqam — qayta ro‘yxatdan o‘tish shart emas</div>
+          <div class="row" style="gap:10px;font-size:14px;background:var(--field);border-radius:12px;padding:10px 12px"><svg width="18" height="18" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round"><path d="m4 9.5 3 3 7-7.5"/></svg>3 oy Biznes tarifi bepul</div>
+        </div>
+        <div class="btn p">Do‘kon ochish</div>
+        <div class="btn g">Hozir emas</div>
+        <div class="home"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 Push auto-switch -->
+  <div>
+    <div class="fl">6 · Push-bildirishnoma <span>— kerakli rejimda ochiladi</span></div>
+    <div class="ph">
+      <div class="sbx" data-w="1"></div>
+      <div class="lock">
+        <div class="sbx" data-w="1"></div>
+        <div class="time">14:32</div><div class="date">Shanba, 17-oktabr</div>
+        <div class="push"><div class="ri s" style="width:38px;height:38px;border-radius:10px"><svg width="20" height="20"><use href="#shop"/></svg></div><div style="flex:1"><div class="row"><span class="t">Masterium · Do‘koningiz</span><span class="a">hozir</span></div><div class="d">Jasur Karimov «Tikurilla kraska»ga 5★ baho qo‘ydi va izoh yozdi</div></div></div>
+        <div class="push" style="margin-top:8px;opacity:.9"><div class="ri b" style="width:38px;height:38px;border-radius:10px"><svg width="20" height="20"><use href="#bag"/></svg></div><div style="flex:1"><div class="row"><span class="t">Masterium</span><span class="a">1 soat oldin</span></div><div class="d">Ro‘yxatingizdagi «Sement M400» 3 000 so‘mga arzonladi</div></div></div>
+        <div style="color:#fff;opacity:.75;font-size:12px;text-align:center;margin-top:24px;padding:0 30px;line-height:18px">Push qaysi rol uchun ekanini ikonkasidan bilib olasiz. Bosilganda ilova shu rejimga o‘tib ochiladi.</div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Nega aynan markaziy tugma</h4>
+      <ul>
+        <li>Pastki menyuning markazi ikkala ilovada ham bo‘sh turgan, eng ko‘zga tashlanadigan joy. U yerga <b>joriy rejimning ikonkasi</b> qo‘yiladi va bu qayerda turganingizni doim ko‘rsatib turadi.</li>
+        <li><b>Bosilganda</b> rejim tanlash oynasi ochiladi, xato bosib qo‘yishdan himoya qiladi. <b>Bosib turilganda</b> rejim darhol almashadi, bu tez-tez almashtiradigan sotuvchilar uchun.</li>
+        <li>Zaxira yo‘llar ham qoladi: Xaridor Profilida «Do‘kon ochish» yoki «Do‘konimga o‘tish», Sotuvchi Sozlamalarida «Xaridor rejimiga o‘tish».</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>2</i>Rejim darhol tanilishi kerak</h4>
+      <ul>
+        <li><b>3 ta belgi:</b> markazdagi ikonka, sarlavha (sotuvchida ko‘k sarlavha va do‘kon nomi, xaridorda oq sarlavha va manzil) va o‘tishda qisqa animatsiya (0,6 soniya).</li>
+        <li>Ilova oxirgi ishlatilgan rejimda ochiladi.</li>
+        <li><b>Boshqa rejimdagi yangiliklar</b> markaziy tugmada qizil raqam bilan ko‘rinadi, masalan «3 ta yangi izoh». Shu sababli sotuvchi xaridor rejimida ham hech narsani o‘tkazib yubormaydi.</li>
+        <li>O‘tgandan keyin pastda «Ortga» tugmali toast chiqadi va xato o‘tib ketilsa bir bosishda qaytish mumkin.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>3</i>Chekka holatlar</h4>
+      <ul>
+        <li><b>Push bosilganda</b> ilova kerakli rejimga avtomatik o‘tadi: izoh haqidagi push sotuvchi rejimida, narx tushgani haqidagi push esa xaridor rejimida ochiladi.</li>
+        <li><b>Saqlanmagan o‘zgarishlar</b> bo‘lsa (masalan, tovar tahrirlanayotgan bo‘lsa), o‘tishdan oldin «Saqlaysizmi?» deb so‘raladi.</li>
+        <li>Sotuvchi xaridor rejimida <b>o‘z tovarini</b> ko‘rsa, «Bu sizning tovaringiz · Tahrirlash» degan yozuv chiqadi. Sotuvchi o‘ziga izoh yoki baho yoza olmaydi.</li>
+        <li>Biznes tarifida bir nechta do‘kon bo‘lsa, ularning hammasi shu rejim tanlash oynasida ko‘rinadi.</li>
+        <li>Telefon ekranidagi ilova ikonkasini rejimga qarab almashtirish tavsiya etilmaydi. iOS har safar ogohlantirish chiqaradi va bu foydalanuvchini chalg‘itadi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+const sb=(w)=>`<div class="sb" style="${w?'color:#fff;position:relative;z-index:2':''}">9:41<span style="display:flex;gap:6px;align-items:center"><svg width="18" height="12" fill="${w?'#fff':'#000'}"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="27" height="13" fill="${w?'#fff':'#000'}"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="${w?'#fff':'#000'}" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/></svg></span></div>`;
+document.querySelectorAll('.lock .sbx').forEach(e=>e.outerHTML=sb(true));
+document.querySelectorAll('.ph > .sbx[data-w]').forEach(e=>e.remove());
+document.querySelectorAll('.sbx').forEach(e=>e.outerHTML=sb(false));
+document.querySelectorAll('.hdx').forEach(e=>e.outerHTML=`<div class="hd"><div class="sb" style="color:#fff;padding:0 8px 0 16px">9:41<span></span></div><div class="hrow"><div class="av"></div><div><div class="t1">Xo‘jalik mollari do‘koni</div><div class="t2">Sabridinxon Sharofidinov</div></div></div></div>`);
+</script>
+</body></html>
