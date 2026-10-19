@@ -170,44 +170,85 @@ Chiqish</div></aside>
 </svg>
 </em></div></div></header>
 <main class="main"><style>
-.top{display:flex;align-items:center;gap:16px;background:linear-gradient(120deg,#0064B1 0%,#1A82D1 100%);border-radius:22px;padding:22px 24px;color:#fff;position:relative;overflow:hidden}
-.top:after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
-.top:before{content:"";position:absolute;left:30%;bottom:-120px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
-.nav{height:44px;padding:0 16px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;flex:none;cursor:pointer;position:relative;z-index:1}
+.frame{height:960px}
+.hero{background:linear-gradient(120deg,#0064B1,#1A82D1);border-radius:22px;padding:24px;display:flex;align-items:center;gap:24px;color:#fff;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;left:28%;top:-160px;width:420px;height:420px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.06) 0 2px,transparent 2px 18px)}
+.hero:after{content:"";position:absolute;right:-120px;bottom:-200px;width:420px;height:420px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(255,255,255,.05) 0 2px,transparent 2px 18px)}
+.hero>*{position:relative;z-index:1}
+.nav{height:44px;padding:0 16px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;gap:6px;font-size:14px;font-weight:500;flex:none;cursor:pointer}
 .nav:hover{background:rgba(255,255,255,.22)}
-.wk{flex:1;text-align:center;position:relative;z-index:1}
-.wk span{display:inline-flex;height:26px;padding:0 12px;border-radius:100px;background:rgba(255,255,255,.18);font-size:12.5px;font-weight:500;align-items:center}
-.wk h2{font-weight:600;font-size:28px;line-height:36px;margin-top:8px}
-.wk p{font-size:13.5px;line-height:20px;opacity:.85;margin:4px auto 0;max-width:560px}
-.pan{background:#fff;border-radius:22px;margin-top:16px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.04)}
-.gw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
-.gw>div{padding-left:14px;padding-right:14px}
-.gw>div.on{background:#F5F9FD}
-.dh{padding-top:16px!important;padding-bottom:14px;border-bottom:1px solid #EEF1F5;display:flex;align-items:center;gap:12px}
-.dh .n{width:44px;height:44px;border-radius:12px;background:#F2F5FA;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:18px;flex:none}
-.dh b{display:block;font-weight:600;font-size:15px}.dh span{font-size:12px;color:#98A2B3}
-.dh.on{background:#F5F9FD;border-bottom-color:#DCEBFA}.dh.on .n{background:#0064B1;color:#fff}.dh.on span{color:#0064B1;font-weight:500}
-.ac{padding-top:14px}
-.ac div{border-radius:14px;padding:12px 14px;height:100%}
-.ac em{display:block;font-style:normal;font-weight:600;font-size:13.5px;line-height:19px}
-.ac i{display:inline-flex;align-items:center;gap:5px;font-style:normal;font-size:12px;font-weight:500;margin-top:8px;background:#fff;border-radius:100px;padding:3px 9px}
-.nq{padding-top:16px}
-.nq .l{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#98A2B3}
-.nq h4{font-weight:600;font-size:14.5px;line-height:20px;margin-top:6px}
-.nq p{font-size:13px;line-height:20px;color:#475467;margin-top:8px}
-.sy{padding-top:16px;padding-bottom:16px}
-.sy .c{background:#FFFAEB;border:1px solid #FEF0C7;border-radius:14px;padding:12px 14px;height:100%}
-.sy .h{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#B54708}
-.sy .h i{width:24px;height:24px;border-radius:8px;background:#FDB022;color:#fff;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:13px}
-.sy p{font-size:13px;line-height:19px;color:#7A2E0E;margin-top:8px}
-.ex{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:16px}
+.hc{flex:1;text-align:center}
+.hc .wk{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:100px;background:rgba(255,255,255,.18);font-size:13px;font-weight:500}
+.hc h2{font-weight:600;font-size:28px;line-height:36px;margin-top:8px}
+.hc p{font-size:14px;line-height:21px;opacity:.88;margin:6px auto 0;max-width:620px}
+.hdays{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.dy{background:#fff;border-radius:16px;padding:14px 16px;border:1.5px solid transparent;cursor:pointer;position:relative;text-align:left;box-shadow:0 1px 2px rgba(16,24,40,.04);transition:border-color .15s,box-shadow .15s}
+.dy:hover{box-shadow:0 6px 16px rgba(16,24,40,.08)}
+.dy .w{font-size:13px;color:#667085;font-weight:500}
+.dy .d{font-weight:600;font-size:28px;line-height:34px;margin-top:2px}
+.dy .ty2{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#475467;margin-top:8px}
+.dy .ty2 i{width:8px;height:8px;border-radius:50%;flex:none}
+.dy .tday{position:absolute;right:12px;top:12px;height:22px;padding:0 8px;border-radius:100px;background:#ECFDF3;color:#067647;font-size:11px;font-weight:600;display:flex;align-items:center}
+.dy.on{background:#0064B1;border-color:#0064B1}.dy.on .w,.dy.on .d,.dy.on .ty2{color:#fff}.dy.on .w{opacity:.8}
+.dy.on .tday{background:rgba(255,255,255,.2);color:#fff}
+.det{display:none;grid-template-columns:1fr 340px;gap:16px;margin-top:16px}.det.on{display:grid}.det.solo{grid-template-columns:1fr}
+.dc{background:#fff;border-radius:20px;padding:24px 28px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.chips{display:flex;gap:8px}
+.chip{height:30px;padding:0 12px;border-radius:10px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500}
+.chip.ty{color:#fff}.chip.tm{background:#F2F5FA;color:#344054}
+.dc h3{font-weight:600;font-size:22px;line-height:30px}
+.dc .lb{font-size:12.5px;font-weight:600;color:#98A2B3;letter-spacing:.4px;text-transform:uppercase;margin-top:18px}
+.dc ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.dc li{display:flex;gap:12px;font-size:15px;line-height:24px;color:#344054}
+.dc li b{width:24px;height:24px;border-radius:8px;background:#EAF3FB;color:#0064B1;font-size:12.5px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none}
+.dc .nt{margin-top:16px;padding:12px 14px;border-radius:12px;background:#F8FAFC;border:1px solid #EEF1F5;font-size:13px;line-height:19px;color:#667085}
+.dc .nt span{font-weight:600;color:#475467}
+.sp{background:#FFFAEB;border:1px solid #FEDF89;border-radius:20px;padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.sp:after{content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:repeating-radial-gradient(circle,rgba(247,144,9,.06) 0 2px,transparent 2px 16px);pointer-events:none}
+.sp .cnt2{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.sp .cnt2 svg{flex:none;filter:drop-shadow(0 4px 8px rgba(247,144,9,.35));transition:transform .4s}
+.sp.pop .cnt2 svg{transform:rotate(72deg) scale(1.15)}
+.sp .cnt2 b{display:block;font-weight:700;font-size:34px;line-height:36px;color:#B54708}
+.sp .cnt2 span{font-size:13.5px;color:#93370D;font-weight:500}
+.sp .msg{flex:1;display:flex;align-items:center;margin:14px 0;position:relative;z-index:1}
+.sp .msg p{font-size:15px;line-height:23px;color:#7A2E0E;background:#fff;border-radius:14px;padding:14px 16px;border:1px solid #FEF0C7;animation:rv .4s ease-out;width:100%}
+.sp .msg .hint{font-size:14px;line-height:21px;color:#B54708;opacity:.8}
+@keyframes rv{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+.sp .go{border:0;font-family:inherit;width:100%;height:54px;border-radius:14px;background:linear-gradient(90deg,#FDB022,#DC6803);color:#fff;font-size:17px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 8px 18px rgba(220,104,3,.28);position:relative;z-index:1;transition:transform .15s}
+.sp .go:hover{transform:translateY(-1px)}
+.sp .go.lock{background:#FEF0C7;color:#B54708;box-shadow:none;cursor:default;font-size:14.5px;font-weight:500}
+.sp .go.done{background:#ECFDF3;color:#067647;box-shadow:none;cursor:default;font-size:14.5px;font-weight:500}
+.ex{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px}
 .xc{background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
-.xc .l{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#0064B1}
-.xc p{font-size:13.5px;line-height:21px;color:#344054;margin-top:8px}
-.wds{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.wds span{height:30px;padding:0 10px;border-radius:9px;background:#F2F5FA;font-size:13px;display:flex;align-items:center;gap:6px}.wds b{font-weight:600}.wds em{font-style:normal;color:#0064B1}
-</style><div class="top"><div class="nav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Oldingi</div>
-<div class="wk"><span>19–23 oktabr</span><h2>Mosh yetishtiramiz</h2><p>Bolalar urug‘dan o‘simlik qanday o‘sib chiqishini bilib oladilar va bir hafta davomida o‘z nihollarini parvarish qiladilar.</p></div>
+.xc .h{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+.xc .h span{width:34px;height:34px;border-radius:10px;background:#EAF3FB;display:flex;align-items:center;justify-content:center;flex:none}
+.xc p{font-size:13.5px;line-height:21px;color:#475467;margin-top:10px}
+.wd{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.wd div{display:flex;align-items:center;justify-content:space-between;height:34px;padding:0 12px;border-radius:10px;background:#F8FAFC;font-size:13.5px}
+.wd b{font-weight:600}.wd span{color:#0064B1;font-weight:500}
+</style><div class="hero"><div class="nav"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Oldingi</div>
+<div class="hc"><span class="wk">19–23 oktabr</span><h2>Mosh yetishtiramiz</h2>
+<p>Bolalar urug‘dan o‘simlik qanday o‘sib chiqishini bilib oladilar va bir hafta davomida o‘z nihollarini parvarish qiladilar.</p></div>
 <div class="nav">Keyingi<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div></div>
-<div class="pan"><div class="gw"><div class="dh on"><span class="n">19</span><div><b>Dushanba</b><span>Bugun</span></div></div><div class="dh"><span class="n">20</span><div><b>Seshanba</b><span>oktabr</span></div></div><div class="dh"><span class="n">21</span><div><b>Chorshanba</b><span>oktabr</span></div></div><div class="dh"><span class="n">22</span><div><b>Payshanba</b><span>oktabr</span></div></div><div class="dh"><span class="n">23</span><div><b>Juma</b><span>oktabr</span></div></div><div class="ac on"><div style="background:#F4F3FF;color:#5925DC"><em>Kvest + topshiriq</em><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5925DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>35 daqiqa</i></div></div><div class="ac"><div style="background:#ECFDFF;color:#0E7090"><em>Sayohat</em><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E7090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>35 daqiqa</i></div></div><div class="ac"><div style="background:#FFF6ED;color:#C4320A"><em>Mehmon</em><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C4320A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>40 daqiqa</i></div></div><div class="ac"><div style="background:#FDF2FA;color:#C11574"><em>Ijodiy ustaxona</em><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C11574" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>40 daqiqa</i></div></div><div class="ac"><div style="background:#ECFDF3;color:#067647"><em>Taqdimot</em><i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#067647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>45 daqiqa</i></div></div><div class="nq on"><div class="l">Nima qilamiz</div><h4>Bog‘bon-gnomdan maktub</h4><p>Ertalab guruhda maktub va kichkina izlar paydo bo‘ladi. Bolalar yo‘l-yo‘riq xaritasi yordamida urug‘lar solingan sandiqni topadilar.</p><p>Har bir bola o‘z ismi yozilgan stakanchani va bir haftalik topshiriqni oladi.</p></div><div class="nq"><div class="l">Nima qilamiz</div><h4>Urug‘ning sayohati</h4><p>– Bolalar «urug‘ga aylanadilar»: urug‘chadek g‘ujanak bo‘lib oladilar, «yomg‘ir ichadilar», musiqa bilan sekin-asta o‘sadilar.</p><p>– O‘zbekistonda mosh, paxta va bug‘doy qayerlarda yetishtirilishini xaritada belgilaymiz.</p></div><div class="nq"><div class="l">Nima qilamiz</div><h4>Mehmon: fermer yoki bog‘dorchilik blogeri</h4><p>4–6 yoshli bolalar uchun kim kelgani emas, balki mehmon bilan birga nimani ushlab ko‘rishi va bajarishi muhimroq.</p><p>«O‘simliklar doktori». Bolalarga rol va syujet beramiz: mehmon oldiga ikki o‘simlik — biri sog‘lom, biri so‘lib qolgan — olib kelinadi. Bolalar birgalikda aniqlaydilar: Unga nima bo‘lgan? Suv yetishmayaptimi? Yorug‘likmi? Tuproqmi? Shundan so‘ng o‘simlikni «davolaydilar» va o‘z urug‘larini ekadilar.</p></div><div class="nq"><div class="l">Nima qilamiz</div><h4>Nihol laboratoriyasi</h4><p>Ikki stakancha: biri yorug‘ joyda, ikkinchisi shkafda — nihol qayerda yaxshiroq o‘sadi?</p></div><div class="nq"><div class="l">Nima qilamiz</div><h4>Nihollar ko‘rgazmasi</h4><p>Har bir bola o‘z moshini ko‘rsatadi va uni chizg‘ich bilan o‘lchaydi.</p><p>Hikoya namunasi: «Men ekdim… Mening niholim… Menga yoqdi…»</p></div><div class="sy on"><div class="c"><div class="h"><i>★</i>Syurpriz</div><p>Urug‘lar haqiqiy sandiqda oltin tangalar orasida yotadi.</p></div></div><div class="sy"><div class="c"><div class="h"><i>★</i>Syurpriz</div><p>Ivitilgan loviyani kesib, lupa yordamida ichidan mitti niholni topamiz.</p></div></div><div class="sy"><div class="c"><div class="h"><i>★</i>Syurpriz</div><p>Mehmon bilan birga urug‘larni guruhning umumiy «tomorqasi»ga ekamiz.</p></div></div><div class="sy"></div><div class="sy"><div class="c"><div class="h"><i>★</i>Syurpriz</div><p>Har bir niholning o‘z nominatsiyasi bor: eng baland, eng jingalak, eng tirishqoq. Bayroqcha bilan belgilash mumkin.</p></div></div></div></div><div class="ex"><div class="xc"><div class="l">Uyga topshiriq</div><p>Uyda mosh undirib, har kuni niholning rasmini chizish yoki suratga olish.</p></div><div class="xc"><div class="l">Chorshanba mehmoni</div><p>Fermer, agronom, bog‘bon yoki o‘simliklar haqida blog yurituvchi bloger.</p></div><div class="xc"><div class="l">Hafta so‘zlari</div><div class="wds"><span><b>urug‘</b><em>seed</em></span><span><b>nihol</b><em>sprout</em></span><span><b>ildiz</b><em>root</em></span></div></div><div class="xc"><div class="l">Sanoq</div><p>Mosh unib chiqquncha kunlarni va niholdagi barglarni sanaymiz.</p></div></div></main></div><script>function fit(){var m=document.querySelector('.main');document.querySelector('.frame').style.height=Math.max(900,m.offsetTop+m.offsetHeight+24)+'px'}
-window.addEventListener('load',fit);</script></body></html>
+<div class="hdays"><div class="dy on"><span class=tday>Bugun</span><div class="w">Dushanba</div><div class="d">19</div><div class="ty2"><i style="background:#7A5AF8"></i>Kvest + topshiriq · 35 daq</div></div><div class="dy"><div class="w">Seshanba</div><div class="d">20</div><div class="ty2"><i style="background:#0BA5C7"></i>Sayohat · 35 daq</div></div><div class="dy"><div class="w">Chorshanba</div><div class="d">21</div><div class="ty2"><i style="background:#F79009"></i>Mehmon · 40 daq</div></div><div class="dy"><div class="w">Payshanba</div><div class="d">22</div><div class="ty2"><i style="background:#E04F9E"></i>Ijodiy ustaxona · 40 daq</div></div><div class="dy"><div class="w">Juma</div><div class="d">23</div><div class="ty2"><i style="background:#12B76A"></i>Taqdimot · 45 daq</div></div></div><div class="det on"><div class="dc"><h3>Bog‘bon-gnomdan maktub</h3><div class="lb">Nima qilamiz</div><ul><li><b>1</b><span>Ertalab guruhda maktub va kichkina izlar paydo bo‘ladi. Bolalar yo‘l-yo‘riq xaritasi yordamida urug‘lar solingan sandiqni topadilar.</span></li><li><b>2</b><span>Har bir bola o‘z ismi yozilgan stakanchani va bir haftalik topshiriqni oladi.</span></li></ul></div><div class="sp" data-i="0" data-d="19"><div class="cnt2"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.1l-5.62 2.96 1.07-6.27L2.9 9.4l6.3-.9z" fill="#FDB022" stroke="#F79009" stroke-width="1" stroke-linejoin="round"/></svg><div><b class="n">0</b><span class="tt">bu hafta · jami 0</span></div></div><div class="msg"></div><button class="go"></button><template>Urug‘lar haqiqiy sandiqda oltin tangalar orasida yotadi.</template></div></div><div class="det"><div class="dc"><h3>Urug‘ning sayohati</h3><div class="lb">Nima qilamiz</div><ul><li><b>1</b><span>Bolalar «urug‘ga aylanadilar»: urug‘chadek g‘ujanak bo‘lib oladilar, «yomg‘ir ichadilar», musiqa bilan sekin-asta o‘sadilar.</span></li><li><b>2</b><span>O‘zbekistonda mosh, paxta va bug‘doy qayerlarda yetishtirilishini xaritada belgilaymiz.</span></li></ul></div><div class="sp" data-i="1" data-d="20"><div class="cnt2"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.1l-5.62 2.96 1.07-6.27L2.9 9.4l6.3-.9z" fill="#FDB022" stroke="#F79009" stroke-width="1" stroke-linejoin="round"/></svg><div><b class="n">0</b><span class="tt">bu hafta · jami 0</span></div></div><div class="msg"></div><button class="go"></button><template>Ivitilgan loviyani kesib, lupa yordamida ichidan mitti niholni topamiz.</template></div></div><div class="det"><div class="dc"><h3>Mehmon: fermer yoki bog‘dorchilik blogeri</h3><div class="lb">Nima qilamiz</div><ul><li><b>1</b><span>4–6 yoshli bolalar uchun kim kelgani emas, balki mehmon bilan birga nimani ushlab ko‘rishi va bajarishi muhimroq.</span></li><li><b>2</b><span>«O‘simliklar doktori». Bolalarga rol va syujet beramiz: mehmon oldiga ikki o‘simlik — biri sog‘lom, biri so‘lib qolgan — olib kelinadi. Bolalar birgalikda aniqlaydilar: Unga nima bo‘lgan? Suv yetishmayaptimi? Yorug‘likmi? Tuproqmi? Shundan so‘ng o‘simlikni «davolaydilar» va o‘z urug‘larini ekadilar.</span></li></ul></div><div class="sp" data-i="2" data-d="21"><div class="cnt2"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.1l-5.62 2.96 1.07-6.27L2.9 9.4l6.3-.9z" fill="#FDB022" stroke="#F79009" stroke-width="1" stroke-linejoin="round"/></svg><div><b class="n">0</b><span class="tt">bu hafta · jami 0</span></div></div><div class="msg"></div><button class="go"></button><template>Mehmon bilan birga urug‘larni guruhning umumiy «tomorqasi»ga ekamiz.</template></div></div><div class="det solo"><div class="dc"><h3>Nihol laboratoriyasi</h3><div class="lb">Nima qilamiz</div><ul><li><b>1</b><span>Ikki stakancha: biri yorug‘ joyda, ikkinchisi shkafda — nihol qayerda yaxshiroq o‘sadi?</span></li></ul></div></div><div class="det"><div class="dc"><h3>Nihollar ko‘rgazmasi</h3><div class="lb">Nima qilamiz</div><ul><li><b>1</b><span>Har bir bola o‘z moshini ko‘rsatadi va uni chizg‘ich bilan o‘lchaydi.</span></li><li><b>2</b><span>Hikoya namunasi: «Men ekdim… Mening niholim… Menga yoqdi…»</span></li></ul></div><div class="sp" data-i="4" data-d="23"><div class="cnt2"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.1l-5.62 2.96 1.07-6.27L2.9 9.4l6.3-.9z" fill="#FDB022" stroke="#F79009" stroke-width="1" stroke-linejoin="round"/></svg><div><b class="n">0</b><span class="tt">bu hafta · jami 0</span></div></div><div class="msg"></div><button class="go"></button><template>Har bir niholning o‘z nominatsiyasi bor: eng baland, eng jingalak, eng tirishqoq. Bayroqcha bilan belgilash mumkin.</template></div></div><div class="ex"><div class="xc"><div class="h"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0064B1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg></span>Uyga topshiriq</div><p>Uyda mosh undirib, har kuni niholning rasmini chizish yoki suratga olish.</p></div><div class="xc"><div class="h"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0064B1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-6"/></svg></span>Chorshanba mehmoni</div><p>Fermer, agronom, bog‘bon yoki o‘simliklar haqida blog yurituvchi bloger.</p></div><div class="xc"><div class="h"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0064B1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V8a3 3 0 0 1 6 0v11M4 13h6"/><path d="M14 5v14h3.5a3 3 0 0 0 0-6H14m0 0h3a2.5 2.5 0 0 0 0-5h-3"/></svg></span>Hafta so‘zlari</div><div class="wd"><div><b>urug‘</b><span>seed</span></div><div><b>nihol</b><span>sprout</span></div><div><b>ildiz</b><span>root</span></div></div></div><div class="xc"><div class="h"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0064B1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14M4 15h14M10 3 8 21M16 3l-2 18"/></svg></span>Sanoq</div><p>Mosh unib chiqquncha kunlarni va niholdagi barglarni sanaymiz.</p></div></div></main></div><script>
+function fit(){var m=document.querySelector('.main');document.querySelector('.frame').style.height=Math.max(900,m.offsetTop+m.offsetHeight+24)+'px'}
+window.addEventListener('load',fit);
+document.querySelectorAll('.dy').forEach(function(d,i){d.onclick=function(){
+ document.querySelectorAll('.dy').forEach(function(x){x.classList.remove('on')});d.classList.add('on');
+ document.querySelectorAll('.det').forEach(function(x,j){x.classList.toggle('on',i===j)});fit()}});
+var TODAY=0, PREV=0, KEY='bizning-hafta-19-23', opened=[];
+try{opened=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(opened))}catch(e){}}
+function draw(){document.querySelectorAll('.sp').forEach(function(c){
+  var i=+c.dataset.i, d=c.dataset.d, msg=c.querySelector('.msg'), go=c.querySelector('.go');
+  c.querySelector('.n').textContent=opened.length;
+  c.querySelector('.tt').textContent='bu hafta · jami '+(PREV+opened.length);
+  go.className='go';go.disabled=false;
+  if(opened.indexOf(i)>-1){msg.innerHTML='<p>'+c.querySelector('template').innerHTML+'</p>';go.className='go done';go.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#067647" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>Syurpriz ochildi';go.disabled=true}
+  else if(i>TODAY){msg.innerHTML='<span class="hint">Bu syurpriz hali yopiq. Uni '+d+'-oktabr kuni ochasan!</span>';go.className='go lock';go.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B54708" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'+d+'-oktabr kuni ochiladi';go.disabled=true}
+  else{msg.innerHTML='<span class="hint">Bugungi syurprizni ochishga tayyormisan?</span>';go.innerHTML='Syurprizni ochish'}
+});fit()}
+document.querySelectorAll('.sp .go').forEach(function(b){b.onclick=function(){var c=b.closest('.sp'),i=+c.dataset.i;
+  if(b.disabled||opened.indexOf(i)>-1||i>TODAY)return;opened.push(i);save();c.classList.add('pop');setTimeout(function(){c.classList.remove('pop')},450);draw()}});
+draw();
+</script></body></html>
