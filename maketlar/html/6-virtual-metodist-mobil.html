@@ -193,6 +193,15 @@ svg{flex:none}
 .toast span{flex:1}
 .toast button{color:#7CC0FF;font-weight:600;padding:6px 10px}
 
+/* one screen per file, no device frame (for Figma import) */
+body.solo{background:var(--bg);width:375px;height:812px;overflow:hidden}
+body.solo .phone{border-radius:0;width:375px;height:812px}
+body.solo .sb{display:flex}
+body.solo .home-ind{display:block}
+body.solo .comp{padding-bottom:30px}
+body.solo .h-fab{bottom:30px}
+body.solo .sb .isl{display:none}
+
 /* single phone on real small screens */
 @media (max-width:500px){
   body{background:var(--bg)}
@@ -455,11 +464,18 @@ function Phone(el,init){
   render();
 }
 
+if(window.SOLO){
+  document.body.className='solo';
+  document.querySelector('.board').remove();
+  const ph=document.createElement('div');ph.className='phone';document.body.appendChild(ph);
+  Phone(ph,FRAMES[window.SOLO-1].st);
+}else{
 const F=document.getElementById('frames');
 FRAMES.forEach((f,i)=>{
   const w=document.createElement('div');w.className='fr';
   w.innerHTML=`<div class="fr-l"><span class="n">${i+1}</span><div><b>${f.l}</b><span>${f.d}</span></div></div><div class="device"><div class="phone"></div></div>`;
   F.appendChild(w);Phone(w.querySelector('.phone'),f.st);
 });
+}
 </script>
 </body></html>
