@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kartochka viktorina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F9FD;--surface:#fff;--line:#E3EAF5;--line2:#DCE5F2;--text:#02081A;--text2:#5B6476;--muted:#6B7690;
+  --pri:#1868F2;--pri2:#2C8CFF;--pri-soft:#E8F0FE;--pri-ink:#074CBA;
+  --a:#E5484D;--b:#1868F2;--c:#E8A10C;--d:#16A34A;--ok:#16A34A;--bad:#E5484D;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A0F1E;--surface:#121A2E;--line:#22304D;--line2:#2B3B5C;--text:#EEF3FB;--text2:#A9B8D3;--muted:#8796B3;--pri-soft:#18284A;--pri-ink:#8DB6FF;}}
+:root[data-theme="dark"]{--bg:#0A0F1E;--surface:#121A2E;--line:#22304D;--line2:#2B3B5C;--text:#EEF3FB;--text2:#A9B8D3;--muted:#8796B3;--pri-soft:#18284A;--pri-ink:#8DB6FF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,textarea,select{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line2);border-radius:12px;padding:10px 12px;width:100%}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:24px;font-weight:700;letter-spacing:-.3px}
+.sub{font-family:Inter;font-size:14px;color:var(--text2);margin-top:4px}
+.tabs{display:flex;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:100px;padding:4px;margin-top:18px;overflow-x:auto}
+.tabs button{height:38px;padding:0 16px;border-radius:100px;font-weight:600;font-size:14px;color:var(--text2);white-space:nowrap}
+.tabs button.on{background:var(--pri);color:#fff}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:16px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:100px;font-weight:600;font-size:15px;white-space:nowrap}
+.btn.pri{background:linear-gradient(180deg,var(--pri2),var(--pri));color:#fff}
+.btn.sec{background:var(--surface);border:1px solid var(--line2)}
+.btn.soft{background:var(--pri-soft);color:var(--pri-ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.muted{color:var(--muted)}.small{font-family:Inter;font-size:13px}
+.hidden{display:none!important}
+/* cards preview */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:14px}
+.kcard{border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;color:#02081A;text-align:center;font-family:Inter;font-size:12px}
+.kcard svg{width:100%;height:auto;display:block}
+/* questions */
+.q{border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px}
+.q .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.q label{display:flex;align-items:center;gap:8px;font-family:Inter;font-size:13px}
+.q label input[type=text]{flex:1}
+.q input[type=radio]{width:auto}
+.lt{width:26px;height:26px;border-radius:8px;color:#fff;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none;font-size:13px}
+/* game */
+.stage{background:linear-gradient(160deg,#050D24,#0B2466 60%,#0F3A9E);color:#fff;border-radius:24px;padding:20px;margin-top:16px}
+.stage .top{display:flex;justify-content:space-between;gap:8px;font-family:Inter;font-size:13px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:6px 12px;font-weight:600}
+.qtext{background:#fff;color:#02081A;border-radius:18px;padding:18px;font-size:clamp(20px,3.4vw,34px);font-weight:600;text-align:center;margin-top:14px;line-height:1.25}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tile{border-radius:16px;min-height:72px;display:flex;align-items:center;gap:12px;padding:12px 16px;font-size:clamp(18px,2.6vw,28px);font-weight:600;box-shadow:inset 0 -5px 0 rgba(0,0,0,.18)}
+.tile .L{background:rgba(0,0,0,.2);border-radius:10px;padding:2px 12px;font-family:Inter;font-weight:700}
+.tile .n{margin-left:auto;font-family:Inter;font-size:16px;background:rgba(0,0,0,.2);border-radius:100px;padding:2px 10px}
+.tile.dim{opacity:.35}.tile.right{outline:4px solid #fff}
+.names{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.names span{border-radius:100px;padding:5px 12px;font-size:13px;font-weight:600;background:rgba(255,255,255,.12)}
+.names span.ok{background:#16A34A}.names span.no{background:#E5484D}.names span.got{background:#16A34A}
+.lb{display:flex;align-items:center;gap:12px;background:#fff;color:#02081A;border-radius:14px;padding:10px 14px;margin-top:8px;font-weight:600;font-size:18px}
+.lb .r{width:30px;height:30px;border-radius:50%;background:#EEF3FB;color:#074CBA;display:flex;align-items:center;justify-content:center;font-size:14px}
+.lb .s{margin-left:auto;font-family:Inter}
+/* scanner */
+#scan{position:fixed;inset:0;background:#000;z-index:50;display:flex;flex-direction:column}
+#scanView{position:relative;flex:1;overflow:hidden}
+#scanView video,#scanView canvas,#scanView img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+#scanBar{background:#02081A;color:#fff;padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+#scanBar .row{justify-content:space-between}
+#missing{font-family:Inter;font-size:12px;color:#A9B8D3;max-height:44px;overflow:auto}
+.err{background:#FFF1F1;color:#9B1C1C;border-radius:12px;padding:10px 12px;font-family:Inter;font-size:13px;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-family:Inter;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600}
+/* print */
+#print{display:none}
+@media print{
+  @page{size:A4;margin:10mm}
+  body{background:#fff}
+  .wrap,#scan{display:none!important}
+  #print{display:block}
+  .pcard{height:136mm;display:flex;flex-direction:column;align-items:center;justify-content:center;page-break-inside:avoid;border-bottom:1px dashed #bbb}
+  .pcard:nth-child(2n){page-break-after:always;border-bottom:0}
+  .pcard svg{width:118mm;height:118mm}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>Kartochka viktorina</h1><div class="sub">Telefon faqat o‘qituvchida. O‘quvchilar kartochkani burab javob beradi.</div></div>
+  </header>
+  <nav class="tabs" id="tabs">
+    <button data-t="sinf" class="on">1. Sinf</button>
+    <button data-t="kart">2. Kartochkalar</button>
+    <button data-t="sav">3. Savollar</button>
+    <button data-t="oyin">4. O‘yin</button>
+  </nav>
+
+  <section id="t-sinf" class="card">
+    <div style="font-weight:600;font-size:17px">Sinf ro‘yxati</div>
+    <div class="small muted" style="margin-top:4px">Har qatorda bitta o‘quvchi. Tartib muhim: 1-qatordagi o‘quvchi 1-kartochkani oladi.</div>
+    <input id="className" style="margin-top:12px" placeholder="Sinf nomi">
+    <textarea id="roster" rows="12" style="margin-top:10px"></textarea>
+    <div class="row" style="margin-top:12px"><button class="btn pri" id="saveRoster">Saqlash</button><span class="small muted" id="rosterInfo"></span></div>
+  </section>
+
+  <section id="t-kart" class="card hidden">
+    <div class="row" style="justify-content:space-between">
+      <div><div style="font-weight:600;font-size:17px">Kartochkalar</div><div class="small muted" style="margin-top:4px">A4 varaqqa 2 tadan. Bir marta chop eting, laminatlasangiz yil bo‘yi xizmat qiladi.</div></div>
+      <button class="btn pri" id="printBtn">Chop etish</button>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section id="t-sav" class="card hidden">
+    <div class="row" style="justify-content:space-between">
+      <div style="font-weight:600;font-size:17px">Savollar</div>
+      <div class="row"><button class="btn sec" id="addQ4">+ 4 variant</button><button class="btn sec" id="addQ2">+ Ha / Yo‘q</button></div>
+    </div>
+    <div id="qlist"></div>
+  </section>
+
+  <section id="t-oyin" class="hidden">
+    <div class="stage" id="stage"></div>
+    <div class="row" style="margin-top:14px" id="ctrl"></div>
+    <div id="camErr"></div>
+  </section>
+</div>
+
+<div id="scan" class="hidden">
+  <div id="scanView"><video id="video" playsinline muted></video><img id="still" class="hidden" alt=""><canvas id="overlay"></canvas></div>
+  <div id="scanBar">
+    <div class="row"><b id="scanCount">0 / 0</b><span class="small" style="color:#4ADE80" id="scanState">● skanerlanmoqda</span></div>
+    <div id="missing"></div>
+    <div class="row">
+      <label class="btn sec" style="background:#121A2E;border-color:#2B3B5C;color:#fff">Surat orqali<input type="file" accept="image/*" capture="environment" id="photo" class="hidden"></label>
+      <button class="btn pri" id="scanDone">Tayyor</button>
+    </div>
+  </div>
+</div>
+
+<div id="print"></div>
+
+<script>
+/*LIB*/
+</script>
+<script>
+(function(){
+'use strict';
+var COLORS={A:'#E5484D',B:'#1868F2',C:'#E8A10C',D:'#16A34A'};
+var WORDS=[[1,0,0,0,0],[1,0,1,1,1],[0,1,0,0,1],[0,1,1,1,0]];
+var DEF_NAMES=['Aziz','Madina','Jasur','Sevara','Bekzod','Dilshoda','Otabek','Nilufar','Sardor','Malika','Javohir','Kamola','Nodira','Ulug‘bek','Zarina','Shahzod','Gulnoza','Sherzod','Mohira','Doniyor','Laylo','Akmal','Feruza','Temur'];
+var DEF_QS=[
+ {type:4,text:'3,467 sonini o‘ndan birlar xonasigacha yaxlitlang',opts:['3,4','3,5','3,47','3'],right:'B'},
+ {type:2,text:'2,96 ≈ 3,0 (o‘ndan birlargacha yaxlitlanganda)',right:'A'},
+ {type:4,text:'1 248 ni yuzlar xonasigacha yaxlitlang',opts:['1 200','1 250','1 300','1 000'],right:'A'},
+ {type:2,text:'0,045 yuzdan birlargacha yaxlitlansa 0,04 bo‘ladi',right:'B'},
+ {type:4,text:'Qaysi son o‘ndan birlargacha yaxlitlanganda 5,7 bo‘ladi?',opts:['5,64','5,75','5,68','5,6'],right:'C'}
+];
+
+function load(k,d){try{var v=localStorage.getItem('kv_'+k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem('kv_'+k,JSON.stringify(v))}catch(e){}}
+var state={names:load('names',DEF_NAMES),cls:load('cls','7-A'),qs:load('qs',DEF_QS)};
+
+/* ---------- markers ---------- */
+function idBits(id){var b=[];for(var i=0;i<5;i++){b.push(WORDS[(id>>(2*(4-i)))&3].slice())}return b}
+function rot(src){var d=[];for(var i=0;i<5;i++){d[i]=[];for(var j=0;j<5;j++)d[i][j]=src[5-j-1][i]}return d}
+function ham(bits){var dist=0;for(var i=0;i<5;i++){var m=9;for(var j=0;j<4;j++){var s=0;for(var k=0;k<5;k++)s+=bits[i][k]===WORDS[j][k]?0:1;if(s<m)m=s}dist+=m}return dist}
+var VALID=(function(){var out=[];for(var id=0;id<1024;id++){var b=idBits(id),ok=true,r=b;
+  var ones=0;b.forEach(function(row){row.forEach(function(v){ones+=v})});
+  if(ones<7||ones>18)continue;
+  for(var k=1;k<4;k++){r=rot(r);if(ham(r)===0){ok=false;break}}if(ok)out.push(id)}
+  // spread ids so neighbours differ a lot
+  var spread=[];for(var s=0;s<7;s++)for(var i=s;i<out.length;i+=7)spread.push(out[i]);return spread})();
+var ID2IDX={};VALID.forEach(function(id,i){ID2IDX[id]=i});
+
+function markerSVG(idx,name,num,showLetters){
+  var bits=idBits(VALID[idx]),u=10,o=30,sz=7*u,W=sz+2*o,s='';
+  s+='<rect x="'+o+'" y="'+o+'" width="'+sz+'" height="'+sz+'" fill="#000"/>';
+  for(var i=0;i<5;i++)for(var j=0;j<5;j++)if(bits[i][j])s+='<rect x="'+(o+(j+1)*u)+'" y="'+(o+(i+1)*u)+'" width="'+u+'" height="'+u+'" fill="#fff"/>';
+  if(showLetters!==false){
+    var c=W/2,f=9,p=o/2+3;
+    s+='<text x="'+c+'" y="'+(p+2)+'" font-size="'+f+'" text-anchor="middle" font-family="Inter,Arial" font-weight="700" fill="#555">A</text>';
+    s+='<text x="'+c+'" y="'+(p+2)+'" font-size="'+f+'" text-anchor="middle" font-family="Inter,Arial" font-weight="700" fill="#555" transform="rotate(90 '+c+' '+c+')">B</text>';
+    s+='<text x="'+c+'" y="'+(p+2)+'" font-size="'+f+'" text-anchor="middle" font-family="Inter,Arial" font-weight="700" fill="#555" transform="rotate(180 '+c+' '+c+')">C</text>';
+    s+='<text x="'+c+'" y="'+(p+2)+'" font-size="'+f+'" text-anchor="middle" font-family="Inter,Arial" font-weight="700" fill="#555" transform="rotate(270 '+c+' '+c+')">D</text>';
+    s+='<text x="'+(W-6)+'" y="'+(W-6)+'" font-size="4.5" text-anchor="end" font-family="Inter,Arial" fill="#888">'+num+'. '+esc(name)+'</text>';
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+W+'"><rect width="'+W+'" height="'+W+'" fill="#fff"/>'+s+'</svg>';
+}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ---------- detection ---------- */
+var detector=new AR.Detector();
+function detectImage(imgData){
+  var d=detector;
+  CV.grayscale(imgData,d.grey);
+  CV.adaptiveThreshold(d.grey,d.thres,2,7);
+  d.contours=CV.findContours(d.thres,d.binary);
+  d.candidates=d.findCandidates(d.contours,Math.max(24,imgData.width*0.03),0.05,6);
+  d.candidates=d.clockwiseCorners(d.candidates);
+  d.candidates=d.notTooNear(d.candidates,10);
+  return d.findMarkers(d.grey,d.candidates,49);
+}
+// which letter is on top, from the marker's canonical top edge direction
+function letterOf(m){
+  var c=m.corners,a=Math.atan2(c[1].y-c[0].y,c[1].x-c[0].x)*180/Math.PI;
+  var s=((Math.round(a/90)%4)+4)%4;
+  return ['A','D','C','B'][s];
+}
+window.__kv={markerSVG:markerSVG,detectImage:detectImage,letterOf:letterOf,VALID:VALID,ID2IDX:ID2IDX};
+
+/* ---------- tabs ---------- */
+var tabs=document.getElementById('tabs');
+tabs.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;show(b.dataset.t)});
+function show(t){[].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.t===t)});
+  ['sinf','kart','sav','oyin'].forEach(function(x){document.getElementById('t-'+x).classList.toggle('hidden',x!==t)});
+  if(t==='kart')renderCards();if(t==='sav')renderQs();if(t==='oyin')renderGame();}
+
+/* ---------- roster ---------- */
+var roster=document.getElementById('roster'),cn=document.getElementById('className');
+roster.value=state.names.join('\n');cn.value=state.cls;
+function rosterInfo(){document.getElementById('rosterInfo').textContent=state.names.length+' ta o‘quvchi · '+VALID.length+' tagacha kartochka'}
+rosterInfo();
+document.getElementById('saveRoster').onclick=function(){
+  state.names=roster.value.split('\n').map(function(s){return s.trim()}).filter(Boolean).slice(0,VALID.length);
+  state.cls=cn.value.trim()||'Sinf';save('names',state.names);save('cls',state.cls);rosterInfo();resetGame();};
+
+/* ---------- cards ---------- */
+function renderCards(){
+  document.getElementById('cards').innerHTML=state.names.map(function(n,i){return '<div class="kcard">'+markerSVG(i,n,i+1)+'<div style="margin-top:6px;font-weight:600">'+(i+1)+'. '+esc(n)+'</div></div>'}).join('');
+}
+document.getElementById('printBtn').onclick=function(){
+  document.getElementById('print').innerHTML=state.names.map(function(n,i){return '<div class="pcard">'+markerSVG(i,n,i+1)+'</div>'}).join('');
+  window.print();
+};
+
+/* ---------- questions ---------- */
+function renderQs(){
+  var h='';state.qs.forEach(function(q,qi){
+    h+='<div class="q" data-i="'+qi+'"><div class="row" style="justify-content:space-between"><b class="small">'+(qi+1)+' · '+(q.type===4?'4 variant':'Ha / Yo‘q')+'</b><button class="small muted" data-del="'+qi+'">O‘chirish</button></div>';
+    h+='<input type="text" data-f="text" value="'+esc(q.text)+'" style="margin-top:8px"><div class="opts">';
+    var L=q.type===4?['A','B','C','D']:['A','B'];
+    L.forEach(function(l,li){var val=q.type===4?q.opts[li]:(l==='A'?'Ha':'Yo‘q');
+      h+='<label><input type="radio" name="r'+qi+'" value="'+l+'"'+(q.right===l?' checked':'')+'><span class="lt" style="background:'+COLORS[l]+'">'+l+'</span>'+(q.type===4?'<input type="text" data-o="'+li+'" value="'+esc(val)+'">':'<span>'+val+'</span>')+'</label>'});
+    h+='</div></div>'});
+  h+='<div class="small muted" style="margin-top:12px">To‘g‘ri javobni doirachani bosib belgilang. O‘zgarishlar avtomatik saqlanadi.</div>';
+  document.getElementById('qlist').innerHTML=h;
+}
+var ql=document.getElementById('qlist');
+ql.addEventListener('input',function(e){var q=e.target.closest('.q');if(!q)return;var o=state.qs[+q.dataset.i];
+  if(e.target.dataset.f)o.text=e.target.value;else if(e.target.dataset.o!=null)o.opts[+e.target.dataset.o]=e.target.value;save('qs',state.qs)});
+ql.addEventListener('change',function(e){if(e.target.type!=='radio')return;var q=e.target.closest('.q');state.qs[+q.dataset.i].right=e.target.value;save('qs',state.qs)});
+ql.addEventListener('click',function(e){var d=e.target.dataset.del;if(d==null)return;state.qs.splice(+d,1);save('qs',state.qs);renderQs();resetGame()});
+document.getElementById('addQ4').onclick=function(){state.qs.push({type:4,text:'Yangi savol',opts:['','','',''],right:'A'});save('qs',state.qs);renderQs();resetGame()};
+document.getElementById('addQ2').onclick=function(){state.qs.push({type:2,text:'Yangi savol',right:'A'});save('qs',state.qs);renderQs();resetGame()};
+
+/* ---------- game ---------- */
+var G;
+function resetGame(){G={i:0,phase:'ask',answers:{},hist:[],score:{}}}
+resetGame();
+function optsOf(q){return q.type===4?['A','B','C','D'].map(function(l,i){return{l:l,t:q.opts[i]}}):[{l:'A',t:'Ha'},{l:'B',t:'Yo‘q'}]}
+function renderGame(){
+  var st=document.getElementById('stage'),ctrl=document.getElementById('ctrl');
+  if(!state.qs.length){st.innerHTML='<div class="qtext">Avval savol qo‘shing</div>';ctrl.innerHTML='';return}
+  if(G.phase==='end'){
+    var rows=state.names.map(function(n,i){return{n:n,s:G.score[i]||0}}).sort(function(a,b){return b.s-a.s});
+    st.innerHTML='<div class="top"><span class="pill">'+esc(state.cls)+' · Yakuniy reyting</span><span class="pill">'+state.qs.length+' savol</span></div>'+
+      rows.slice(0,5).map(function(r,k){return '<div class="lb"><span class="r">'+(k+1)+'</span>'+esc(r.n)+'<span class="s">'+r.s+'</span></div>'}).join('');
+    var t='<div class="card"><b>Savollar bo‘yicha</b><table><tr><th>#</th><th>Savol</th><th>To‘g‘ri</th><th>Javob berdi</th></tr>'+
+      G.hist.map(function(h,k){return '<tr><td>'+(k+1)+'</td><td>'+esc(state.qs[k].text)+'</td><td>'+(h.n?Math.round(h.ok/h.n*100):0)+'%</td><td>'+h.n+' / '+state.names.length+'</td></tr>'}).join('')+'</table>'+
+      '<div style="margin-top:14px"><b>O‘quvchilar</b><table><tr><th>O‘quvchi</th><th>Ball</th><th>To‘g‘ri</th></tr>'+rows.map(function(r){return '<tr><td>'+esc(r.n)+'</td><td>'+r.s+'</td><td>'+(r.s/100)+' / '+state.qs.length+'</td></tr>'}).join('')+'</table></div></div>';
+    ctrl.innerHTML='<button class="btn pri" id="again">Qaytadan boshlash</button>';
+    ctrl.insertAdjacentHTML('afterend','');document.getElementById('camErr').innerHTML=t;
+    document.getElementById('again').onclick=function(){resetGame();document.getElementById('camErr').innerHTML='';renderGame()};
+    return;
+  }
+  var q=state.qs[G.i],res=G.phase==='result',cnt={A:0,B:0,C:0,D:0},n=0;
+  Object.keys(G.answers).forEach(function(k){cnt[G.answers[k]]++;n++});
+  var h='<div class="top"><span class="pill">'+(G.i+1)+' / '+state.qs.length+'</span><span class="pill">'+(q.type===4?'4 variant':'Ha / Yo‘q')+'</span><span class="pill">'+n+' / '+state.names.length+' javob</span></div>';
+  h+='<div class="qtext">'+esc(q.text)+'</div><div class="tiles">';
+  optsOf(q).forEach(function(o){var cls='tile'+(res?(o.l===q.right?' right':' dim'):'');
+    h+='<div class="'+cls+'" style="background:'+COLORS[o.l]+'"><span class="L">'+o.l+'</span>'+esc(o.t)+(res?'<span class="n">'+cnt[o.l]+'</span>':'')+'</div>'});
+  h+='</div><div class="names">'+state.names.map(function(nm,i){var a=G.answers[i];var c=a?(res?(a===q.right?'ok':'no'):'got'):'';return '<span class="'+c+'">'+esc(nm)+(res&&a?' · '+a:'')+'</span>'}).join('')+'</div>';
+  st.innerHTML=h;
+  if(!res){ctrl.innerHTML='<button class="btn pri" id="scanBtn">📷 Skanerlash</button><button class="btn soft" id="showRes"'+(n?'':' disabled')+'>Natijani ko‘rsatish</button>'+(n?'<button class="btn sec" id="clearAns">Javoblarni tozalash</button>':'');
+    document.getElementById('scanBtn').onclick=openScan;document.getElementById('showRes').onclick=finishQ;
+    var ca=document.getElementById('clearAns');if(ca)ca.onclick=function(){G.answers={};renderGame()};}
+  else{ctrl.innerHTML='<button class="btn pri" id="next">'+(G.i+1<state.qs.length?'Keyingi savol':'Yakuniy reyting')+'</button>';
+    document.getElementById('next').onclick=function(){G.i++;G.answers={};G.phase=G.i<state.qs.length?'ask':'end';renderGame()}}
+}
+function finishQ(){var q=state.qs[G.i],ok=0,n=0;
+  Object.keys(G.answers).forEach(function(k){n++;if(G.answers[k]===q.right){ok++;G.score[k]=(G.score[k]||0)+100}});
+  G.hist[G.i]={ok:ok,n:n};G.phase='result';renderGame()}
+
+/* ---------- scanner ---------- */
+var scan=document.getElementById('scan'),video=document.getElementById('video'),ov=document.getElementById('overlay'),still=document.getElementById('still');
+var work=document.createElement('canvas'),wctx=work.getContext('2d',{willReadFrequently:true});
+var stream=null,raf=0,seen={};
+function allowed(){var q=state.qs[G.i];return q.type===4?['A','B','C','D']:['A','B']}
+function openScan(){
+  scan.classList.remove('hidden');seen={};updateBar();still.classList.add('hidden');video.classList.remove('hidden');
+  document.getElementById('camErr').innerHTML='';
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){camFail('Bu brauzerda jonli kamera yo‘q. «Surat orqali» tugmasidan foydalaning.');return}
+  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080}},audio:false}).then(function(s){
+    stream=s;video.srcObject=s;video.play();loop();
+  }).catch(function(){camFail('Kameraga ruxsat berilmadi. «Surat orqali» tugmasi bilan sinfni suratga olishingiz mumkin.')});
+}
+function camFail(msg){document.getElementById('scanState').textContent=msg;document.getElementById('scanState').style.color='#FFB4B4'}
+function closeScan(){cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}scan.classList.add('hidden');renderGame()}
+document.getElementById('scanDone').onclick=closeScan;
+function process(src,w,h){
+  var k=Math.min(1,1280/Math.max(w,h));work.width=Math.round(w*k);work.height=Math.round(h*k);
+  wctx.drawImage(src,0,0,work.width,work.height);
+  var img=wctx.getImageData(0,0,work.width,work.height);
+  var ms=detectImage(img);
+  ov.width=work.width;ov.height=work.height;var o=ov.getContext('2d');o.clearRect(0,0,ov.width,ov.height);
+  var al=allowed();
+  ms.forEach(function(m){var idx=ID2IDX[m.id];if(idx==null||idx>=state.names.length)return;
+    var L=letterOf(m),good=al.indexOf(L)>=0;
+    seen[idx]=seen[idx]||{L:null,c:0};
+    if(seen[idx].L===L)seen[idx].c++;else{seen[idx].L=L;seen[idx].c=1}
+    if(good&&seen[idx].c>=(src===still?1:2))G.answers[idx]=L;
+    var c=m.corners;o.lineWidth=Math.max(3,work.width/300);o.strokeStyle=good?'#4ADE80':'#FFB020';o.beginPath();o.moveTo(c[0].x,c[0].y);for(var i=1;i<4;i++)o.lineTo(c[i].x,c[i].y);o.closePath();o.stroke();
+    var cx=(c[0].x+c[2].x)/2,cy=Math.min(c[0].y,c[1].y,c[2].y,c[3].y)-8,label=state.names[idx]+' · '+(good?L:L+'?');
+    var fs=Math.max(14,work.width/60);o.font='700 '+fs+'px Inter,sans-serif';var tw=o.measureText(label).width;
+    o.fillStyle=good?COLORS[L]:'#555';o.fillRect(cx-tw/2-6,cy-fs-4,tw+12,fs+8);o.fillStyle='#fff';o.textAlign='center';o.fillText(label,cx,cy);
+  });
+  updateBar();
+}
+function loop(){if(video.readyState>=2&&video.videoWidth)process(video,video.videoWidth,video.videoHeight);raf=requestAnimationFrame(loop)}
+function updateBar(){var n=Object.keys(G.answers).length;document.getElementById('scanCount').textContent=n+' / '+state.names.length+' javob';
+  var miss=state.names.filter(function(_,i){return !G.answers[i]});
+  document.getElementById('missing').textContent=miss.length?'Qolganlar: '+miss.join(', '):'Hamma javob berdi ✓';}
+document.getElementById('photo').onchange=function(e){var f=e.target.files[0];if(!f)return;
+  cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}
+  var url=URL.createObjectURL(f);still.onload=function(){video.classList.add('hidden');still.classList.remove('hidden');process(still,still.naturalWidth,still.naturalHeight);document.getElementById('scanState').textContent='Surat tahlil qilindi';document.getElementById('scanState').style.color='#4ADE80'};still.src=url;e.target.value=''};
+})();
+</script>
+</body>
+</html>
