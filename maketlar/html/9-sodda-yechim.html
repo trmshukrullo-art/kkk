@@ -1,0 +1,166 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1440"><title>Sodda yechim — reja yuklash</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:'Geist',sans-serif;color:#02081A;-webkit-font-smoothing:antialiased}
+.wrap{display:flex;justify-content:center}
+.inter{font-family:'Inter',sans-serif}
+.row{display:flex;align-items:center}
+.col{display:flex;flex-direction:column}
+.between{justify-content:space-between}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:100px;border:1px solid #E1E8F3;font-size:13px;font-family:'Inter',sans-serif;color:#02081A;background:#fff;white-space:nowrap}
+.chip.on{background:linear-gradient(180deg,#2C8CFF,#1868F2);border-color:#1868F2;color:#fff}
+.chip.soft{background:#F0F5FC;border-color:#F0F5FC;color:#074CBA;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:100px;font-size:15px;font-weight:600;white-space:nowrap}
+.btn.pri{background:linear-gradient(180deg,#2C8CFF,#1868F2);color:#fff;box-shadow:0 8px 20px rgba(24,104,242,.28)}
+.btn.sec{background:#fff;border:1px solid #DCE5F2;color:#02081A}
+.btn.ghost{background:#F0F5FC;color:#074CBA}
+.btn.dis{background:#EEF3FB;color:#A9B8D3;box-shadow:none}
+.btn.sm{height:36px;padding:0 14px;font-size:14px}
+.ibtn{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid #E1E8F3;background:#fff;color:#02081A;flex:none}
+.h2{font-weight:600;font-size:24px;line-height:32px;letter-spacing:-.3px}
+.h3{font-weight:600;font-size:18px;line-height:24px}
+.muted{color:#6B7690}
+.sec2{color:#5B6476}
+.badge{display:inline-flex;align-items:center;justify-content:center;height:22px;padding:0 8px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.3px;color:#fff;font-family:Inter}
+.pdf{background:#E5484D}.doc{background:#2F6FEB}.vid{background:#1868F2}.int{background:#4F5BD5}.ppt{background:#E8590C}.tst{background:#16A34A}
+.ai{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:100px;background:linear-gradient(90deg,#E8F0FE,#ECEDFB);color:#4F5BD5;font-family:Inter;font-size:12px;font-weight:600}
+.focus{outline:3px solid rgba(24,104,242,.35);outline-offset:2px}
+/* cabinet shell */
+.cab{width:1440px;display:flex;background:#F7F9FD;position:relative}
+.side{width:279px;flex:none;background:#fff;border-right:1px solid #E3EAF5;padding:28px 20px 24px;display:flex;flex-direction:column}
+.slogo{display:flex;align-items:center;gap:8px;padding:0 8px 28px}
+.slogo img{height:40px}
+.slogo .bar{width:2px;height:34px;background:#1868F2}
+.slogo .t{font-weight:700;font-size:7.6px;line-height:9.4px;text-transform:uppercase;color:#074CBA}
+.nv{height:44px;width:239px;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 10px;font-size:15px;color:#5B6476;font-weight:500}
+.nv.on{background:#E8F0FE;color:#074CBA;font-weight:600}
+.nv .new{margin-left:auto;font-family:Inter;font-size:10px;font-weight:700;color:#fff;background:#1868F2;border-radius:6px;padding:3px 6px}
+.nv .cnt{margin-left:auto;font-family:Inter;font-size:12px;font-weight:600;color:#fff;background:#E5484D;border-radius:100px;padding:2px 7px}
+.ucard{margin-top:16px;border-top:1px solid #E3EAF5;padding:16px 8px 0;display:flex;align-items:center;gap:10px}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#2C8CFF,#1868F2);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.main{flex:1;padding:32px 39px 48px;min-width:0}
+.srch{width:340px;height:44px;border-radius:100px;border:1px solid #E1E8F3;background:#fff;display:flex;align-items:center;gap:10px;padding:0 16px;color:#A9B8D3;font-size:15px}
+.card{background:#fff;border-radius:24px;border:1px solid #E3EAF5}
+.bar-bg{height:6px;border-radius:100px;background:#EEF3FB;overflow:hidden}
+.bar-fg{height:100%;border-radius:100px;background:linear-gradient(90deg,#2C8CFF,#1868F2)}
+/* board */
+.board{width:1440px;background:#EEF3FB;padding:80px}
+.btitle{font-weight:700;font-size:44px;line-height:52px;letter-spacing:-1px}
+.bsub{font-size:18px;line-height:28px;color:#5B6476;margin-top:12px;max-width:900px}
+.vrow{margin-top:56px}
+.vlabel{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.vletter{width:40px;height:40px;border-radius:12px;background:#02081A;color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;flex:none}
+.vname{font-weight:600;font-size:22px}
+.vdesc{font-size:15px;color:#5B6476;margin-left:auto;font-family:Inter}
+.vpanel{background:#fff;border-radius:32px;padding:48px 50px}
+.note{font-family:Inter;font-size:13px;line-height:20px;color:#5B6476;display:flex;gap:8px}
+.note b{color:#02081A;font-weight:600}
+.pin{width:22px;height:22px;border-radius:50%;background:#02081A;color:#fff;font-family:Inter;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none}
+
+.seg{display:inline-flex;background:#F0F5FC;border-radius:100px;padding:4px;gap:2px}
+.seg span{white-space:nowrap;height:36px;padding:0 18px;border-radius:100px;display:flex;align-items:center;font-size:14px;font-weight:600;color:#5B6476}
+.seg span.on{background:#fff;color:#074CBA;box-shadow:0 2px 8px rgba(24,104,242,.12)}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:24px}
+.day{height:64px;border-radius:16px;border:1px solid #E1E8F3;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.day .d{font-size:15px;font-weight:600}
+.day .n{font-family:Inter;font-size:12px;color:#6B7690}
+.day.on{background:linear-gradient(180deg,#2C8CFF,#1868F2);border-color:#1868F2;box-shadow:0 8px 20px rgba(24,104,242,.22)}
+.day.on .d,.day.on .n{color:#fff}
+.day.off{background:#F7F9FD;border-style:dashed}
+.day.off .d{color:#A9B8D3}
+.lsn{display:flex;gap:14px;padding:14px 16px;border-radius:16px;border:1px solid transparent;position:relative}
+.lsn .tm{width:52px;flex:none;font-family:Inter;font-size:13px;font-weight:600;color:#02081A;padding-top:2px}
+.lsn .tm small{display:block;font-weight:400;color:#7C8AA5;font-size:12px;margin-top:2px}
+.lsn .cl{font-size:15px;font-weight:600}
+.lsn .tp{font-family:Inter;font-size:13px;line-height:18px;color:#5B6476;margin-top:3px}
+.lsn.done{opacity:.6}
+.lsn.sel{background:#F0F5FC;border-color:#1868F2;box-shadow:inset 3px 0 0 #1868F2}
+.lsn .st{font-family:Inter;font-size:11px;font-weight:600;border-radius:6px;padding:3px 7px;display:inline-flex;align-items:center;gap:4px}
+.st.now{background:#1868F2;color:#fff}
+.st.next{background:#E8F0FE;color:#074CBA}
+.st.ok{background:#E6F6EC;color:#16A34A}
+.rcard{border:1px solid #E3EAF5;border-radius:20px;overflow:hidden;background:#fff;display:flex}
+.rcard .th{width:112px;flex:none;position:relative;overflow:hidden;padding:14px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between}
+.rcard .th .c1{position:absolute;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.14);right:-40px;bottom:-80px}
+.rcard .th .gl{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;color:#fff;position:relative}
+.rcard .bd{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.rcard .tt{font-weight:600;font-size:15px;line-height:21px}
+.rcard .mt{font-family:Inter;font-size:12px;color:#6B7690;margin-top:6px;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.rcard .why{font-family:Inter;font-size:12px;line-height:17px;color:#4F5BD5;margin-top:10px;display:flex;gap:6px}
+.rcard .ac{margin-top:14px;display:flex;gap:8px;align-items:center}
+.rcard.h{border-color:#1868F2;box-shadow:0 18px 36px rgba(24,104,242,.18)}
+.why-box{background:linear-gradient(90deg,#F0F5FC,#F3F4FD);border-radius:16px;padding:14px 16px;display:flex;gap:12px;font-family:Inter;font-size:14px;line-height:21px;color:#02081A}
+.tag{font-family:Inter;font-size:12px;font-weight:500;color:#074CBA;background:#F0F5FC;border-radius:100px;padding:5px 10px;display:inline-flex;gap:5px;align-items:center}
+.ann{position:absolute;font-family:Inter;font-size:12px;line-height:17px;color:#fff;background:#02081A;border-radius:10px;padding:8px 10px;max-width:220px;box-shadow:0 8px 20px rgba(2,8,26,.18)}
+
+.pcard{border:1px solid #E3EAF5;border-radius:20px;background:#fff;display:flex;overflow:hidden}
+.pcard .pv{width:80px;flex:none;background:#F0F5FC;padding:14px 12px;position:relative}
+.pcard .pg{background:#fff;border-radius:6px;box-shadow:0 4px 12px rgba(24,104,242,.12);height:100%;padding:10px 8px}
+.pcard .pg i{display:block;height:5px;border-radius:3px;background:#E1E8F3;margin-top:5px}
+.pcard .pg i.h{background:#B9CDEF;height:7px;margin-top:0;width:70%}
+.pcard .bd{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;min-width:0}
+.pcard .src{font-family:Inter;font-size:11px;color:#7C8AA5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard .tt{font-weight:600;font-size:15px;line-height:21px;margin-top:4px}
+.pcard .ac{margin-top:auto;padding-top:12px;display:flex;gap:8px;align-items:center}
+.pcard.h{border-color:#1868F2;box-shadow:0 18px 36px rgba(24,104,242,.18)}
+.fit{font-family:Inter;font-size:11px;font-weight:600;border-radius:6px;padding:3px 7px;display:inline-flex;gap:4px;align-items:center;white-space:nowrap}
+.fit.ok{background:#E6F6EC;color:#16A34A}.fit.near{background:#FFF4EC;color:#C2410C}.fit.none{background:#F0F5FC;color:#6B7690}
+.aicard{border:1.5px dashed #C3C8F2;border-radius:20px;background:linear-gradient(140deg,#F7F7FE,#F0F5FC);padding:16px;display:flex;flex-direction:column}
+.cov{font-family:Inter;font-size:12px;display:flex;gap:4px;align-items:center;margin-top:6px}
+
+.board{max-width:1440px;margin:0 auto;padding:56px 64px 80px}
+.stp{display:grid;grid-template-columns:1fr 280px;gap:32px;margin-top:48px;align-items:start}
+.stl{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:600;margin-bottom:16px}
+.stl b{width:32px;height:32px;border-radius:10px;background:#02081A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px}
+.nts{font-family:Inter;font-size:13px;line-height:19px;color:#5B6476;display:flex;flex-direction:column;gap:14px;padding-top:48px}
+.nts b{color:#02081A;font-weight:600}
+.drop{border:2px dashed #B9CDEF;border-radius:24px;background:#F7FAFF;padding:36px;display:flex;align-items:center;gap:28px}
+.drop .ico{width:72px;height:72px;border-radius:20px;background:linear-gradient(140deg,#2C8CFF,#1868F2);display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 12px 24px rgba(24,104,242,.25)}
+.fl{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid #E3EAF5;border-radius:16px;background:#fff}
+.fl .g{width:40px;height:40px;border-radius:12px;background:#E8F0FE;color:#074CBA;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.tabs{display:flex;gap:8px}
+.tabs span{height:40px;padding:0 16px;border-radius:100px;border:1px solid #DCE5F2;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#5B6476;background:#fff;white-space:nowrap}
+.tabs span.on{background:#1868F2;border-color:#1868F2;color:#fff}
+.tabs span i{font-style:normal;font-family:Inter;font-size:12px;font-weight:500;opacity:.75}
+.nx{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#F7F9FD;font-family:Inter;font-size:13px}
+.nx .n{width:28px;height:28px;border-radius:8px;background:#fff;border:1px solid #E3EAF5;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex:none}
+
+</style></head><body><div class="board">
+<div style="font-weight:700;font-size:40px;letter-spacing:-.6px">Sodda yechim: reja yuklanadi — AI tavsiya beradi</div>
+<div class="sec2" style="font-size:16px;line-height:24px;margin-top:10px;max-width:880px">O‘qituvchi faqat taqvim-mavzu rejasini yuklaydi. Dars jadvali, kunlar va to‘qnashuvlar yo‘q. AI bosh sahifada har sinf uchun hozirgi va keyingi mavzularga portal resurslarini ko‘rsatadi.</div>
+<div class="stp"><div><div class="stl"><b>1</b>Bo‘sh holat — bosh sahifada</div><section class="card" style="padding:32px"><div class="row between"><div><div class="row" style="gap:12px"><div class="h2">Sinflaringiz uchun resurslar</div><span class="ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>AI tavsiyasi</span></div>
+<div class="sec2 inter" style="font-size:14px;margin-top:6px">Taqvim-mavzu rejangizni yuklang — AI har kuni kerakli resurslarni shu yerda ko‘rsatadi</div></div></div>
+<div class="drop" style="margin-top:24px"><div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></div>
+<div style="flex:1"><div style="font-size:20px;font-weight:600">Taqvim-mavzu rejasini shu yerga tashlang</div>
+<div class="inter sec2" style="font-size:14px;line-height:21px;margin-top:6px">Yillik yoki choraklik. Bir nechta sinfda dars bersangiz — hammasini birga tashlang.<br>XLSX, DOCX, PDF yoki rasm</div></div>
+<span class="btn pri"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Fayl tanlash</span></div></section></div><div class="nts"><div><b>Yagona qadam</b> — taqvim-mavzu rejasini yuklash. Dars jadvali shart emas.</div><div>Yuklash alohida oynada emas, <b>shu bo‘limning o‘zida</b>.</div><div>Bir nechta sinf — bir nechta fayl, <b>bir martada</b>.</div></div></div>
+<div class="stp"><div><div class="stl"><b>2</b>Yuklangandan keyin — bitta tasdiq</div><section class="card" style="padding:32px"><div class="row between"><div><div class="row" style="gap:12px"><div class="h2">Sinflaringiz uchun resurslar</div><span class="ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>AI tavsiyasi</span></div>
+<div class="sec2 inter" style="font-size:14px;margin-top:6px">AI rejalaringizni o‘qidi. Hozirgi mavzu to‘g‘rimi? Bo‘lmasa strelka bilan suring.</div></div></div>
+<div class="col" style="gap:10px;margin-top:24px">
+<div class="fl"><span class="g">5</span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600">5-sinf Matematika</div><div class="inter muted" style="font-size:12px;margin-top:2px">170 dars · haftasiga 5 soat</div></div>
+<div style="text-align:right;margin-right:6px"><div class="inter muted" style="font-size:12px">Hozir taxminan</div><div class="inter" style="font-size:13px;font-weight:600">39-dars · Qolgan qismning qismi</div></div>
+<div class="row" style="gap:6px"><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></div></div>
+<div class="fl"><span class="g">7</span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600">7-sinf Matematika</div><div class="inter muted" style="font-size:12px;margin-top:2px">170 dars · haftasiga 5 soat</div></div>
+<div style="text-align:right;margin-right:6px"><div class="inter muted" style="font-size:12px">Hozir taxminan</div><div class="inter" style="font-size:13px;font-weight:600">39-dars · Sonlarni yaxlitlash</div></div>
+<div class="row" style="gap:6px"><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></div></div>
+<div class="fl"><span class="g">8</span><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600">8-sinf Algebra</div><div class="inter muted" style="font-size:12px;margin-top:2px">102 dars · haftasiga 3 soat</div></div>
+<div style="text-align:right;margin-right:6px"><div class="inter muted" style="font-size:12px">Hozir taxminan</div><div class="inter" style="font-size:13px;font-weight:600">24-dars · Kvadrat ildiz xossalari</div></div>
+<div class="row" style="gap:6px"><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></span><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></span></div></div>
+</div>
+<div class="row between" style="margin-top:20px"><span class="row inter" style="gap:6px;font-size:13px;color:#1868F2;font-weight:600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Yana reja qo‘shish</span><span class="btn pri">Hammasi to‘g‘ri <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></section></div><div class="nts"><div>AI rejadan <b>sinf, fan va haftalik soatni</b> oladi.</div><div><b>Hozirgi mavzuni</b> 2-sentabrdan beri o‘tgan haftalar va soatlardan taxmin qiladi. Rejada sanalar yozilgan bo‘lsa, ulardan oladi.</div><div>O‘qituvchi faqat tasdiqlaydi yoki <b>‹ ›</b> bilan suradi.</div></div></div>
+<div class="stp"><div><div class="stl"><b>3</b>Har kuni — tavsiyalar</div><section class="card" style="padding:32px"><div class="row between"><div><div class="row" style="gap:12px"><div class="h2">Sinflaringiz uchun resurslar</div><span class="ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>AI tavsiyasi</span></div>
+<div class="sec2 inter" style="font-size:14px;margin-top:6px">Rejangizdagi hozirgi va keyingi mavzular uchun portal resurslari</div></div>
+<span class="btn ghost sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19v-14M19 19v2H6"/></svg>Rejalarim · 3</span></div>
+<div class="tabs" style="margin-top:20px"><span>5-sinf <i>Matematika</i></span><span class="on">7-sinf <i>Matematika</i></span><span>8-sinf <i>Algebra</i></span></div>
+<div style="display:grid;grid-template-columns:1fr 300px;gap:24px;margin-top:20px">
+<div><div class="inter muted" style="font-size:12px;font-weight:600;letter-spacing:.5px">HOZIRGI MAVZU · 39-DARS</div>
+<div class="row between" style="margin-top:6px"><div style="font-weight:600;font-size:22px;line-height:28px">Sonlarni belgilangan xonasigacha yaxlitlash</div>
+<span class="btn sec sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>O‘tdim</span></div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px"><div class="pcard h"><div class="pv"><div class="pg"><i class="h"></i><i></i><i style="width:80%"></i><i></i><i style="width:60%"></i><i></i><i style="width:85%"></i></div><span class="badge pdf" style="position:absolute;left:8px;bottom:8px">PDF</span></div>
+<div class="bd"><div class="row between" style="gap:8px"><span class="src">Interfaol resurslar · 7-sinf · Matematika</span><span class="badge" style="background:#EEF3FB;color:#074CBA">UZ</span></div><div class="tt">Sonlarni belgilangan xonasigacha yaxlitlash</div><div style="margin-top:8px"><span class="fit ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16 10"/></svg>Aniq mos</span></div>
+<div class="ac"><span class="btn pri sm" style="flex:1">Ochish <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span></div></div></div><div class="pcard"><div class="pv"><div class="pg"><i class="h"></i><i></i><i style="width:80%"></i><i></i><i style="width:60%"></i><i></i><i style="width:85%"></i></div><span class="badge pdf" style="position:absolute;left:8px;bottom:8px">PDF</span></div>
+<div class="bd"><div class="row between" style="gap:8px"><span class="src">Interfaol resurslar · 7-sinf · Matematika</span><span class="badge" style="background:#EEF3FB;color:#074CBA">RU</span></div><div class="tt">Округление чисел до заданного разряда</div><div style="margin-top:8px"><span class="fit ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16 10"/></svg>Aniq mos · ruscha</span></div>
+<div class="ac"><span class="btn ghost sm" style="flex:1">Ochish <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg></span><span class="ibtn" style="width:36px;height:36px;border-radius:50%"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span></div></div></div></div><div class="row" style="gap:14px;margin-top:14px;padding:14px 16px;border-radius:16px;border:1.5px dashed #C3C8F2;background:linear-gradient(140deg,#F7F7FE,#F0F5FC)"><span class="ai"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4F5BD5" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>AI Ustoz</span><span class="inter sec2" style="flex:1;font-size:13px">Test yoki dars ishlanmasi kerakmi? Shu mavzu bo‘yicha tayyorlab beradi.</span><span class="btn sec sm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>Tayyorlash</span></div></div>
+<div><div class="inter muted" style="font-size:12px;font-weight:600;letter-spacing:.5px">KEYINGI MAVZULAR</div>
+<div class="col" style="gap:8px;margin-top:10px"><div class="nx"><span class="n">40</span><span style="flex:1">Yaxlitlash: mashqlar</span><span class="fit ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Resurs bor</span></div><div class="nx"><span class="n">41</span><span style="flex:1">Taqribiy hisoblash</span><span class="fit ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Resurs bor</span></div><div class="nx"><span class="n">42</span><span style="flex:1">Takrorlash</span><span class="fit none">AI Ustoz</span></div><div class="nx"><span class="n">43</span><span style="flex:1">Nazorat ishi 3</span><span class="fit none">AI Ustoz</span></div></div></div>
+</div></section></div><div class="nts"><div>Sinflar — <b>tablar</b>. Bitta vaqtda bitta sinf, ortiqcha narsa yo‘q.</div><div><b>Hozirgi mavzu</b> + portal resurslari. Resurs bo‘lmasa — AI Ustoz.</div><div>Mavzu haftalik soatga qarab <b>o‘zi oldinga suriladi</b>. «O‘tdim» bilan qo‘lda ham surish mumkin.</div><div><b>Keyingi mavzular</b> — oldindan tayyorlanish uchun.</div></div></div>
+</div></body></html>
