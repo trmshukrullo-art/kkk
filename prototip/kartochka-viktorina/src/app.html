@@ -155,6 +155,20 @@ th{color:var(--muted);font-weight:600}
 .lobby .how div{display:flex;flex-direction:column;align-items:center;gap:8px;font-family:Inter;font-weight:700;font-size:clamp(12px,1.6vw,18px)}
 .lobby .how svg{width:100%;height:auto;border-radius:8px;display:block}
 .lobby .how span{border-radius:100px;padding:4px 10px;color:#fff;white-space:nowrap}
+/* pairing */
+#proj .lobby .how{grid-template-columns:repeat(4,minmax(0,clamp(90px,15vw,220px)))}
+#proj .lobby .how div{font-size:clamp(14px,2vw,26px)}
+.pairing{flex:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,5vw,72px);align-items:center;max-width:1200px;margin:0 auto;width:100%;padding:3vh 0}
+.pairing h2{font-size:clamp(28px,4.4vw,56px);font-weight:700;letter-spacing:-.8px;line-height:1.1}
+.pairing ol{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:16px;counter-reset:s}
+.pairing li{display:flex;gap:14px;align-items:center;font-size:clamp(16px,2vw,26px);font-weight:500;counter-increment:s}
+.pairing li::before{content:counter(s);flex:none;width:clamp(34px,3.6vw,48px);height:clamp(34px,3.6vw,48px);border-radius:50%;background:#fff;color:#074CBA;font-family:Inter;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pairing .mk{background:#fff;border-radius:28px;padding:clamp(12px,1.6vw,22px);width:clamp(220px,32vw,440px)}
+.pairing .mk svg{display:block;width:100%;height:auto}
+.pairing .cd{text-align:center;margin-top:14px;font-family:Inter;font-size:clamp(14px,1.6vw,20px);opacity:.85}
+.pairing .cd b{font-size:clamp(28px,3.4vw,44px);letter-spacing:8px;display:block;opacity:1}
+@media(max-width:760px){.pairing{grid-template-columns:1fr;text-align:left}.pairing .mk{margin:0 auto}}
+#pairIn{max-width:150px;text-align:center;font-size:22px;letter-spacing:6px;font-family:Inter;font-weight:700;background:#121A2E;color:#fff;border-color:#2B3B5C}
 /* print */
 #print{display:none}
 @media print{
@@ -172,7 +186,7 @@ th{color:var(--muted);font-weight:600}
 <div class="wrap">
   <header>
     <div><h1>Kartochka viktorina</h1><div class="sub">Telefon faqat o‘qituvchida. O‘quvchilar kartochkani burab javob beradi.</div></div>
-    <div class="row"><span class="net" id="net"></span><button class="btn sec" id="projBtn">🖥 Proyektor rejimi</button></div>
+    <div class="row"><span class="net" id="net"></span><button class="btn sec" id="projBtn">🖥 Proyektor ekrani</button></div>
   </header>
   <nav class="tabs" id="tabs">
     <button data-t="sinf" class="on">1. Sinf</button>
@@ -602,10 +616,12 @@ setInterval(function(){if(!IS_PROJ)pushAll()},5000);
 
 function renderPair(){
   var p=document.getElementById('pair');
-  p.innerHTML='<span class="small muted">🖥 Ekran kodi</span><b class="code">'+G.code+'</b><span class="net" id="pairNet"></span>'+
-   '<button class="lnk" id="pairHelp">Qanday ulanadi?</button>'+
-   '<div class="small hidden" id="pairTip" style="flex-basis:100%;line-height:19px;color:var(--text2)">Proyektorga ulangan kompyuterda shu sahifani oching, <b>«Proyektor rejimi»</b>ni bosing va <b>'+G.code+'</b> kodini kiriting. Keyin o‘yinni shu telefondan boshqarasiz — kompyuterga tegish shart emas. Proyektor bo‘lmasa ham o‘ynash mumkin: savolni ovoz chiqarib o‘qing.</div>';
-  document.getElementById('pairHelp').onclick=function(){document.getElementById('pairTip').classList.toggle('hidden')};
+  p.innerHTML='<span class="small" style="font-weight:600">🖥 Proyektor ekrani</span><span class="net" id="pairNet"></span>'+
+   '<button class="btn pri" id="pairBtn" style="height:38px;font-size:14px;margin-left:auto">📷 Ekranni ulash</button>'+
+   '<button class="lnk hidden" id="pairOff">Uzish</button>'+
+   '<div class="small" id="pairTip" style="flex-basis:100%;line-height:19px;color:var(--text2)">Sinf kompyuterida shu sahifani ochib <b>«🖥 Proyektor ekrani»</b>ni bosing. Ekranda katta belgi chiqadi — «Ekranni ulash»ni bosib telefonni unga qarating. Proyektor bo‘lmasa, bu qadamni o‘tkazib yuboring.</div>';
+  document.getElementById('pairBtn').onclick=openPair;
+  document.getElementById('pairOff').onclick=function(){G.code=newCode();saveGame();lastSeen=0;joinChannel(G.code,onPhoneMsg);updateNet()};
   updateNet();
 }
 
@@ -616,6 +632,7 @@ function updateNet(){
   if(!online){txt='Oflayn · javoblar shu qurilmada saqlanmoqda';cls='off'}
   else if(IS_PROJ){txt=projState.at&&Date.now()-projState.at<12000?'Telefon ulangan':'Telefon kutilmoqda';cls=projState.at&&Date.now()-projState.at<12000?'ok':''}
   else{txt=peers?'Ekran ulangan':(connected?'Ekran ulanmagan':'Faqat shu qurilma');cls=peers?'ok':''}
+  var pb=document.getElementById('pairBtn');if(pb&&!IS_PROJ){pb.classList.toggle('hidden',!!peers);document.getElementById('pairOff').classList.toggle('hidden',!peers);document.getElementById('pairTip').classList.toggle('hidden',!!peers)}
   ['net','pairNet','pNet'].forEach(function(id){var el=document.getElementById(id);if(el){el.textContent=txt;el.className='net '+cls}});
 }
 window.addEventListener('online',function(){updateNet();pushAll()});
@@ -634,14 +651,21 @@ function renderProj(){
   var b=document.getElementById('pBody'),L=projState.live;
   document.getElementById('pCode').textContent='Kod: '+(link.code||'—');
   [].forEach.call(document.querySelectorAll('#pView button'),function(x){x.classList.toggle('on',x.dataset.v===((projState.view)||(L&&L.view)||'names'))});
-  if(!link.code){b.innerHTML='<div class="qtext" style="margin-top:12vh">O‘yin kodini kiriting<div class="row" style="justify-content:center;margin-top:16px"><input id="codeIn" inputmode="numeric" maxlength="4" style="max-width:180px;text-align:center;font-size:28px;letter-spacing:6px"><button class="btn pri" id="codeGo">Ulanish</button></div><div class="small muted" style="margin-top:12px">Kod o‘qituvchi telefonidagi «O‘yin» bo‘limida</div></div>';
-    document.getElementById('codeGo').onclick=function(){var c=(document.getElementById('codeIn').value||'').replace(/\D/g,'');if(c.length===4){joinChannel(c,onProjMsg);send('hello',{});renderProj()}};return}
-  if(!projState.S||!L){b.innerHTML='<div class="qtext" style="margin-top:12vh">Telefon kutilmoqda…<div class="small muted" style="margin-top:10px">Telefonda shu kod bilan «O‘yin» bo‘limini oching</div></div>';return}
+  var pairing=!projState.S||!L||Date.now()-projState.at>15000&&!roomPeers();document.getElementById('pView').style.visibility=pairing?'hidden':'';
+  if(pairing){var idx=+link.code-1000;
+    b.innerHTML='<div class="pairing"><div><h2>Ekranni telefonga ulang</h2><ol>'+
+      '<li>Telefonda shu sahifani oching, «4. O‘yin» bo‘limiga o‘ting</li>'+
+      '<li>«📷 Ekranni ulash» tugmasini bosing</li>'+
+      '<li>Telefon kamerasini o‘ngdagi belgiga qarating</li></ol>'+
+      '<div class="small" style="margin-top:28px;opacity:.75;font-size:clamp(13px,1.4vw,17px)">Ulangandan keyin o‘yin shu yerda ko‘rinadi. Kompyuterga boshqa tegish shart emas.</div></div>'+
+      '<div><div class="mk">'+markerSVG(idx,'',0,false)+'</div><div class="cd">yoki kodni kiriting<b>'+link.code+'</b></div></div></div>';return}
   var V={S:projState.S,i:L.i,phase:L.phase,cur:L.cur,res:L.res,view:projState.view||L.view};
   b.innerHTML='<div class="stage">'+stageHTML(V)+'</div>';
 }
 document.getElementById('pView').onclick=function(e){var v=e.target.dataset.v;if(v){projState.view=v;renderProj()}};
-function openProj(code){IS_PROJ=true;leaveChannel();document.getElementById('proj').classList.remove('hidden');if(code){joinChannel(code,onProjMsg);send('hello',{})}renderProj();updateNet()}
+function openProj(code){IS_PROJ=true;leaveChannel();document.getElementById('proj').classList.remove('hidden');
+  code=code||load('pcode',null)||String(1000+Math.floor(Math.random()*VALID.length));save('pcode',code);
+  joinChannel(code,onProjMsg);send('hello',{});renderProj();updateNet()}
 document.getElementById('projBtn').onclick=function(){openProj(null)};
 document.getElementById('pExit').onclick=function(){IS_PROJ=false;leaveChannel();projState={S:null,parts:{},live:null,at:0,view:null};document.getElementById('proj').classList.add('hidden');joinChannel(G.code,onPhoneMsg);pushAll();updateNet()};
 setInterval(function(){if(IS_PROJ&&link.code)send('hello',{})},4000);
@@ -651,7 +675,12 @@ var scan=document.getElementById('scan'),video=document.getElementById('video'),
 var work=document.createElement('canvas'),wctx=work.getContext('2d',{willReadFrequently:true});
 var stream=null,raf=0,seen={};
 function allowed(){var q=state.qs[G.i];return q.type===4?['A','B','C','D']:['A','B']}
+var pairMode=false;
+function openPair(){pairMode=true;openScan()}
+function pairTo(code){code=String(code);if(!/^\d{4}$/.test(code)||+code<1000||+code-1000>=VALID.length)return false;
+  G.code=code;saveGame();joinChannel(code,onPhoneMsg);pushAll();lastSeen=Date.now();closeScan();return true}
 function openScan(){
+  document.getElementById('scanDone').textContent=pairMode?'Bekor qilish':'Tayyor';
   scan.classList.remove('hidden');seen={};updateBar();still.classList.add('hidden');video.classList.remove('hidden');
   var ss=document.getElementById('scanState');ss.textContent='● skanerlanmoqda';ss.style.color='#4ADE80';
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){camFail('Bu yerda jonli kamera yo‘q. «Surat orqali» tugmasidan foydalaning.');return}
@@ -659,8 +688,8 @@ function openScan(){
     stream=s;video.srcObject=s;video.play();loop();
   }).catch(function(){camFail('Kameraga ruxsat berilmadi. «Surat orqali» tugmasi bilan sinfni suratga olishingiz mumkin.')});
 }
-function camFail(msg){var ss=document.getElementById('scanState');ss.textContent=msg;ss.style.color='#FFB4B4'}
-function closeScan(){cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}scan.classList.add('hidden');changed()}
+function camFail(msg){if(pairMode)msg='Kamera ishlamadi. Ekrandagi kodni pastga kiriting yoki «Surat orqali» bilan ekranni suratga oling.';var ss=document.getElementById('scanState');ss.textContent=msg;ss.style.color='#FFB4B4'}
+function closeScan(){pairMode=false;cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}scan.classList.add('hidden');changed()}
 document.getElementById('scanDone').onclick=closeScan;
 function process(src,w,h){
   var k=Math.min(1,1280/Math.max(w,h));work.width=Math.round(w*k);work.height=Math.round(h*k);
@@ -668,6 +697,7 @@ function process(src,w,h){
   var img=wctx.getImageData(0,0,work.width,work.height);
   var ms=detectImage(img);
   ov.width=work.width;ov.height=work.height;var o=ov.getContext('2d');o.clearRect(0,0,ov.width,ov.height);
+  if(pairMode){for(var pi=0;pi<ms.length;pi++){var px=ID2IDX[ms[pi].id];if(px!=null){pairTo(1000+px);return}}return}
   var al=allowed(),before=curString(state.names.length);
   ms.forEach(function(m){var idx=ID2IDX[m.id];if(idx==null||!state.names[idx])return;
     var L=letterOf(m),good=al.indexOf(L)>=0;
@@ -683,7 +713,10 @@ function process(src,w,h){
   updateBar();
 }
 function loop(){if(video.readyState>=2&&video.videoWidth)process(video,video.videoWidth,video.videoHeight);raf=requestAnimationFrame(loop)}
-function updateBar(){var n=Object.keys(G.cur).length;document.getElementById('scanCount').textContent=n+' / '+activeCount(state.names)+' javob';
+function updateBar(){document.getElementById('missing').style.maxHeight='';if(pairMode){document.getElementById('scanCount').textContent='Kamerani ekrandagi katta belgiga qarating';
+  var m=document.getElementById('missing');m.style.maxHeight='none';if(!document.getElementById('pairIn'))m.innerHTML='<div class="row" style="margin-top:4px;justify-content:flex-start;flex-wrap:nowrap"><span style="white-space:nowrap">yoki kod:</span><input id="pairIn" inputmode="numeric" maxlength="4"><button class="btn pri" id="pairGo" style="height:40px">Ulash</button></div>';
+  document.getElementById('pairGo').onclick=function(){if(!pairTo(document.getElementById('pairIn').value.replace(/\D/g,''))){document.getElementById('pairIn').style.borderColor='#E5484D'}};return}
+  var n=Object.keys(G.cur).length;document.getElementById('scanCount').textContent=n+' / '+activeCount(state.names)+' javob';
   var miss=state.names.filter(function(n,i){return n&&!G.cur[i]});
   document.getElementById('missing').textContent=miss.length?'Qolganlar: '+miss.join(', '):'Hamma javob berdi ✓';}
 document.getElementById('photo').onchange=function(e){var f=e.target.files[0];if(!f)return;

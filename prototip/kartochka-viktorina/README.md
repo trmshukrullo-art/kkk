@@ -13,7 +13,7 @@ o‘qituvchi telefon kamerasi bilan sinfni skanerlaydi.
 
 ## Plickers'dan olingan funksiyalar
 
-1. **Telefon va proyektor sinxroni.** Telefondagi «O‘yin» bo‘limida 4 xonali o‘yin kodi chiqadi. Proyektordagi kompyuterda shu sahifa ochiladi, «Proyektor rejimi» bosilib kod kiritiladi. Telefon har o‘zgarishda to‘liq holatni yuboradi, proyektor uni darrov ko‘rsatadi; qayta ulanganda ham holat tiklanadi.
+1. **Telefon va proyektor sinxroni.** Proyektordagi kompyuterda shu sahifa ochilib «🖥 Proyektor ekrani» bosiladi — ekranda katta belgi va 4 xonali kod chiqadi. Telefonda «O‘yin» → «📷 Ekranni ulash» bosilib, kamera belgiga qaratiladi (yoki kod qo‘lda kiritiladi). Telefon har o‘zgarishda to‘liq holatni yuboradi, proyektor uni darrov ko‘rsatadi; qayta ulanganda ham holat tiklanadi.
    - claude.ai ichida: artifact'ning jonli «room» kanali.
    - Fayl sifatida ochilganda: bitta brauzerning boshqa oynalari (BroadcastChannel).
    - Platformaga joylashda shu joyga o‘z WebSocket serverimiz qo‘yiladi (`joinChannel` / `send` funksiyalari).
