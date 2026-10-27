@@ -122,6 +122,39 @@ th{color:var(--muted);font-weight:600}
 @media(min-width:900px){.rlist{display:grid;grid-template-columns:1fr 1fr}.rrow{border-top:0;border-bottom:1px solid var(--line)}.rrow:nth-child(odd){border-right:1px solid var(--line)}.rlist>.small{grid-column:1/-1}}
 .bulk{margin-top:12px;border:1px dashed var(--line2);border-radius:16px;padding:14px;background:var(--bg)}
 .hint{font-family:Inter;font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
+/* game */
+.gpair{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px}
+.gpair .code{font-size:20px;letter-spacing:4px;font-family:Inter}
+.gpair .lnk{font-family:Inter;font-size:13px;font-weight:600;color:var(--pri);margin-left:auto}
+.gprog{display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+.gprog .d{min-width:30px;height:30px;border-radius:9px;background:var(--surface);border:1px solid var(--line2);color:var(--muted);font-family:Inter;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
+.gprog .d.cur{background:var(--pri);border-color:var(--pri);color:#fff}
+.gprog .d.ok{background:#E6F6EC;border-color:#BBE5C8;color:#15803D}.gprog .d.mid{background:#FFF6E5;border-color:#F5D9A8;color:#9A5B00}.gprog .d.low{background:#FFF1F1;border-color:#F5C2C2;color:#B42318}
+.gprog .key{margin-left:auto;font-family:Inter;font-size:12px;font-weight:600;color:var(--text2);display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.gprog .key input{width:auto}
+.tile .kmark{margin-left:auto;font-family:Inter;font-size:13px;background:#fff;color:#15803D;border-radius:100px;padding:2px 10px}
+.names span.wait{opacity:.55}
+.gdock{position:sticky;bottom:0;z-index:5;margin:14px -16px 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.gdock .hint{font-family:Inter;font-size:13px;color:var(--text2);line-height:1.45;margin-bottom:10px}
+.gdock .hint b{color:var(--text)}
+.gdock .acts{display:flex;gap:8px;align-items:center}
+.gdock .acts .btn{height:52px;font-size:16px}
+.gdock .acts .grow{flex:1}
+.more{position:relative}
+.more summary{list-style:none;width:52px;height:52px;border-radius:100px;border:1px solid var(--line2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer}
+.more summary::-webkit-details-marker{display:none}
+.more .menu{position:absolute;right:0;bottom:60px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(2,8,26,.18);padding:6px;min-width:220px;display:flex;flex-direction:column}
+.more .menu button{text-align:left;padding:10px 12px;border-radius:10px;font-family:Inter;font-size:14px}
+.more .menu button:hover{background:var(--pri-soft)}
+.more .menu button.bad{color:var(--bad)}
+.kbd{font-family:Inter;font-size:11px;color:var(--muted);margin-top:8px}
+@media(max-width:700px){.kbd{display:none}.gdock .acts .btn{padding:0 14px}}
+.lobby{text-align:center;padding:18px 6px 6px}
+.lobby h2{font-size:clamp(24px,4vw,44px);font-weight:700;letter-spacing:-.5px}
+.lobby .how{display:grid;grid-template-columns:repeat(4,minmax(0,clamp(64px,10vw,120px)));justify-content:center;gap:clamp(8px,2vw,22px);margin-top:18px}
+.lobby .how div{display:flex;flex-direction:column;align-items:center;gap:8px;font-family:Inter;font-weight:700;font-size:clamp(12px,1.6vw,18px)}
+.lobby .how svg{width:100%;height:auto;border-radius:8px;display:block}
+.lobby .how span{border-radius:100px;padding:4px 10px;color:#fff;white-space:nowrap}
 /* print */
 #print{display:none}
 @media print{
@@ -188,9 +221,10 @@ th{color:var(--muted);font-weight:600}
   </section>
 
   <section id="t-oyin" class="hidden">
-    <div class="card pair" id="pair"></div>
+    <div class="card gpair" id="pair"></div>
+    <div class="gprog" id="gprog"></div>
     <div class="stage" id="stage"></div>
-    <div class="row" style="margin-top:14px" id="ctrl"></div>
+    <div class="gdock" id="ctrl"></div>
     <div id="camErr"></div>
   </section>
 
@@ -395,13 +429,13 @@ document.getElementById('addQ2').onclick=function(){state.qs.push({type:2,text:'
    G.res  — finished questions: one string per question, a letter or '-' per student */
 var G=load('game',null);
 function newCode(){return String(1000+Math.floor(Math.random()*9000))}
-function resetGame(){var code=G&&G.code||newCode();G={code:code,i:0,phase:'ask',cur:{},res:[],view:'names'};saveGame();pushAll()}
+function resetGame(){var code=G&&G.code||newCode();G={code:code,i:0,phase:'lobby',cur:{},res:[],view:'names'};saveGame();pushAll()}
 function saveGame(){save('game',G)}
 if(!G||!G.code)resetGame();
 function optsOf(q){return q.type===4?['A','B','C','D'].map(function(l,i){return{l:l,t:q.opts[i]}}):[{l:'A',t:'Ha'},{l:'B',t:'Yo‘q'}]}
 function curString(n){var s='';for(var i=0;i<n;i++)s+=G.cur[i]||'-';return s}
 function scoresOf(S,res){var sc=S.names.map(function(){return 0});
-  res.forEach(function(r,k){var q=S.qs[k];if(!q)return;for(var i=0;i<sc.length;i++)if(r[i]===q.right)sc[i]+=100});return sc}
+  res.forEach(function(r,k){var q=S.qs[k];if(!q||!r)return;for(var i=0;i<sc.length;i++)if(r[i]===q.right)sc[i]+=100});return sc}
 
 /* One renderer for the teacher's phone and the projector.
    V = {S:{names,cls,qs}, i, phase, cur:'BA-C…', res:[…], view} */
@@ -412,45 +446,98 @@ function stageHTML(V){
     return '<div class="top"><span class="pill">'+esc(S.cls)+' · Yakuniy reyting</span><span class="pill">'+S.qs.length+' savol</span></div>'+
       rows.slice(0,5).map(function(r,k){return '<div class="lb"><span class="r">'+(k+1)+'</span>'+esc(r.n)+'<span class="s">'+r.s+'</span></div>'}).join('');
   }
+  if(V.phase==='lobby'){var demo=S.names.indexOf(S.names.filter(Boolean)[0]);if(demo<0)demo=0;
+    return '<div class="top"><span class="pill">'+esc(S.cls)+'</span><span class="pill">'+S.qs.length+' ta savol</span><span class="pill">'+activeCount(S.names)+' o‘quvchi</span></div>'+
+      '<div class="lobby"><h2>Kartochkalaringizni oling!</h2><div class="small" style="opacity:.85;margin-top:8px;font-size:clamp(13px,1.8vw,20px)">Javob harfi tepada bo‘lsin, kartochkani baland ko‘taring</div><div class="how">'+
+      [['A',0],['B',-90],['C',180],['D',90]].map(function(x){return '<div><div style="transform:rotate('+x[1]+'deg)">'+markerSVG(demo,'',1)+'</div><span style="background:'+COLORS[x[0]]+'">'+x[0]+' tepada</span></div>'}).join('')+'</div></div>'}
   var q=S.qs[V.i];if(!q)return '';
   var res=V.phase==='result',cnt={A:0,B:0,C:0,D:0},n=0;
   for(var i=0;i<S.names.length;i++){var a=V.cur[i];if(a&&a!=='-'){cnt[a]++;n++}}
   var h='<div class="top"><span class="pill">'+(V.i+1)+' / '+S.qs.length+'</span><span class="pill">'+(q.type===4?'4 variant':'Ha / Yo‘q')+'</span><span class="pill">'+n+' / '+activeCount(S.names)+' javob</span></div>';
   h+='<div class="qtext">'+esc(q.text)+'</div><div class="tiles">';
   optsOf(q).forEach(function(o){var cls='tile'+(res?(o.l===q.right?' right':' dim'):'');
-    h+='<div class="'+cls+'" style="background:'+COLORS[o.l]+'"><span class="L">'+o.l+'</span>'+esc(o.t)+(res?'<span class="n">'+cnt[o.l]+'</span>':'')+'</div>'});
+    h+='<div class="'+cls+'" style="background:'+COLORS[o.l]+'"><span class="L">'+o.l+'</span>'+esc(o.t)+(res?'<span class="n">'+cnt[o.l]+'</span>':(V.key&&o.l===q.right?'<span class="kmark">✓ to‘g‘ri</span>':''))+'</div>'});
   h+='</div>';
   if(V.view==='graph'){
     var mx=Math.max(1,Math.max.apply(null,optsOf(q).map(function(o){return cnt[o.l]})));
     h+='<div class="bars">'+optsOf(q).map(function(o){var c=res?(o.l===q.right?' right':' dim'):'';
       return '<div class="'+c+'"><span>'+cnt[o.l]+'</span><b style="height:'+Math.round(cnt[o.l]/mx*140)+'px;background:'+COLORS[o.l]+'"></b><span class="l">'+o.l+'</span></div>'}).join('')+'</div>';
   }else{
-    h+='<div class="names">'+S.names.map(function(nm,i){if(!nm)return '';var a=V.cur[i];if(a==='-')a=null;var c=a?(res?(a===q.right?'ok':'no'):'got'):'';return '<span class="'+c+'">'+esc(nm)+(res&&a?' · '+a:'')+'</span>'}).join('')+'</div>';
+    h+='<div class="names">'+S.names.map(function(nm,i){if(!nm)return '';var a=V.cur[i];if(a==='-')a=null;var c=a?(res?(a===q.right?'ok':'no'):'got'):(res?'':'wait');return '<span class="'+c+'">'+esc(nm)+(res&&a?' · '+a:'')+'</span>'}).join('')+'</div>';
   }
   return h;
 }
 function myView(){return{S:{names:state.names,cls:state.cls,qs:state.qs},i:G.i,phase:G.phase,cur:curString(state.names.length),res:G.res,view:G.view}}
 
+var KEY=load('key',false);
+function renderProg(){var p=document.getElementById('gprog');
+  p.innerHTML=state.qs.map(function(q,k){var r=G.res[k],c='d',t=k+1;
+    if(r){var ok=0,tot=0;for(var i=0;i<state.names.length;i++)if(state.names[i]){tot++;if(r[i]===q.right)ok++}
+      var pc=tot?Math.round(ok/tot*100):0;c+=pc>=70?' ok':pc>=50?' mid':' low';t=(k+1)+' · '+pc+'%'}
+    else if(k===G.i&&G.phase!=='end'&&G.phase!=='lobby')c+=' cur';
+    return '<span class="'+c+'" title="'+esc(q.text)+'">'+t+'</span>'}).join('')+
+    '<label class="key"><input type="checkbox" id="keyT"'+(KEY?' checked':'')+'>To‘g‘ri javobni menga ko‘rsat</label>';
+  document.getElementById('keyT').onchange=function(e){KEY=e.target.checked;save('key',KEY);renderGame()}}
+function nameList(a){return a.length>6?a.slice(0,6).map(esc).join(', ')+' va yana '+(a.length-6)+' ta':a.map(esc).join(', ')}
 function renderGame(){
   renderPair();
   var st=document.getElementById('stage'),ctrl=document.getElementById('ctrl');
-  st.innerHTML=stageHTML(myView());
-  if(!state.qs.length){ctrl.innerHTML='';return}
-  var seg='<div class="seg" id="viewSeg"><button data-v="names"'+(G.view==='names'?' class="on"':'')+'>Kim javob berdi</button><button data-v="graph"'+(G.view==='graph'?' class="on"':'')+'>Grafik</button></div>';
-  if(G.phase==='end'){
-    ctrl.innerHTML='<button class="btn pri" id="again">Qaytadan boshlash</button><button class="btn soft" id="toSheet">Natija jadvali</button>';
-    document.getElementById('again').onclick=function(){resetGame();renderGame()};
-    document.getElementById('toSheet').onclick=function(){show('nat')};
-    return;
+  if(!state.qs.length){st.innerHTML=stageHTML(myView());document.getElementById('gprog').innerHTML='';ctrl.innerHTML='<div class="acts"><button class="btn pri grow" data-a="toQs">Savollar qo‘shish</button></div>';bindDock();return}
+  if(!activeCount(state.names)){st.innerHTML='<div class="qtext">Avval sinf ro‘yxatini kiriting</div>';ctrl.innerHTML='<div class="acts"><button class="btn pri grow" data-a="toSinf">Sinf ro‘yxatiga o‘tish</button></div>';bindDock();return}
+  renderProg();
+  var V=myView();V.key=KEY;st.innerHTML=stageHTML(V);
+  var tot=activeCount(state.names),n=Object.keys(G.cur).filter(function(i){return state.names[i]}).length,last=G.i+1>=state.qs.length;
+  var miss=state.names.filter(function(nm,i){return nm&&!G.cur[i]});
+  var viewBtn='<button data-a="view">'+(G.view==='graph'?'Ekranda: ismlarni ko‘rsatish':'Ekranda: grafikni ko‘rsatish')+'</button>';
+  var hint='',acts='',menu='';
+  if(G.phase==='lobby'){
+    hint='<b>O‘yinga tayyorgarlik.</b> O‘quvchilar kartochkasini olsin. Ekranda kartochkani qanday ushlash ko‘rsatilgan.';
+    acts='<button class="btn pri grow" data-a="start">▶ Birinchi savolni ko‘rsatish</button>';
+  }else if(G.phase==='ask'&&!n){
+    hint='<b>'+(G.i+1)+'-savol.</b> Savolni ovoz chiqarib o‘qing, o‘quvchilar kartochkani ko‘targach, sinfni skanerlang.';
+    acts='<button class="btn pri grow" data-a="scan">📷 Sinfni skanerlash</button>';
+    menu='<button data-a="skip">Savolni o‘tkazib yuborish</button>'+viewBtn;
+  }else if(G.phase==='ask'){
+    hint='<b>'+n+' / '+tot+' javob.</b> '+(miss.length?'Javob bermaganlar: '+nameList(miss):'Hamma javob berdi ✓');
+    acts='<button class="btn sec" data-a="scan">📷 Yana</button><button class="btn pri grow" data-a="show">Natijani ko‘rsatish</button>';
+    menu=viewBtn+'<button data-a="skip">Savolni o‘tkazib yuborish</button><button data-a="clear" class="bad">Javoblarni tozalash</button>';
+  }else if(G.phase==='result'){
+    var q=state.qs[G.i],r=G.res[G.i]||'',ok=0,wrong=[];
+    state.names.forEach(function(nm,i){if(!nm)return;if(r[i]===q.right)ok++;else if(r[i]&&r[i]!=='-')wrong.push(nm)});
+    hint='<b>To‘g‘ri: '+ok+' / '+tot+' ('+Math.round(ok/tot*100)+'%) · javob '+q.right+'.</b> '+(wrong.length?'Xato qilganlar: '+nameList(wrong):'Xato qilgan yo‘q 🎉');
+    acts='<button class="btn pri grow" data-a="next">'+(last?'🏆 Yakuniy reyting':'Keyingi savol →')+'</button>';
+    menu=viewBtn+'<button data-a="rescan">Qayta skanerlash (javoblar saqlanadi)</button>';
+  }else{
+    var all=0,ok2=0;G.res.forEach(function(r,k){if(!r)return;state.names.forEach(function(nm,i){if(!nm)return;all++;if(r[i]===state.qs[k].right)ok2++})});
+    hint='<b>O‘yin tugadi.</b> Sinf natijasi: '+(all?Math.round(ok2/all*100):0)+'%. Batafsil jadval «Natijalar» bo‘limida.';
+    acts='<button class="btn pri grow" data-a="sheet">Natija jadvali</button>';
+    menu='<button data-a="again" class="bad">Yangi o‘yin boshlash</button>';
   }
-  var n=Object.keys(G.cur).length;
-  if(G.phase==='ask'){ctrl.innerHTML='<button class="btn pri" id="scanBtn">📷 Skanerlash</button><button class="btn soft" id="showRes"'+(n?'':' disabled')+'>Natijani ko‘rsatish</button>'+(n?'<button class="btn sec" id="clearAns">Javoblarni tozalash</button>':'')+seg;
-    document.getElementById('scanBtn').onclick=openScan;document.getElementById('showRes').onclick=finishQ;
-    var ca=document.getElementById('clearAns');if(ca)ca.onclick=function(){G.cur={};changed()};}
-  else{ctrl.innerHTML='<button class="btn pri" id="next">'+(G.i+1<state.qs.length?'Keyingi savol':'Yakuniy reyting')+'</button>'+seg;
-    document.getElementById('next').onclick=function(){G.i++;G.cur={};G.phase=G.i<state.qs.length?'ask':'end';changed()}}
-  document.getElementById('viewSeg').onclick=function(e){var v=e.target.dataset.v;if(v){G.view=v;changed()}};
+  ctrl.innerHTML='<div class="hint">'+hint+'</div><div class="acts">'+acts+(menu?'<details class="more"><summary title="Boshqa amallar">⋯</summary><div class="menu">'+menu+'</div></details>':'')+'</div>'+
+    '<div class="kbd">Klaviatura: Probel — asosiy amal · S — skanerlash · G — ekran ko‘rinishi</div>';
+  bindDock();
 }
+function act(a){
+  if(a==='start'){G.phase='ask';G.i=0;G.cur={};changed()}
+  else if(a==='scan'||a==='rescan'){if(a==='rescan'){var r=G.res[G.i]||'';G.cur={};for(var i=0;i<r.length;i++)if(r[i]!=='-')G.cur[i]=r[i];G.res[G.i]=null;G.phase='ask';changed()}openScan()}
+  else if(a==='show')finishQ();
+  else if(a==='next'){G.i++;G.cur={};G.phase=G.i<state.qs.length?'ask':'end';changed()}
+  else if(a==='skip'){G.res[G.i]=null;G.i++;G.cur={};G.phase=G.i<state.qs.length?'ask':'end';changed()}
+  else if(a==='clear'){if(confirm('Bu savoldagi barcha javoblar o‘chirilsinmi?')){G.cur={};changed()}}
+  else if(a==='view'){G.view=G.view==='graph'?'names':'graph';changed()}
+  else if(a==='sheet')show('nat');
+  else if(a==='toQs')show('sav');
+  else if(a==='toSinf')show('sinf');
+  else if(a==='again'){if(confirm('Yangi o‘yin boshlansinmi? Hozirgi natijalar o‘chadi (oldin CSV yuklab oling).')){resetGame();renderGame()}}
+}
+function bindDock(){document.getElementById('ctrl').onclick=function(e){var b=e.target.closest('[data-a]');if(!b)return;var d=b.closest('details');if(d)d.open=false;act(b.dataset.a)}}
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('t-oyin').classList.contains('hidden')||!document.getElementById('scan').classList.contains('hidden')||!document.getElementById('proj').classList.contains('hidden'))return;
+  if(/INPUT|TEXTAREA|SELECT|BUTTON/.test(document.activeElement.tagName)&&e.key!=='s'&&e.key!=='g')return;
+  if(e.key===' '||e.key==='Enter'){var p=document.querySelector('#ctrl .btn.pri');if(p){e.preventDefault();p.click()}}
+  else if(e.key==='s'||e.key==='S'){if(G.phase==='ask')act('scan')}
+  else if(e.key==='g'||e.key==='G'){act('view')}
+});
 function finishQ(){G.res[G.i]=curString(state.names.length);G.phase='result';changed()}
 function changed(){saveGame();pushLive();if(!document.getElementById('t-oyin').classList.contains('hidden'))renderGame()}
 
@@ -515,9 +602,10 @@ setInterval(function(){if(!IS_PROJ)pushAll()},5000);
 
 function renderPair(){
   var p=document.getElementById('pair');
-  p.innerHTML='<div><div class="small muted">O‘yin kodi</div><div class="code">'+G.code+'</div></div>'+
-   '<div class="small" style="flex:1;min-width:220px;line-height:19px">Proyektorga ulangan kompyuterda shu sahifani oching, <b>«Proyektor rejimi»</b>ni bosing va kodni kiriting. Savol va javoblar u yerda telefon bilan bir vaqtda ko‘rinadi.</div>'+
-   '<span class="net" id="pairNet"></span>';
+  p.innerHTML='<span class="small muted">🖥 Ekran kodi</span><b class="code">'+G.code+'</b><span class="net" id="pairNet"></span>'+
+   '<button class="lnk" id="pairHelp">Qanday ulanadi?</button>'+
+   '<div class="small hidden" id="pairTip" style="flex-basis:100%;line-height:19px;color:var(--text2)">Proyektorga ulangan kompyuterda shu sahifani oching, <b>«Proyektor rejimi»</b>ni bosing va <b>'+G.code+'</b> kodini kiriting. Keyin o‘yinni shu telefondan boshqarasiz — kompyuterga tegish shart emas. Proyektor bo‘lmasa ham o‘ynash mumkin: savolni ovoz chiqarib o‘qing.</div>';
+  document.getElementById('pairHelp').onclick=function(){document.getElementById('pairTip').classList.toggle('hidden')};
   updateNet();
 }
 
