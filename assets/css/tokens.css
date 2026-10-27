@@ -1,0 +1,33 @@
+/* Design tokens taken from maketlar/html/*.html */
+:root {
+  --color-primary: #1868f2;
+  --color-primary-light: #2c8cff;
+  --color-text: #02081a;
+  --color-muted: #6b7690;
+  --color-border: #e1e8f3;
+  --color-soft: #f0f5fc;
+  --color-white: #fff;
+
+  --gradient-primary: linear-gradient(180deg, var(--color-primary-light), var(--color-primary));
+
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  --radius-pill: 100px;
+
+  --font-base: 'Geist', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-white);
+  font-family: var(--font-base);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
