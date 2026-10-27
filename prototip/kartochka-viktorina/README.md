@@ -9,7 +9,17 @@ o‘qituvchi telefon kamerasi bilan sinfni skanerlaydi.
 - Har bir kartochkada ArUco markeri (7×7 katakli oq-qora kvadrat) bor. Marker ichida o‘quvchining raqami kodlangan.
 - Kamera markerni topadi, raqamdan o‘quvchini aniqlaydi, marker qanchaga burilganidan javob harfini oladi.
 - Ha/Yo‘q savolda A = Ha, B = Yo‘q.
-- Har bir to‘g‘ri javob 100 ball. Oxirida reyting va savollar bo‘yicha hisobot chiqadi.
+- Har bir to‘g‘ri javob 100 ball. Oxirida reyting chiqadi.
+
+## Plickers'dan olingan funksiyalar
+
+1. **Telefon va proyektor sinxroni.** Telefondagi «O‘yin» bo‘limida 4 xonali o‘yin kodi chiqadi. Proyektordagi kompyuterda shu sahifa ochiladi, «Proyektor rejimi» bosilib kod kiritiladi. Telefon har o‘zgarishda to‘liq holatni yuboradi, proyektor uni darrov ko‘rsatadi; qayta ulanganda ham holat tiklanadi.
+   - claude.ai ichida: artifact'ning jonli «room» kanali.
+   - Fayl sifatida ochilganda: bitta brauzerning boshqa oynalari (BroadcastChannel).
+   - Platformaga joylashda shu joyga o‘z WebSocket serverimiz qo‘yiladi (`joinChannel` / `send` funksiyalari).
+2. **Natija jadvali.** «Natijalar» bo‘limida o‘quvchilar × savollar rangli jadvali va CSV eksport (Excel ochadi).
+3. **Oflayn ishlash.** O‘yin holati telefonda saqlanadi: internet uzilsa ham skanerlash davom etadi, sahifa yangilansa ham javoblar yo‘qolmaydi. Aloqa tiklanganda ekran avtomatik yangilanadi.
+4. **Live View.** Ekranda ikki ko‘rinish: «Kim javob berdi» (ismlar, javobsiz) va «Grafik» (har variantga nechta javob).
 
 ## Ishlatish
 
@@ -30,6 +40,6 @@ Ma’lumotlar (ro‘yxat, savollar) shu brauzerning o‘zida saqlanadi.
 
 ## Prototip cheklovlari
 
-- Savol ekrani va skaner bitta qurilmada. Proyektor va telefonni sinxronlash uchun server kerak bo‘ladi.
+- Sinxron hozircha claude.ai «room» kanali yoki bitta brauzer oynalari orqali; platformada o‘z serverimiz kerak.
 - Sinovda 24 ta burilgan kartochkaning hammasi to‘g‘ri o‘qildi; xira (fokussiz) suratda ayrimlari o‘tkazib yuboriladi, lekin noto‘g‘ri o‘qilmaydi.
 - Haqiqiy sinfda yorug‘lik va masofa bo‘yicha sinab ko‘rish kerak.
