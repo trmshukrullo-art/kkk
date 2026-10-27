@@ -1,0 +1,181 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1440"><title>Viktorina sahifalari</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:'Geist',sans-serif;color:#02081A;-webkit-font-smoothing:antialiased}
+.wrap{display:flex;justify-content:center}
+.inter{font-family:'Inter',sans-serif}
+.row{display:flex;align-items:center}
+.col{display:flex;flex-direction:column}
+.between{justify-content:space-between}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:100px;border:1px solid #E1E8F3;font-size:13px;font-family:'Inter',sans-serif;color:#02081A;background:#fff;white-space:nowrap}
+.chip.on{background:linear-gradient(180deg,#2C8CFF,#1868F2);border-color:#1868F2;color:#fff}
+.chip.soft{background:#F0F5FC;border-color:#F0F5FC;color:#074CBA;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:100px;font-size:15px;font-weight:600;white-space:nowrap}
+.btn.pri{background:linear-gradient(180deg,#2C8CFF,#1868F2);color:#fff;box-shadow:0 8px 20px rgba(24,104,242,.28)}
+.btn.sec{background:#fff;border:1px solid #DCE5F2;color:#02081A}
+.btn.ghost{background:#F0F5FC;color:#074CBA}
+.btn.dis{background:#EEF3FB;color:#A9B8D3;box-shadow:none}
+.btn.sm{height:36px;padding:0 14px;font-size:14px}
+.ibtn{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid #E1E8F3;background:#fff;color:#02081A;flex:none}
+.h2{font-weight:600;font-size:24px;line-height:32px;letter-spacing:-.3px}
+.h3{font-weight:600;font-size:18px;line-height:24px}
+.muted{color:#6B7690}
+.sec2{color:#5B6476}
+.badge{display:inline-flex;align-items:center;justify-content:center;height:22px;padding:0 8px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.3px;color:#fff;font-family:Inter}
+.pdf{background:#E5484D}.doc{background:#2F6FEB}.vid{background:#1868F2}.int{background:#4F5BD5}.ppt{background:#E8590C}.tst{background:#16A34A}
+.ai{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:100px;background:linear-gradient(90deg,#E8F0FE,#ECEDFB);color:#4F5BD5;font-family:Inter;font-size:12px;font-weight:600}
+.focus{outline:3px solid rgba(24,104,242,.35);outline-offset:2px}
+/* cabinet shell */
+.cab{width:1440px;display:flex;background:#F7F9FD;position:relative}
+.side{width:279px;flex:none;background:#fff;border-right:1px solid #E3EAF5;padding:28px 20px 24px;display:flex;flex-direction:column}
+.slogo{display:flex;align-items:center;gap:8px;padding:0 8px 28px}
+.slogo img{height:40px}
+.slogo .bar{width:2px;height:34px;background:#1868F2}
+.slogo .t{font-weight:700;font-size:7.6px;line-height:9.4px;text-transform:uppercase;color:#074CBA}
+.nv{height:44px;width:239px;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 10px;font-size:15px;color:#5B6476;font-weight:500}
+.nv.on{background:#E8F0FE;color:#074CBA;font-weight:600}
+.nv .new{margin-left:auto;font-family:Inter;font-size:10px;font-weight:700;color:#fff;background:#1868F2;border-radius:6px;padding:3px 6px}
+.nv .cnt{margin-left:auto;font-family:Inter;font-size:12px;font-weight:600;color:#fff;background:#E5484D;border-radius:100px;padding:2px 7px}
+.ucard{margin-top:16px;border-top:1px solid #E3EAF5;padding:16px 8px 0;display:flex;align-items:center;gap:10px}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#2C8CFF,#1868F2);color:#fff;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.main{flex:1;padding:32px 39px 48px;min-width:0}
+.srch{width:340px;height:44px;border-radius:100px;border:1px solid #E1E8F3;background:#fff;display:flex;align-items:center;gap:10px;padding:0 16px;color:#A9B8D3;font-size:15px}
+.card{background:#fff;border-radius:24px;border:1px solid #E3EAF5}
+.bar-bg{height:6px;border-radius:100px;background:#EEF3FB;overflow:hidden}
+.bar-fg{height:100%;border-radius:100px;background:linear-gradient(90deg,#2C8CFF,#1868F2)}
+/* board */
+.board{width:1440px;background:#EEF3FB;padding:80px}
+.btitle{font-weight:700;font-size:44px;line-height:52px;letter-spacing:-1px}
+.bsub{font-size:18px;line-height:28px;color:#5B6476;margin-top:12px;max-width:900px}
+.vrow{margin-top:56px}
+.vlabel{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.vletter{width:40px;height:40px;border-radius:12px;background:#02081A;color:#fff;font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center;flex:none}
+.vname{font-weight:600;font-size:22px}
+.vdesc{font-size:15px;color:#5B6476;margin-left:auto;font-family:Inter}
+.vpanel{background:#fff;border-radius:32px;padding:48px 50px}
+.note{font-family:Inter;font-size:13px;line-height:20px;color:#5B6476;display:flex;gap:8px}
+.note b{color:#02081A;font-weight:600}
+.pin{width:22px;height:22px;border-radius:50%;background:#02081A;color:#fff;font-family:Inter;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none}
+
+.board{box-sizing:border-box}
+
+.vpanel{padding:40px}
+.notes{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 260px;gap:32px;align-items:start}
+/* editor */
+.ed{display:grid;grid-template-columns:300px 1fr;border:1px solid #E3EAF5;border-radius:24px;overflow:hidden;background:#fff}
+.ql{background:#F7F9FD;border-right:1px solid #E3EAF5;padding:16px;display:flex;flex-direction:column;gap:8px}
+.qi{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:14px;background:#fff;border:1px solid #E3EAF5;font-family:Inter;font-size:13px;line-height:18px}
+.qi.on{border-color:#1868F2;box-shadow:inset 3px 0 0 #1868F2}
+.qi .n{width:24px;height:24px;border-radius:8px;background:#EEF3FB;color:#074CBA;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.qt{font-size:10px;font-weight:700;letter-spacing:.3px;color:#6B7690;margin-top:4px;display:flex;gap:6px;align-items:center}
+.seg2{display:inline-flex;background:#F0F5FC;border-radius:100px;padding:4px;gap:2px}
+.seg2 span{height:36px;padding:0 16px;border-radius:100px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#5B6476;white-space:nowrap}
+.seg2 span.on{background:#fff;color:#074CBA;box-shadow:0 2px 8px rgba(24,104,242,.12)}
+.qin{border:1px solid #DCE5F2;border-radius:16px;padding:16px 18px;font-size:20px;font-weight:600;line-height:28px}
+.ans{display:flex;align-items:center;gap:12px;height:56px;border-radius:14px;border:1px solid #DCE5F2;padding:0 8px 0 8px;font-family:Inter;font-size:15px;background:#fff}
+.ans .s{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.ans .ok{margin-left:auto;width:28px;height:28px;border-radius:50%;border:2px solid #DCE5F2;flex:none}
+.ans.right{border-color:#16A34A;background:#F3FBF6}
+.ans.right .ok{border:0;background:#16A34A;display:flex;align-items:center;justify-content:center}
+.sel{height:40px;border-radius:12px;border:1px solid #DCE5F2;padding:0 12px;display:flex;align-items:center;gap:8px;font-family:Inter;font-size:14px;background:#fff;white-space:nowrap}
+/* projector */
+.pz{zoom:.4917}
+.proj{width:1200px;border-radius:48px;overflow:hidden;background:linear-gradient(160deg,#050D24,#0B2466 60%,#0F3A9E);color:#fff;aspect-ratio:16/9;position:relative;display:flex;flex-direction:column}
+.proj .top{display:flex;align-items:center;justify-content:space-between;padding:32px 40px;font-family:Inter;font-size:22px}
+.proj .btn{height:72px;padding:0 36px;font-size:26px}
+.pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:10px 22px;font-weight:600;white-space:nowrap}
+.bigpin{font-weight:700;font-size:150px;letter-spacing:10px;line-height:1}
+.qr{width:230px;height:230px;border-radius:16px;background:#fff;padding:12px;display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+.qr i{background:#02081A;border-radius:2px}
+.qr i.w{background:#fff}
+.who{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.who span{background:#fff;color:#02081A;border-radius:100px;padding:12px 22px;font-weight:600;font-size:22px}
+.pq{background:#fff;color:#02081A;border-radius:28px;padding:24px 40px;font-size:40px;font-weight:600;text-align:center;line-height:50px}
+.ptile{box-shadow:inset 0 -6px 0 rgba(0,0,0,.18);border-radius:24px;display:flex;align-items:center;gap:24px;padding:0 36px;font-size:44px;font-weight:600;color:#fff;height:104px;position:relative}
+.ptile .cnt{margin-left:auto;font-family:Inter;font-size:16px;font-weight:600;background:rgba(0,0,0,.18);border-radius:100px;padding:4px 12px}
+.ptile.dim{opacity:.35}
+.timer{width:110px;height:110px;border-radius:50%;background:#fff;color:#1868F2;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:56px;box-shadow:0 0 0 10px rgba(255,255,255,.25)}
+/* phone */
+.ph{width:212px;height:440px;border-radius:40px;background:#02081A;padding:10px;flex:none}
+.ph .scr{width:100%;height:100%;border-radius:31px;overflow:hidden;background:#F7F9FD;display:flex;flex-direction:column;position:relative}
+.ph .sb{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-family:Inter;font-size:11px;font-weight:600}
+.phtile{border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.inp{height:48px;border-radius:14px;border:1.5px solid #DCE5F2;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;letter-spacing:4px}
+.phcap{font-family:Inter;font-size:13px;color:#5B6476;text-align:center;margin-top:12px;font-weight:500}
+/* results */
+.bars{display:flex;gap:28px;align-items:flex-end;height:290px;justify-content:center}
+.bars > div{width:150px;font-size:34px;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bars b{display:block;width:100%;border-radius:10px 10px 0 0}
+.lb{background:#fff;color:#02081A;border-radius:22px;padding:20px 28px;display:flex;align-items:center;gap:20px;font-size:32px;font-weight:600}
+.lb .r{width:52px;height:52px;font-size:24px!important;border-radius:50%;background:#EEF3FB;color:#074CBA;display:flex;align-items:center;justify-content:center;font-size:14px;flex:none}
+.lb .sc{margin-left:auto;font-family:Inter;font-size:28px}
+.rep th{font-family:Inter;font-size:12px;color:#6B7690;font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid #E3EAF5}
+.rep td{font-family:Inter;font-size:13px;padding:10px;border-bottom:1px solid #F0F5FC}
+.mini{height:8px;border-radius:100px;background:#EEF3FB;overflow:hidden;width:120px;display:inline-block;vertical-align:middle;margin-right:8px}
+.mini b{display:block;height:100%;border-radius:100px}
+
+.step{display:flex;flex-direction:column;gap:12px}
+.stepn{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600}
+.stepn b{width:28px;height:28px;border-radius:50%;background:#1868F2;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.cardp{background:#fff;border:1px solid #DCE5F2;border-radius:16px;box-shadow:0 8px 24px rgba(2,8,26,.08);position:relative;display:flex;align-items:center;justify-content:center}
+.cardp .L{position:absolute;font-family:Inter;font-weight:700;color:#6B7690}
+.sheet{background:#fff;border:1px solid #DCE5F2;border-radius:10px;box-shadow:0 12px 28px rgba(2,8,26,.10);padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.desk{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:Inter;font-size:11px;color:#5B6476}
+.cam{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,#3A3F4B,#23262E)}
+.tag2{position:absolute;font-family:Inter;font-size:10px;font-weight:700;color:#fff;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.cap2{font-family:Inter;font-size:13px;line-height:19px;color:#5B6476}
+.cap2 b{color:#02081A;font-weight:600}
+.vtitle{font-size:22px;font-weight:600;margin-bottom:6px}
+.team{border-radius:22px;padding:22px 26px;color:#fff;display:flex;align-items:center;gap:16px;font-size:30px;font-weight:600}
+.team .sc{margin-left:auto;font-family:Inter;font-size:26px}
+.tab{width:330px;height:240px;border-radius:26px;background:#02081A;padding:10px;flex:none}
+.tab .scr{width:100%;height:100%;border-radius:18px;background:#F7F9FD;display:flex;flex-direction:column;overflow:hidden}
+.kid{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Inter;font-size:12px;font-weight:700;color:#fff;border:2px solid #fff;margin-left:-8px}
+
+.cab{min-height:900px}
+.ph-h{font-weight:600;font-size:32px;line-height:40px;letter-spacing:-.4px}
+.crumb{font-family:Inter;font-size:13px;color:#6B7690;display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.crumb b{color:#02081A;font-weight:500}
+.kpi{border:1px solid #E3EAF5;border-radius:20px;background:#fff;padding:16px 18px}
+.kpi .v{font-size:28px;font-weight:600;margin-top:4px}
+.kpi .l{font-family:Inter;font-size:12px;color:#6B7690;font-weight:600;letter-spacing:.3px}
+.qcard{border:1px solid #E3EAF5;border-radius:20px;background:#fff;padding:18px;display:flex;flex-direction:column;gap:10px}
+.qcard .ico{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none}
+.st2{font-family:Inter;font-size:11px;font-weight:600;border-radius:6px;padding:3px 8px;white-space:nowrap}
+.st2.done{background:#E6F6EC;color:#16A34A}.st2.draft{background:#F0F5FC;color:#6B7690}.st2.ai{background:#ECEDFB;color:#4F5BD5}
+.tabs2{display:flex;gap:4px;border-bottom:1px solid #E3EAF5}
+.tabs2 span{padding:10px 14px;font-size:14px;font-weight:600;color:#6B7690;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs2 span.on{color:#074CBA;border-color:#1868F2}
+.tabs2 span i{font-style:normal;font-family:Inter;font-size:12px;font-weight:500;color:#7C8AA5;margin-left:4px}
+.fld{display:flex;flex-direction:column;gap:6px}
+.fld label{font-family:Inter;font-size:12px;font-weight:600;color:#5B6476}
+.inp2{height:44px;border-radius:12px;border:1px solid #DCE5F2;background:#fff;display:flex;align-items:center;gap:8px;padding:0 14px;font-family:Inter;font-size:14px;white-space:nowrap}
+.tpc{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid #E3EAF5;font-family:Inter;font-size:13px;background:#fff}
+.tpc.on{border-color:#1868F2;background:#F0F5FC;box-shadow:inset 3px 0 0 #1868F2}
+.tpc .n{font-weight:700;color:#074CBA;width:26px}
+.mode{border:1.5px solid #E3EAF5;border-radius:20px;padding:18px;background:#fff;display:flex;flex-direction:column;gap:8px;position:relative}
+.mode.on{border-color:#1868F2;background:#F7FAFF;box-shadow:0 10px 24px rgba(24,104,242,.12)}
+.mode .ic2{width:48px;height:48px;border-radius:14px;background:#E8F0FE;display:flex;align-items:center;justify-content:center}
+.mode .rad{position:absolute;right:16px;top:16px;width:22px;height:22px;border-radius:50%;border:2px solid #C9D5E8}
+.mode.on .rad{border:7px solid #1868F2}
+.tg{width:40px;height:24px;border-radius:100px;background:#C9D5E8;position:relative;flex:none}
+.tg::after{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff}
+.tg.on{background:#1868F2}.tg.on::after{left:19px}
+.optrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid #F0F5FC;font-family:Inter;font-size:14px}
+.sht{width:100%;border-collapse:collapse;font-family:Inter;font-size:13px}
+.sht th{font-size:12px;color:#6B7690;font-weight:600;padding:10px 8px;border-bottom:1px solid #E3EAF5;text-align:center;white-space:nowrap}
+.sht td{padding:8px;border-bottom:1px solid #F0F5FC;text-align:center}
+.sht td:first-child,.sht th:first-child{text-align:left}
+.cc{display:inline-flex;width:30px;height:26px;border-radius:7px;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:12px}
+.cc.y{background:#16A34A}.cc.n{background:#E5484D}.cc.e{background:#EEF3FB;color:#A9B8D3}
+.roster td{padding:9px 10px;border-bottom:1px solid #F0F5FC;font-family:Inter;font-size:13px}
+.roster th{padding:9px 10px;border-bottom:1px solid #E3EAF5;font-family:Inter;font-size:12px;color:#6B7690;text-align:left;font-weight:600}
+.bdg{display:inline-flex;align-items:center;gap:4px;font-family:Inter;font-size:11px;font-weight:600;border-radius:6px;padding:3px 8px}
+.pz5{zoom:.5083}
+
+</style></head><body><div style="background:#02081A;color:#fff;font-family:Inter;font-size:13px;display:flex;gap:4px;padding:10px 16px;overflow-x:auto;position:sticky;top:0;z-index:5"><a href="00-umumiy.html" style="color:#A9B8D3;text-decoration:none;padding:6px 10px;white-space:nowrap">← Barcha sahifalar</a><a href="01-viktorinalar.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">1. Viktorinalar</a><a href="02-yangi-viktorina.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">2. Yangi viktorina</a><a href="03-sinf-kartochkalar.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">3. Kartochkalar</a><a href="04-oyinni-boshlash.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">4. O‘yinni boshlash</a><a href="05-proyektor.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">5. Proyektor</a><a href="06-telefon.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">6. Telefon</a><a href="07-natijalar.html" style="color:#A9B8D3;background:transparent;text-decoration:none;padding:6px 12px;border-radius:100px;white-space:nowrap">7. Natijalar</a></div><div style="padding:48px 64px 64px;background:#EEF3FB;min-height:100vh">
+<div class="btitle">Viktorina — platformadagi sahifalar</div>
+<div class="bsub">Raqamli ta’lim platformasi kabineti uchun «Viktorinalar» bo‘limi. O‘quvchilarda telefon bo‘lmagan sinflar uchun kartochka rejimi asosiy. Har bir sahifani ochish uchun bosing.</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px"><a href="01-viktorinalar.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">1</span><div style="font-size:18px;font-weight:600;margin-top:4px">Viktorinalar</div><div class="inter sec2" style="font-size:13px;line-height:19px">Menyuda yangi bo‘lim: barcha viktorinalar, AI bugungi dars uchun tayyorlagani tepada</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="02-yangi-viktorina.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">2</span><div style="font-size:18px;font-weight:600;margin-top:4px">Yangi viktorina</div><div class="inter sec2" style="font-size:13px;line-height:19px">Rejadagi mavzu tanlanadi, AI savollar tuzadi, o‘qituvchi tahrirlaydi</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="03-sinf-kartochkalar.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">3</span><div style="font-size:18px;font-weight:600;margin-top:4px">Sinflar va kartochkalar</div><div class="inter sec2" style="font-size:13px;line-height:19px">Sinf ro‘yxati maktab tizimidan, kartochkalar PDF qilib chop etiladi</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="04-oyinni-boshlash.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">4</span><div style="font-size:18px;font-weight:600;margin-top:4px">O‘yinni boshlash</div><div class="inter sec2" style="font-size:13px;line-height:19px">Sinf, rejim (kartochka / jamoaviy / telefon), sozlamalar, ekranni ulash</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="05-proyektor.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">5</span><div style="font-size:18px;font-weight:600;margin-top:4px">Proyektor ekrani</div><div class="inter sec2" style="font-size:13px;line-height:19px">Tayyorgarlik, savol, natija grafigi, reyting</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="06-telefon.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">6</span><div style="font-size:18px;font-weight:600;margin-top:4px">O‘qituvchi telefoni</div><div class="inter sec2" style="font-size:13px;line-height:19px">Pult, skanerlash, natija, oflayn holat, yakun</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a><a href="07-natijalar.html" style="text-decoration:none;color:inherit"><div class="card" style="padding:20px;height:100%;display:flex;flex-direction:column;gap:8px"><span class="vletter" style="width:36px;height:36px;font-size:15px">7</span><div style="font-size:18px;font-weight:600;margin-top:4px">Natijalar</div><div class="inter sec2" style="font-size:13px;line-height:19px">Jadval, savollar bo‘yicha natija, AI xulosasi, eksport</div><div class="row inter" style="gap:4px;font-size:13px;font-weight:600;color:#1868F2;margin-top:auto;padding-top:8px">Ochish <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div></a>
+<div class="card" style="padding:20px;background:#02081A;color:#fff;display:flex;flex-direction:column;gap:8px"><div style="font-size:18px;font-weight:600">Ishlaydigan prototip</div><div class="inter" style="font-size:13px;line-height:19px;opacity:.8">Kartochkalarni chop etish, kamera bilan skanerlash, telefon–proyektor sinxroni: repo <code>prototip/kartochka-viktorina/</code></div></div>
+</div></div></body></html>
