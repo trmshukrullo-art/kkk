@@ -8,7 +8,8 @@ const sharp = require('sharp');
 
 const [jsonPath, outPath] = process.argv.slice(2);
 const slides = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-const P = v => v / 72;
+const K = Number(process.env.SCALE || 1);
+const P = v => v * K / 72;
 const FONT = { 300: ['Montserrat Light', false], 400: ['Montserrat', false], 500: ['Montserrat Medium', false],
   600: ['Montserrat SemiBold', false], 700: ['Montserrat', true], 800: ['Montserrat ExtraBold', false] };
 const TITLES = { s07: 'Иқтидорли ёшларни қўллаб-қувватлаш', s08: 'Лойиҳа офиси, халқаро ҳамкорлик ва ижро' };
@@ -30,10 +31,10 @@ async function iconPng(name, reg, color) {
 
 (async () => {
   const pres = new pptxgen();
-  pres.defineLayout({ name: 'DECK', width: P(1526), height: P(860) });
+  pres.defineLayout({ name: 'DECK', width: P(1526), height: Number(process.env.H || 860) / 72 });
   pres.layout = 'DECK';
   pres.theme = { headFontFace: 'Montserrat', bodyFontFace: 'Montserrat' };
-  pres.title = 'Таълим соҳасида СИ — слайдлар 07–08';
+  pres.title = process.env.TITLE || 'Таълим соҳасида СИ — слайдлар';
 
   for (const s of slides) {
     const sl = pres.addSlide();
@@ -46,7 +47,7 @@ async function iconPng(name, reg, color) {
       if (it.t === 'box') {
         const cls = it.cls || '';
         const fill = it.fill ? { color: it.fill } : { type: 'none' };
-        const line = it.line ? { color: it.line.color, width: it.line.w * 0.75 } : { type: 'none' };
+        const line = it.line ? { color: it.line.color, width: it.line.w * 0.75 * K } : { type: 'none' };
         const base = { x: P(it.x), y: P(it.y), w: P(it.w), h: P(it.h), fill, line };
         if (/\bgl\b/.test(cls)) { // goal bar left: arrow-shaped block, with a white chevron gap after it
           const j = items.findIndex((x, k) => k > i && x.t === 'box' && /\bgr\b/.test(x.cls || '') && x.clip);
@@ -90,7 +91,7 @@ async function iconPng(name, reg, color) {
         it.lines.forEach((l, li) => {
           l.forEach((r, ri) => {
             const [face, bold] = FONT[r.weight] || FONT[400];
-            const o = { fontFace: face, bold, fontSize: r.size, color: r.color };
+            const o = { fontFace: face, bold, fontSize: Math.round(r.size * K * 10) / 10, color: r.color };
             if (ri === l.length - 1 && li < it.lines.length - 1) o.breakLine = true;
             runs.push({ text: r.text, options: o });
           });
@@ -103,11 +104,11 @@ async function iconPng(name, reg, color) {
         if (it.align === 'center') x -= (w - it.w) / 2;
         else if (it.align === 'right') x -= (w - it.w);
         sl.addText(runs, { x: P(x), y: P(it.y), w: P(w), h: P(it.h + it.lh * 0.25), margin: 0, valign: 'top',
-          align: it.align === 'justify' ? 'left' : it.align, lineSpacing: it.lh, wrap: !single, fit: 'none',
+          align: it.align === 'justify' ? 'left' : it.align, lineSpacing: Math.round(it.lh * K * 10) / 10, wrap: !single, fit: 'none',
           isTextBox: true, objectName: nm('text') });
       }
     }
-    sl.addNotes(TITLES[s.id] || '');
+    if (TITLES[s.id] && !process.env.NONOTES) sl.addNotes(TITLES[s.id]);
   }
   await pres.writeFile({ fileName: outPath });
   console.log('wrote', outPath);

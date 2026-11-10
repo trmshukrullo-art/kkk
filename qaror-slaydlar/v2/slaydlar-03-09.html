@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Слайдлар 03–09 · янги таҳрир</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+
+/* Taqdimot uslubi: 1526×860 slayd, to'q ko'k sarlavha + havorang chiziq,
+   och ko'k chegarali panellar, ko'k→yashil gradient bo'lim nomlari, to'la ko'k ikonkalar. */
+:root{
+  --navy:#17254A; --cyan:#2FC1FF;
+  --blue:#026DD1; --blue-2:#1F6DC4; --blue-ink:#0154BA; --chev:#519BFB;
+  --teal:#05BAB6; --teal-2:#27A9AE;
+  --line:#C9DEF3; --line-2:#B6E3F9;
+  --card:#F4FAFE; --ink:#0E0E0E; --ink-2:#333B48; --ink-3:#5E6B7D;
+  --page:#E9EEF5; --page-ink:#17254A;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--page:#0E1626;--page-ink:#DCE6F5}
+}
+:root[data-theme="dark"]{--page:#0E1626;--page-ink:#DCE6F5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--page-ink);font-family:'Montserrat',system-ui,sans-serif}
+.wrap{max-width:1526px;margin:0 auto;padding:16px 16px 48px}
+.cap{font-weight:700;font-size:13px;letter-spacing:.04em;margin:18px 0 8px}
+.stage{width:100%;overflow:hidden;border-radius:6px;box-shadow:0 2px 16px rgba(10,30,60,.18)}
+body.export .wrap{padding:0;max-width:none}
+body.export .cap{display:none}
+body.export .stage{border-radius:0;box-shadow:none;width:1526px}
+
+/* ---------- slide ---------- */
+.slide{width:1526px;height:860px;background:#fff;transform-origin:top left;display:flex;flex-direction:column;color:var(--ink);overflow:hidden}
+.sh{height:51px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 28px;flex:none}
+.sh h2{margin:0;color:#fff;font-weight:700;font-size:21px;text-transform:uppercase;letter-spacing:.01em}
+.sh .pg{color:#fff;font-weight:300;font-size:34px;letter-spacing:.02em;line-height:1}
+.rule{height:5px;background:var(--cyan);flex:none}
+.body{flex:1;min-height:0;padding:30px 24px 18px;display:flex;flex-direction:column;gap:30px}
+
+/* ---------- panels ---------- */
+.panel{position:relative;border:2px solid var(--line);border-radius:18px;padding:26px 16px 16px;display:flex;flex-direction:column;min-height:0;background:#fff}
+.pt{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#fff;padding:0 14px;white-space:nowrap;
+  font-weight:800;font-size:16px;line-height:22px;text-transform:uppercase;color:#000;letter-spacing:.01em}
+.pt.gr{font-size:20px;top:-16px;line-height:28px}
+.pt.gr span{background:linear-gradient(90deg,#1F6DC4 0%,#2198B4 55%,#27A9AE 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.row{display:flex;gap:14px;min-height:0}
+.row>*{min-width:0}
+.col{display:flex;flex-direction:column;gap:12px;min-height:0}
+.f1{flex:1}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:center;min-width:0}
+.card.bd{background:#fff;border:1.5px solid var(--line-2)}
+.card h4{margin:0 0 4px;font-weight:700;font-size:14.5px;line-height:1.25;color:var(--ink)}
+.card p{margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)}
+.card p b{font-weight:700;color:var(--ink)}
+.ic{flex:none;color:var(--blue);font-size:34px;width:46px;text-align:center;line-height:1}
+.ic.lg{font-size:46px;width:64px}
+.ic.sm{font-size:26px;width:34px}
+.big{font-weight:800;color:var(--blue-ink);line-height:1;letter-spacing:-.01em}
+.tl{height:2px;background:var(--teal);border:0;margin:8px 0 9px;width:100%}
+
+/* chevron flow */
+.flow{display:flex;align-items:stretch;gap:0;min-height:0}
+.flow>.step{flex:1;min-width:0}
+.chev{flex:none;width:30px;display:grid;place-items:center;color:var(--chev);font-size:22px}
+.step{position:relative;background:var(--card);border-radius:12px;padding:18px 14px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px}
+.step.bd{background:#fff;border:1.5px solid var(--line-2)}
+.step .ic{width:auto;font-size:38px;margin-top:4px}
+.step h4{margin:0;font-weight:700;font-size:14px;line-height:1.28;color:var(--ink)}
+.step p{margin:0;font-weight:500;font-size:12px;line-height:1.4;color:var(--ink-2)}
+.step p b{font-weight:700;color:var(--ink)}
+.num{position:absolute;top:0;left:0;background:var(--blue-2);color:#fff;font-weight:300;font-size:19px;line-height:1;
+  padding:7px 9px 6px;border-radius:12px 0 10px 0}
+
+/* pills (2-слайддаги сана туглари) */
+.pill{display:inline-flex;align-items:center;gap:9px;background:var(--blue-2);color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:13.5px;white-space:nowrap}
+.pill i{font-size:16px}
+.check{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:13.5px;color:var(--ink)}
+.check i{color:var(--blue-2);font-size:17px}
+
+/* target bar (4-слайд пастидаги) */
+.goal{flex:none;display:flex;height:54px;border-radius:10px;overflow:hidden}
+.goal .gl{flex:none;width:300px;background:linear-gradient(90deg,#E4F4F1,#DBE9F7);display:flex;align-items:center;padding-left:28px;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%);
+  font-weight:800;font-size:15px;color:var(--blue-ink);text-transform:uppercase}
+.goal .gr{flex:1;margin-left:-6px;background:var(--card);display:flex;align-items:center;justify-content:center;gap:10px;font-weight:500;font-size:15.5px;color:var(--blue-ink);
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,18px 50%)}
+.goal .gr b{font-weight:800;text-transform:uppercase}
+.goal .gr i{font-size:22px}
+
+/* donut */
+.donut{position:relative;width:150px;height:150px;flex:none}
+.donut .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.lg-row{display:flex;gap:12px;align-items:flex-start}
+.lg-row .dot{flex:none;width:14px;height:14px;border-radius:50%;margin-top:4px}
+
+/* tree (3-слайддаги институт тузилмаси) */
+.org{background:linear-gradient(90deg,#3F8DF0,#5B9EF2);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:18px;padding:12px 20px;
+  font-weight:800;font-size:19px;line-height:1.2;text-transform:uppercase;letter-spacing:.01em}
+.org i{font-size:40px}
+.branch{position:relative;height:24px}
+.branch::before{content:"";position:absolute;left:50%;top:0;width:2px;height:12px;background:#B9D3EC}
+.branch::after{content:"";position:absolute;left:16.66%;right:16.66%;top:12px;height:18px;border:2px solid #B9D3EC;border-bottom:0;border-radius:8px 8px 0 0}
+.branch span{position:absolute;left:50%;top:12px;width:2px;height:18px;background:#B9D3EC}
+.leaves{display:flex;gap:14px}
+.leaf{flex:1;text-align:center;padding:11px 6px 10px;position:relative;display:flex;flex-direction:column;align-items:center;gap:5px}
+.leaf::before,.leaf::after{content:"";position:absolute;left:8px;right:8px;height:4px;border-radius:2px}
+.leaf::before{top:0;background:linear-gradient(90deg,#2E7BD8 0 22%,transparent 22% 78%,#2E7BD8 78%)}
+.leaf::after{bottom:0;background:#2E7BD8}
+.leaf.t::before{background:linear-gradient(90deg,var(--teal-2) 0 22%,transparent 22% 78%,var(--teal-2) 78%)}
+.leaf.t::after{background:var(--teal-2)}
+.leaf i{font-size:30px;color:var(--blue)}
+.leaf b{font-weight:800;font-size:16px;color:var(--ink);line-height:1.1}
+.leaf span{font-weight:500;font-size:12.5px;color:var(--ink-2);line-height:1.3}
+
+/* annex grid */
+.ann{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.ax{display:flex;align-items:stretch;background:var(--card);border-radius:10px;overflow:hidden;min-height:58px}
+.ax .n{flex:none;width:46px;background:var(--blue-2);color:#fff;font-weight:300;font-size:22px;display:grid;place-items:center}
+.ax .n.new{background:var(--teal-2)}
+.ax p{margin:0;padding:8px 12px;display:flex;align-items:center;font-weight:600;font-size:12.5px;line-height:1.3;color:var(--ink)}
+/* v2 qo'shimchalari */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:#E8F1FC;color:var(--blue-2);font-weight:700;font-size:12.5px;line-height:1.2;padding:7px 13px;border-radius:16px}
+.chip i{font-size:13px}
+.kick{font-weight:800;font-size:12px;line-height:1.3;color:var(--blue-2);text-transform:uppercase;letter-spacing:.01em}
+.mas{font-weight:500;font-size:11.5px;line-height:1.4;color:var(--ink-3)}
+.mas b{font-weight:700;color:var(--ink)}
+.sub{font-weight:800;font-size:12.5px;color:var(--ink);text-transform:uppercase}
+.brk{display:flex;align-items:center;gap:10px}
+.brk .amt{flex:none;width:62px;font-weight:800;font-size:16px;color:var(--blue-ink);text-align:right}
+.brk .bw{flex:none;width:96px;height:12px;background:#E3EEF9;border-radius:6px;overflow:hidden;display:flex}
+.brk .bf{height:12px;background:var(--blue-2);border-radius:6px}
+.brk .bf.t{background:var(--teal-2)}
+.brk p{margin:0;font-weight:600;font-size:12px;line-height:1.3;color:var(--ink)}
+.tier{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;flex:1}
+.tier .col-bar{width:100%;border-radius:10px 10px 0 0;background:var(--blue-2);display:flex;align-items:flex-start;justify-content:center;padding-top:10px}
+.tier .col-bar span{color:#fff;font-weight:800;font-size:22px;line-height:1}
+.tier .lab2{font-weight:600;font-size:12.5px;color:var(--ink-2);text-align:center;line-height:1.3}
+.stat-r{display:flex;align-items:center;gap:12px}
+.stat-r .v{flex:none;font-weight:800;font-size:22px;color:#C0392B;line-height:1}
+.stat-r p{margin:0;font-weight:500;font-size:12.5px;line-height:1.35;color:var(--ink-2)}
+.redcard{background:#FDF3F2;border-radius:12px;padding:14px 16px}
+.goalcard{background:var(--card);border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:center}
+.goalcard .big{font-size:26px}
+.person{display:flex;flex-direction:column;gap:2px}
+.person b{font-weight:800;font-size:14px;color:var(--ink)}
+.person span{font-weight:500;font-size:12px;line-height:1.35;color:var(--ink-2)}
+.ann7{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ax.hl .n{background:var(--teal-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- ======================= 03 ======================= -->
+<div class="cap">03 · СИ саноати ва тадқиқотлари институти ва инфратузилма</div>
+<div class="stage"><div class="slide" id="s03">
+  <div class="sh"><h2>СИ саноати ва тадқиқотлари институти ва инфратузилма</h2><span class="pg">03</span></div><div class="rule"></div>
+  <div class="body" style="gap:28px">
+
+    <div class="panel" style="flex:none;padding:22px 14px 12px">
+      <div class="pt gr"><span>Мақсади</span></div>
+      <div class="row" style="gap:12px">
+        <div class="card bd f1" style="padding:12px 14px"><i class="fa-solid fa-microscope ic"></i><div><h4>Илмий тадқиқотлар</h4><p>Фундаментал, амалий ва инновацион тадқиқотлар</p></div></div>
+        <div class="card bd f1" style="padding:12px 14px"><i class="fa-solid fa-microchip ic"></i><div><h4>Миллий СИ ечимлари</h4><p>Технологиялар, моделлар ва амалий ечимлар</p></div></div>
+        <div class="card bd f1" style="padding:12px 14px"><i class="fa-solid fa-globe ic"></i><div><h4>Таълим – илм-фан – саноат</h4><p>Илмий ишланмаларни жорий этиш</p></div></div>
+        <div class="card bd f1" style="padding:12px 14px"><i class="fa-solid fa-user-graduate ic"></i><div><h4>Юқори малакали кадрлар</h4><p>СИ ва турдош соҳаларда тайёрлаш</p></div></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:none;gap:22px">
+      <div class="panel" style="flex:1.06;padding:22px 16px 14px">
+        <div class="pt">Институт тузилмаси</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><i class="fa-solid fa-building-columns" style="color:#3FA88E;font-size:20px"></i><span style="font-weight:700;font-size:14px">«Янги Ўзбекистон» университети таркибида</span></div>
+        <div class="org" style="font-size:18px;padding:11px 20px"><i class="fa-solid fa-landmark" style="font-size:34px"></i><span>Сунъий интеллект саноати<br>ва тадқиқотлари институти</span></div>
+        <div class="row" style="gap:10px;margin-top:12px">
+          <div class="card f1" style="padding:11px 12px"><i class="fa-solid fa-sitemap ic sm"></i><div><h4 style="margin:0;font-size:13px">Таркибий бўлинма</h4></div></div>
+          <div class="card f1" style="padding:11px 12px"><i class="fa-solid fa-file-contract ic sm"></i><div><h4 style="margin:0;font-size:13px">Юридик шахс мақомига эга эмас</h4></div></div>
+          <div class="card f1" style="padding:11px 12px;flex:1.35"><i class="fa-solid fa-users-gear ic sm"></i><div><p style="font-weight:600;color:var(--ink)">Тузилма, штат бирликлари ва лабораторияларни университет белгилайди</p></div></div>
+        </div>
+      </div>
+      <div class="panel" style="flex:1;padding:22px 16px 14px">
+        <div class="pt">Таянч тузилма</div>
+        <div class="row f1" style="gap:12px">
+          <div class="card" style="flex:none;width:170px;flex-direction:column;justify-content:center;gap:6px;text-align:center"><i class="fa-solid fa-school ic" style="width:auto;color:#3FA88E"></i><div class="big" style="font-size:30px;color:var(--ink)">9 та ОТТ</div><p>СИ лабораторияси</p></div>
+          <div class="col f1" style="gap:8px">
+            <div class="card bd f1" style="padding:9px 14px"><i class="fa-solid fa-diagram-project ic sm"></i><p>9 та ОТТдаги СИ лабораториялари билан <b>қўшма тадқиқот ва амалий лойиҳаларни</b> мувофиқлаштиради</p></div>
+            <div class="card bd f1" style="padding:9px 14px"><i class="fa-solid fa-handshake ic sm"></i><p>ПФ–189-сон Фармоннинг 4-иловасида кўрсатилган олий таълим ташкилотлари</p></div>
+            <div class="card bd f1" style="padding:9px 14px"><i class="fa-solid fa-building-columns ic sm"></i><p>Лабораториялар бўйсунуви <b>ўзгартирилмайди</b></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:22px">
+      <div class="panel" style="flex:.92;padding:22px 16px 14px">
+        <div class="pt">Институтни молиялаштириш</div>
+        <div class="card" style="background:linear-gradient(90deg,#E4F4F1,#DBE9F7);padding:14px 16px"><i class="fa-solid fa-wallet ic lg"></i><div><div class="big" style="font-size:34px;margin-bottom:6px">10 МЛН $</div><p>Тикланиш ва тараққиёт жамғармаси улуши ҳисобидан — <b>Институт фаолиятини йўлга қўйишга</b></p></div></div>
+        <div class="sub" style="margin:12px 0 8px">Кейинги йилларда</div>
+        <div class="chips">
+          <span class="chip">Давлат бюджети</span><span class="chip">Жамғарма маблағлари</span><span class="chip">Грантлар</span><span class="chip">Шартнома асосидаги илмий ишлар</span><span class="chip">Бошқа қонуний манбалар</span>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1.12;padding:22px 16px 14px">
+        <div class="pt">Инновацион инфратузилма</div>
+        <div class="card" style="flex-direction:column;align-items:flex-start;gap:8px;padding:12px 14px">
+          <div style="display:flex;align-items:center;gap:10px"><span class="pill" style="font-size:12.5px;padding:5px 11px">2027–2030</span><span style="font-weight:800;font-size:13.5px">4 та етакчи IT ОТТда R&amp;D лабораториялари</span></div>
+          <div class="chips"><span class="chip" style="background:#fff">Микроконтроллерлар</span><span class="chip" style="background:#fff">Ўрнатилган тизимлар</span><span class="chip" style="background:#fff">Микроэлектроника</span><span class="chip" style="background:#fff">Буюмлар интернети</span><span class="chip" style="background:#fff">FPGA</span></div>
+        </div>
+        <div class="row f1" style="gap:10px;margin-top:10px">
+          <div class="card bd f1" style="flex-direction:column;align-items:flex-start;gap:6px;padding:11px 12px"><i class="fa-solid fa-building-columns" style="color:var(--blue);font-size:22px"></i><p style="font-size:11.5px"><b>ТАТУ</b> — тадбиркорлик университети моделига трансформация</p></div>
+          <div class="card bd f1" style="flex-direction:column;align-items:flex-start;gap:6px;padding:11px 12px"><i class="fa-solid fa-rocket" style="color:var(--blue);font-size:22px"></i><p style="font-size:11.5px">Паркент туманидаги <b>«Digital Innovation and Start-up Valley»</b></p></div>
+          <div class="card bd f1" style="flex-direction:column;align-items:flex-start;gap:6px;padding:11px 12px"><i class="fa-solid fa-location-dot" style="color:var(--blue);font-size:22px"></i><p style="font-size:11.5px"><b>Ҳудудий IT марказлари</b> — инновацион ва стартап фаолияти</p></div>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1.12;padding:22px 16px 14px">
+        <div class="pt">Қўшимча маблағ ва ҳамкорлик</div>
+        <div class="card" style="background:linear-gradient(90deg,#E4F4F1,#DBE9F7);flex-direction:column;align-items:stretch;gap:7px;padding:11px 14px">
+          <div style="display:flex;align-items:baseline;gap:10px"><span class="big" style="font-size:24px;white-space:nowrap">50 МЛН $</span><span class="mas" style="color:var(--ink-2)">ТТЖ улуши (ПҚ–320) қайта тақсимланади</span></div>
+          <div class="brk"><span class="amt">23 млн</span><span class="bw"><span class="bf" style="width:100%"></span></span><p>Космик технологиялар</p></div>
+          <div class="brk"><span class="amt">10 млн</span><span class="bw"><span class="bf" style="width:43%"></span></span><p>«AI Ventures» венчур жамғармаси</p></div>
+          <div class="brk"><span class="amt">10 млн</span><span class="bw"><span class="bf t" style="width:43%"></span></span><p>СИ саноати ва тадқиқотлари институти</p></div>
+          <div class="brk"><span class="amt">7 млн</span><span class="bw"><span class="bf" style="width:30%"></span></span><p>СИ малака ошириш маркази ва Тошкент стартап кампуси</p></div>
+        </div>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-weight:700;font-size:12.5px"><b style="font-weight:800">KOICA</b> — «Рақамли таълим марказлари» лойиҳаси</div>
+          <div class="chips"><span class="chip" style="padding:5px 10px;font-size:12px">Ер ва бино</span><span class="chip" style="padding:5px 10px;font-size:12px">Божхона-солиқ</span><span class="chip" style="padding:5px 10px;font-size:12px">Виза</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="flex:none;border:1.5px solid var(--line-2);justify-content:center;padding:11px 16px;margin-top:-12px"><i class="fa-solid fa-location-dot" style="color:var(--blue);font-size:20px"></i><p style="font-size:13.5px;color:var(--blue-ink)"><b style="color:var(--blue-ink)">МАНЗИЛ:</b> Тошкент шаҳри · Мирзо Улуғбек тумани · Мовароуннаҳр кўчаси, 1-уй — бино «Янги Ўзбекистон» университетига оператив бошқарув ҳуқуқи асосида берилади</p></div>
+  </div>
+</div></div>
+
+<!-- ======================= 04 ======================= -->
+<div class="cap">04 · Педагог кадрларнинг СИ компетенцияларини ривожлантириш</div>
+<div class="stage"><div class="slide" id="s04">
+  <div class="sh"><h2>Педагог кадрларнинг СИ компетенцияларини ривожлантириш</h2><span class="pg">04</span></div><div class="rule"></div>
+  <div class="body" style="gap:28px">
+
+    <div class="panel" style="flex:none;padding:22px 14px 12px">
+      <div class="pt gr"><span>Жорий этиш механизми</span></div>
+      <div class="flow">
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-book-open ic sm"></i><div><h4 style="font-size:13.5px">Миллий модель</h4><p style="font-size:11.5px">СИ компетенциялари</p></div></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-file-shield ic sm"></i><div><h4 style="font-size:13.5px">Миллий рамка</h4><p style="font-size:11.5px">СИдан фойдаланиш талаблари</p></div></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-certificate ic sm"></i><div><h4 style="font-size:13.5px">Сертификатлаш</h4><p style="font-size:11.5px">Информатика ва АТ фани</p></div></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-chart-line ic sm"></i><div><h4 style="font-size:13.5px">Узлуксиз ривожланиш</h4><p style="font-size:11.5px">Камида 12 соатлик модуль</p></div></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-users ic sm"></i><div><h4 style="font-size:13.5px">100% қамров</h4><p style="font-size:11.5px">2030 йилга қадар</p></div></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:20px">
+      <div class="panel" style="flex:1.18;padding:22px 14px 12px">
+        <div class="pt">Миллий модель ва рамка</div>
+        <div class="card bd" style="padding:10px 14px"><i class="fa-solid fa-landmark ic"></i><div><div class="kick">2027 йил 1 мартга қадар · ЮНЕСКО</div><h4 style="margin:3px 0">«Педагогларнинг СИ компетенциялари бўйича миллий модели»</h4><p style="font-size:11.5px">ЮНЕСКО модели ва илғор халқаро амалиёт асосида</p></div></div>
+        <div class="card bd" style="padding:10px 14px;margin-top:8px"><i class="fa-solid fa-children ic"></i><div><div class="kick">2027 йил 1 апрелга қадар · ЮНИСЕФ</div><h4 style="margin:3px 0">«Таълимда СИдан фойдаланишнинг миллий рамкаси»</h4><p style="font-size:11.5px">ЮНИСЕФ ва манфаатдор ташкилотлар иштирокида</p></div></div>
+        <div class="sub" style="margin:10px 0 7px">Рамкадаги минимал талаблар</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-eye"></i>Педагог назорати</span>
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-child"></i>Ёшга мос чекловлар</span>
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-lock"></i>Шахсий маълумотлар</span>
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-star"></i>Академик ҳалоллик</span>
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-magnifying-glass"></i>Натижаларни текшириш</span>
+          <span class="chip" style="border-radius:9px"><i class="fa-solid fa-shield-halved"></i>Ахборот хавфсизлиги</span>
+        </div>
+        <div class="mas" style="margin-top:8px"><b>Масъуллар:</b> ТРРИММ · ТИВ · РТВ</div>
+      </div>
+
+      <div class="panel" style="flex:1;padding:22px 14px 12px">
+        <div class="pt">Сертификатлаш</div>
+        <div class="card" style="background:linear-gradient(90deg,#E4F4F1,#DBE9F7);padding:9px 14px"><i class="fa-regular fa-calendar-days" style="color:#3FA88E;font-size:20px"></i><div class="kick" style="font-size:13px">2027/2028 ўқув йилидан</div></div>
+        <div class="card" style="padding:9px 14px;margin-top:8px"><i class="fa-solid fa-file-signature ic sm"></i><p style="font-weight:700;color:var(--ink)">«Информатика ва ахборот технологиялари» фани бўйича миллий сертификатлаш</p></div>
+        <div style="display:flex;align-items:center;gap:14px;margin:10px 4px 4px">
+          <div class="big" style="font-size:52px;color:var(--teal-2)">50%</div>
+          <div><div class="kick" style="color:var(--teal-2)">Ойлик устама</div><p style="margin:2px 0 0;font-weight:500;font-size:12px;line-height:1.35;color:var(--ink-2)">сертификатли информатика ўқитувчиларига — <b style="color:var(--ink)">базавий тариф ставкасига</b></p></div>
+        </div>
+        <div class="card bd" style="padding:9px 12px;margin-top:6px;border-color:var(--teal-2)"><i class="fa-solid fa-trophy ic sm" style="color:#E0920F"></i><div><div class="kick">2027 йил якунига қадар</div><h4 style="margin:2px 0;font-size:13px">«Йилнинг энг яхши ўқитувчиси» танлови</h4><p style="font-size:11.5px">Информатика ўқитувчилари · ҳар ҳудуд ғолибига <b>800 БҲМ</b> бир марталик мукофот</p></div></div>
+        <div class="mas" style="margin-top:8px"><b>Масъул:</b> Билим ва малакаларни баҳолаш агентлиги · танлов — ТИВ, РТВ</div>
+      </div>
+
+      <div class="panel" style="flex:.95;padding:22px 14px 12px">
+        <div class="pt">Узлуксиз касбий ривожланиш</div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;padding:12px 14px"><i class="fa-regular fa-clock" style="color:var(--chev);font-size:22px"></i><div class="kick">2027 йилдан</div><div class="big" style="font-size:24px;color:var(--ink)">камида 12 соат</div><p style="font-size:11.5px">СИдан самарали, хавфсиз ва ахлоқий фойдаланиш модули — қайта тайёрлаш ва малака ошириш дастурларининг амалдаги ҳажми доирасида</p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:5px;padding:12px 14px;margin-top:8px"><i class="fa-solid fa-users" style="color:var(--chev);font-size:22px"></i><div class="kick">2027 йил якунига қадар</div><div class="big" style="font-size:24px;color:var(--ink)">камида 1 000 нафар</div><p style="font-size:11.5px">ҳудудлардаги нодавлат таълим ташкилотлари ўқитувчи ва менторлари — замонавий IT ва СИ курслари</p><div class="mas"><b>Масъул:</b> Рақамли технологиялар вазирлиги</div></div>
+      </div>
+    </div>
+
+    <div class="panel" style="flex:none;padding:22px 14px 12px">
+      <div class="pt">Нодавлат ўқув марказлари менторларини қўллаб-қувватлаш</div>
+      <div class="row" style="gap:12px;align-items:stretch">
+        <div style="flex:none;width:228px;display:flex;flex-direction:column;justify-content:center;gap:5px">
+          <div style="font-weight:800;font-size:16px;line-height:1.25;color:var(--blue-2)">2027 йил 1 апрелга қадар жорий этилади</div>
+          <p style="margin:0;font-weight:500;font-size:11.5px;line-height:1.35;color:var(--ink-2)">IT Park резиденти бўлган нодавлат ўқув марказлари менторлари учун</p>
+          <div class="mas"><b>Масъул:</b> Рақамли технологиялар вазирлиги</div>
+        </div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px"><div class="big" style="font-size:18px">А</div><p style="font-size:11.5px"><b>Рейтинг баҳолаш</b> — ўқув натижалари ва битирувчилар бандлиги асосида</p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px"><div class="big" style="font-size:18px">Б</div><p style="font-size:11.5px">Ишга жойлашган ҳар бир битирувчи учун <b>3 ой</b> давомида МҲТЭКМнинг <b>7,5%</b> миқдорида тўлов</p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px;flex:1.15"><div class="big" style="font-size:18px">В</div><p style="font-size:11.5px">Тўлов <b>2 баравар</b> — битирувчи <b>IT-хизматлар экспортчисига</b> ишга кирса ва/ёки ментор олис ҳудудда ишласа</p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px"><div class="big" style="font-size:18px">Г</div><p style="font-size:11.5px">Олис ҳудудлардаги юқори рейтингли менторларга уй-жой ижараси <b>БҲМнинг 2 бараваригача</b></p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;gap:3px;padding:10px 12px"><div class="big" style="font-size:18px">Д</div><p style="font-size:11.5px"><b>Ҳар йили рағбатлантириш</b>, малака ошириш ва <b>халқаро платформалар</b></p></div>
+      </div>
+    </div>
+
+    <div class="goal" style="margin-top:-12px;height:48px">
+      <div class="gl" style="width:330px">2030 йилга қадар мақсад</div>
+      <div class="gr"><i class="fa-solid fa-bullseye"></i><span><b>100% педагог кадрлар</b> — СИ компетенцияларини ривожлантириш дастурлари билан қамраб олинади</span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ======================= 05 ======================= -->
+<div class="cap">05 · Умумий ўрта таълимда СИ технологиялари</div>
+<div class="stage"><div class="slide" id="s05">
+  <div class="sh"><h2>Умумий ўрта таълимда сунъий интеллект технологиялари</h2><span class="pg">05</span></div><div class="rule"></div>
+  <div class="body" style="gap:28px">
+
+    <div class="panel" style="flex:none;padding:22px 14px 12px">
+      <div class="pt gr"><span>Сунъий интеллектни жорий этишнинг яхлит тизими</span></div>
+      <div class="flow">
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-chalkboard-user ic sm"></i><h4 style="margin:0;font-size:13px">Педагогларни тайёрлаш</h4></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-book-open-reader ic sm"></i><h4 style="margin:0;font-size:13px">Ўқув дастурларига СИ мавзулари</h4></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-book ic sm"></i><h4 style="margin:0;font-size:13px">Ўқув-методик ресурслар</h4></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-desktop ic sm"></i><h4 style="margin:0;font-size:13px">Ягона рақамли портал</h4></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-user-gear ic sm"></i><h4 style="margin:0;font-size:13px">Шахсийлаштирилган таълим</h4></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:10px 12px"><i class="fa-solid fa-ranking-star ic sm"></i><h4 style="margin:0;font-size:13px">Таълим сифатини ошириш</h4></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:20px">
+      <div class="panel" style="flex:1;padding:22px 14px 12px">
+        <div class="pt">«Интеллектуал таълим муҳити» лойиҳаси</div>
+        <div class="org" style="justify-content:flex-start;font-size:16px;text-transform:none;padding:12px 18px"><i class="fa-solid fa-school" style="font-size:30px"></i><span>Олис ва чекка ҳудудларда сифатли таълим</span></div>
+        <div class="col f1" style="gap:8px;margin-top:10px">
+          <div class="row f1" style="gap:8px;align-items:stretch"><div style="flex:none;width:150px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-circle-check" style="color:var(--blue-2);font-size:17px"></i><span style="font-weight:700;font-size:12.5px;line-height:1.25">2027/2028 ўқув йилидан</span></div><div class="card f1" style="padding:8px 12px"><p><b>20 та</b> олис ва чекка ҳудуддаги давлат мактабида тажриба-синов</p></div></div>
+          <div class="row f1" style="gap:8px;align-items:stretch"><div style="flex:none;width:150px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-circle-check" style="color:var(--blue-2);font-size:17px"></i><span style="font-weight:700;font-size:12.5px;line-height:1.25">2030 йил якунига қадар</span></div><div class="card f1" style="padding:8px 12px"><p><b style="color:var(--blue-2);font-size:15px">100 та</b> олис ва чекка ҳудуддаги мактабга босқичма-босқич кенгайтирилади</p></div></div>
+          <div class="row f1" style="gap:8px;align-items:stretch"><div style="flex:none;width:150px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-circle-check" style="color:var(--blue-2);font-size:17px"></i><span style="font-weight:700;font-size:12.5px;line-height:1.25">Платформа</span></div><div class="card f1" style="padding:8px 12px"><p>Марказнинг <b>«Ягона рақамли таълим ресурслари ва хизматлари портали»</b> доирасида</p></div></div>
+        </div>
+        <div class="mas" style="margin-top:8px"><b>Масъуллар:</b> ТРРИММ · Таълим ва илм-фан вазирлиги · Рақамли технологиялар вазирлиги</div>
+      </div>
+
+      <div class="panel" style="flex:1.12;padding:22px 14px 12px">
+        <div class="pt">Ягона рақамли таълим портали имкониятлари</div>
+        <div class="f1" style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:9px">
+          <div class="card bd" style="padding:9px 12px;border-color:var(--teal-2)"><i class="fa-solid fa-tower-broadcast ic sm"></i><div><h4 style="font-size:13px">Синхрон дарслар</h4><p style="font-size:11.5px">туман/шаҳар марказидаги тажрибали педагоглар дарси реал вақтда</p></div></div>
+          <div class="card bd" style="padding:9px 12px"><i class="fa-solid fa-book-open ic sm"></i><div><h4 style="font-size:13px">Рақамли ресурслар</h4><p style="font-size:11.5px">фан, синф ва мавзу кесимида</p></div></div>
+          <div class="card bd" style="padding:9px 12px"><i class="fa-solid fa-robot ic sm"></i><div><h4 style="font-size:13px">Виртуал ўқитувчи</h4><p style="font-size:11.5px">педагог назорати остида индивидуал ёрдам</p></div></div>
+          <div class="card bd" style="padding:9px 12px"><i class="fa-solid fa-user-check ic sm"></i><div><h4 style="font-size:13px">Билимдаги бўшлиқлар</h4><p style="font-size:11.5px">аниқлаш ва шахсийлаштирилган тавсиялар</p></div></div>
+          <div class="card bd" style="padding:9px 12px"><i class="fa-solid fa-chart-simple ic sm"></i><div><h4 style="font-size:13px">Ўзлаштириш мониторинги</h4><p style="font-size:11.5px">фаоллик таҳлили ва тезкор қайта алоқа</p></div></div>
+          <div class="card bd" style="padding:9px 12px"><i class="fa-solid fa-chart-pie ic sm"></i><div><h4 style="font-size:13px">Таҳлилий панеллар</h4><p style="font-size:11.5px">педагоглар учун</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:none;gap:20px">
+      <div class="panel f1" style="padding:22px 14px 12px">
+        <div class="pt">Педагогларни тайёрлаш</div>
+        <div class="card" style="padding:10px 14px"><i class="fa-solid fa-people-group ic"></i><div><div class="kick">2027/2028 ўқув йилидан</div><div class="big" style="font-size:22px;color:var(--ink);margin:3px 0">1 200 нафар</div><p>ментор-педагог · STEM фанларида СИ</p></div></div>
+        <div class="card bd" style="padding:9px 14px;margin-top:8px"><i class="fa-solid fa-chalkboard-user ic sm"></i><p>«Касбий ривожланиш куни» доирасида бошқа педагогларни <b>каскад усулида</b> ўқитиш</p></div>
+        <div class="mas" style="margin-top:7px"><b>Масъул:</b> ТИВ · «Янги Ўзбекистон» университети</div>
+      </div>
+      <div class="panel f1" style="padding:22px 14px 12px">
+        <div class="pt">Ўқув-методик таъминот</div>
+        <div class="card" style="padding:10px 14px"><i class="fa-solid fa-book-open ic"></i><div><div class="kick">2027 йилдан</div><h4 style="margin:3px 0">СИ бўйича ўқув-методик мажмуалар ва рақамли таълим ресурслари</h4></div></div>
+        <div class="card bd" style="padding:9px 14px;margin-top:8px"><i class="fa-solid fa-school ic sm"></i><p>Давлат умумий ўрта таълим ташкилотлари <b>босқичма-босқич</b> таъминланади</p></div>
+        <div class="mas" style="margin-top:7px"><b>Масъул:</b> ТРРИММ · Таълим ва илм-фан вазирлиги</div>
+      </div>
+      <div class="panel f1" style="padding:22px 14px 12px">
+        <div class="pt">Ўқув дастурларига СИ интеграцияси</div>
+        <div class="card f1" style="flex-direction:column;align-items:stretch;gap:6px;padding:10px 14px">
+          <div class="kick">2027/2028 ўқув йилидан</div>
+          <div class="row" style="gap:16px">
+            <div class="f1"><div class="big" style="font-size:28px;color:var(--blue-2)">4 соат</div><p style="margin-top:3px">камида — 1–4-синфларда</p></div>
+            <div class="f1"><div class="big" style="font-size:28px;color:var(--blue-2)">8 соат</div><p style="margin-top:3px">камида — 5–11-синфларда</p></div>
+          </div>
+          <div class="mas">«Информатика ва АТ» фани доирасида, амалдаги ўқув режаси юкламасида</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+<!-- ======================= 06 (YANGI) ======================= -->
+<div class="cap">06 · Умумий ўрта таълим ташкилотларининг АКТ инфратузилмаси (янги)</div>
+<div class="stage"><div class="slide" id="s06">
+  <div class="sh"><h2>Мактабларнинг АКТ инфратузилмасини ривожлантириш</h2><span class="pg">06</span></div><div class="rule"></div>
+  <div class="body" style="gap:30px">
+
+    <div class="panel" style="flex:none;padding:30px 16px 14px">
+      <div class="pt gr"><span>2027–2030 йилларга мўлжалланган дастур · 6-илова</span></div>
+      <div class="row" style="gap:14px;align-items:stretch">
+        <div class="card" style="flex:1.25;background:linear-gradient(90deg,#E4F4F1,#DBE9F7);padding:16px 18px"><i class="fa-solid fa-computer ic lg"></i><div><h4 style="font-size:16px;margin-bottom:6px">Компьютер синф хоналарини жиҳозлаш</h4><p style="font-size:13px">Умумий ўрта таълим ташкилотларининг АКТ инфратузилмасини ривожлантириш ҳамда синфларни <b>замонавий компьютер техникаси ва бошқа техник воситалар</b> билан жиҳозлаш</p></div></div>
+        <div class="card bd f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:12px 14px"><i class="fa-solid fa-file-signature" style="color:var(--blue);font-size:24px"></i><div class="kick">Буюртмачи</div><p style="font-weight:700;color:var(--ink)">Таълим ва илм-фан вазирлиги</p><p style="font-size:11.5px">техника харид қилиш ва етказиб бериш</p></div>
+        <div class="card bd f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:12px 14px"><i class="fa-solid fa-sack-dollar" style="color:var(--blue);font-size:24px"></i><div class="kick">Молиялаштириш</div><p style="font-weight:700;color:var(--ink)">Иқтисодиёт ва молия вазирлиги</p><p style="font-size:11.5px">6-иловадаги техника учун зарур маблағлар</p></div>
+        <div class="card bd f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:12px 14px"><i class="fa-solid fa-handshake" style="color:var(--blue);font-size:24px"></i><div class="kick">Музокаралар</div><p style="font-weight:700;color:var(--ink)">Инвестициялар, саноат ва савдо вазирлиги</p><p style="font-size:11.5px">ИМВ ва ТИВ билан биргаликда</p></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:22px">
+      <div class="panel" style="flex:.9;padding:24px 16px 14px">
+        <div class="pt">Ташқи молиялаштириш</div>
+        <div class="col f1" style="justify-content:center;align-items:center;text-align:center;gap:10px">
+          <i class="fa-solid fa-building-columns" style="color:var(--blue);font-size:46px"></i>
+          <div class="big" style="font-size:58px">432,3</div>
+          <div style="font-weight:800;font-size:20px;color:var(--blue-ink)">МЛН АҚШ ДОЛЛАРИ</div>
+          <hr class="tl" style="width:60%;margin:4px 0">
+          <p style="margin:0;font-weight:500;font-size:13.5px;line-height:1.45;color:var(--ink-2)">Хитой Халқ Республикасининг <b style="color:var(--ink)">Экспорт-импорт банкидан</b> жалб этиш бўйича музокаралар ва тегишли келишувларни имзолаш</p>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1.35;padding:24px 16px 14px">
+        <div class="pt">Мактаблар учун Интернет тезлиги стандарти</div>
+        <div class="row f1" style="gap:18px;align-items:stretch">
+          <div class="row f1" style="gap:14px;align-items:flex-end;padding:0 6px">
+            <div class="tier"><div class="col-bar" style="height:90px"><span>100</span></div><div class="lab2"><b style="color:var(--ink)">Мбит/с</b><br>400 нафаргача<br>ўқувчи</div></div>
+            <div class="tier"><div class="col-bar" style="height:160px;background:#2E86D8"><span>500</span></div><div class="lab2"><b style="color:var(--ink)">Мбит/с</b><br>400–1 000 нафар<br>ўқувчи</div></div>
+            <div class="tier"><div class="col-bar" style="height:230px;background:var(--teal-2)"><span>1 000</span></div><div class="lab2"><b style="color:var(--ink)">Мбит/с (1 Гбит/с)</b><br>1 000 нафардан<br>ортиқ ўқувчи</div></div>
+          </div>
+          <div class="col" style="flex:none;width:250px;gap:10px;justify-content:center">
+            <div class="card" style="flex-direction:column;align-items:flex-start;gap:6px;padding:12px 14px"><i class="fa-regular fa-calendar-days" style="color:#3FA88E;font-size:22px"></i><div class="kick">2027 йил 1 февралга қадар</div><p>Мактаблар учун Интернет тарифлари <b>қайта кўриб чиқилади</b> ва эҳтиёжга мувофиқ янгилаб борилади</p></div>
+            <div class="mas"><b>Масъул:</b> Телекоммуникацияларни тартибга солиш агентлиги · ИМВ · ТИВ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:.82;padding:24px 16px 14px">
+        <div class="pt">Жорий ҳолат</div>
+        <div class="col f1" style="gap:10px;justify-content:center">
+          <div class="redcard stat-r"><span class="v">5 000</span><p>компьютер синфида техникалар <b style="color:var(--ink)">эскирган</b></p></div>
+          <div class="redcard stat-r"><span class="v">69%</span><p>мактабларда <b style="color:var(--ink)">Wi-Fi зоналари</b> мавжуд эмас</p></div>
+          <div class="redcard stat-r"><span class="v">38%</span><p>мактабда Интернет тезлиги <b style="color:var(--ink)">40 Мбит/с</b></p></div>
+          <div class="mas" style="text-align:center">01-слайддаги маълумотлар асосида</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="goal" style="margin-top:-12px;height:50px">
+      <div class="gl" style="width:300px">2027–2030 йилларда</div>
+      <div class="gr"><i class="fa-solid fa-bullseye"></i><span><b>компьютер синфлари</b> жиҳозланади, мактаб Интернети — камида <b>100 Мбит/с дан 1 Гбит/с гача</b></span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ======================= 07 ======================= -->
+<div class="cap">07 · СИ соҳасида кадрлар тайёрлаш ва илмий-инновацион салоҳият</div>
+<div class="stage"><div class="slide" id="s07">
+  <div class="sh"><h2>СИ соҳасида кадрлар тайёрлаш ва илмий-инновацион салоҳият</h2><span class="pg">07</span></div><div class="rule"></div>
+  <div class="body" style="gap:28px">
+
+    <div class="panel" style="flex:none;padding:24px 14px 12px">
+      <div class="pt gr"><span>Малакали кадрлар тайёрлаш</span></div>
+      <div class="row" style="gap:12px;align-items:stretch">
+        <div class="card" style="flex:none;width:220px;background:linear-gradient(90deg,#E4F4F1,#DBE9F7);flex-direction:column;align-items:flex-start;justify-content:center;gap:8px"><span class="pill" style="font-size:12.5px;padding:5px 11px">2030 йилга қадар</span><p style="font-weight:600;color:var(--ink)">нуфузли хорижий ОТТлар билан СИ ва турдош соҳаларда</p></div>
+        <div class="card bd f1"><i class="fa-solid fa-user-graduate ic lg"></i><div><div class="big" style="font-size:26px;color:var(--ink);margin-bottom:4px">камида 3 та</div><p>қўшма магистратура дастури</p></div></div>
+        <div class="card bd f1"><i class="fa-solid fa-award ic lg"></i><div><div class="big" style="font-size:26px;color:var(--ink);margin-bottom:4px">камида 5 та</div><p>таълим дастури халқаро аккредитациядан ўтказилади</p></div></div>
+        <div class="card bd" style="flex:1.45"><i class="fa-solid fa-users ic lg"></i><div><div class="big" style="font-size:26px;color:var(--ink);margin-bottom:4px">50 нафаргача / йил</div><p>2027 йилдан профессор-ўқитувчи ва ёш олимлар <b>QS ёки THE ТОП-300</b> хорижий ОТТ ва илмий марказларда стажировка ўтайди · «Эл-юрт умиди» билан</p></div></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:20px">
+      <div class="panel" style="flex:1.2;padding:22px 14px 12px">
+        <div class="pt">Олий ва касбий таълимда СИ</div>
+        <div class="f1" style="display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px">
+          <div class="card"><i class="fa-regular fa-clock ic sm" style="color:var(--chev)"></i><div><div class="kick">2027/2028 ўқув йилидан</div><h4 style="margin:3px 0">Камида 8 соатлик СИ модули</h4><p style="font-size:11.5px">Бакалавриат ва магистратура дастурларида тегишли фанлар доирасида</p></div></div>
+          <div class="card"><i class="fa-solid fa-gear ic sm"></i><div><div class="kick">2027/2028 ўқув йилидан</div><h4 style="margin:3px 0">Касбий таълимда</h4><p style="font-size:11.5px">Касб ва мутахассисликка мос СИни қўллаш модуллари; дастурлар умумий ҳажми оширилмайди</p></div></div>
+          <div class="card"><i class="fa-solid fa-medal ic sm"></i><div><div class="kick">2027 йилдан</div><h4 style="margin:3px 0">Муҳаммад ал-Хоразмий номидаги давлат стипендияси</h4><p style="font-size:11.5px">СИ, АКТ ва муҳандислик йўналишларидаги иқтидорли талабалар учун</p></div></div>
+          <div class="card"><i class="fa-solid fa-user-shield ic sm"></i><div><div class="kick">2030 йилга қадар мақсад</div><h4 style="margin:3px 0">Барча ОТМларда инсон назорати остида СИ</h4><p style="font-size:11.5px">Ўқув, баҳолаш ва академик бошқарувда — маълумотлар хавфсизлигига риоя қилган ҳолда</p></div></div>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1;padding:22px 14px 12px">
+        <div class="pt">Янги технологик йўналишлар</div>
+        <p style="margin:0 0 8px;font-weight:500;font-size:12.5px;line-height:1.4;color:var(--ink-2)"><b style="color:var(--ink)">2027/2028 ўқув йилидан</b> АКТ ва муҳандислик йўналишлари дастурларига босқичма-босқич киритилади</p>
+        <div class="chips">
+          <span class="chip"><i class="fa-solid fa-microchip"></i>Чип дизайни</span><span class="chip"><i class="fa-solid fa-helicopter"></i>Дрон технологиялари</span><span class="chip"><i class="fa-solid fa-gamepad"></i>Компьютер ўйинлари</span>
+          <span class="chip"><i class="fa-solid fa-gears"></i>Ўрнатилган тизимлар</span><span class="chip"><i class="fa-solid fa-microchip"></i>Микроэлектроника</span><span class="chip"><i class="fa-solid fa-network-wired"></i>Буюмлар интернети</span><span class="chip"><i class="fa-solid fa-server"></i>FPGA</span>
+        </div>
+        <div class="card" style="flex-direction:column;align-items:flex-start;gap:7px;padding:11px 14px;margin-top:10px;background:linear-gradient(90deg,#E4F4F1,#DBE9F7)">
+          <div class="kick">Бир ой муддатда — Вазирлар Маҳкамасига таклиф</div>
+          <div class="chips"><span class="chip" style="background:#fff">Камида 1 та халқаро сертификат — битирув талаби</span><span class="chip" style="background:#fff">Онлайн модуллар — микроквалификация</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:10px"><i class="fa-solid fa-magnifying-glass" style="color:var(--blue);font-size:20px"></i><p style="margin:0;font-weight:500;font-size:12px;line-height:1.35;color:var(--ink-2)"><b style="color:var(--ink)">Янги касбларга эҳтиёжни прогнозлаш</b> — касбий стандартларни янгилашнинг идоралараро механизми</p></div>
+      </div>
+    </div>
+
+    <div class="panel" style="flex:none;padding:22px 14px 12px">
+      <div class="pt">СИ саводхонлиги</div>
+      <div class="row" style="gap:12px;align-items:stretch">
+        <div class="card f1" style="padding:11px 14px"><i class="fa-solid fa-people-group ic"></i><div><div class="kick">2027 йилдан · «Беш миллион сунъий интеллект етакчилари»</div><p style="margin-top:3px">СИ ва маълумотлар илми бўйича чуқурлаштирилган курслар, ўзбек тилидаги рақамли ресурслар ва ҳар йилги миллий танлов қамрови кенгаяди</p></div></div>
+        <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+        <div class="card f1" style="padding:11px 14px"><i class="fa-solid fa-rocket ic"></i><div><div class="kick">Ёшларни оммавий ўқитиш дастури</div><p style="margin-top:3px">Робототехника, компьютер ўйинлари, стартаплар ва истиқболли рақамли технологиялар</p><div class="mas" style="margin-top:3px"><b>Масъуллар:</b> РТВ · ТИВ · Ёшлар ишлари агентлиги</div></div></div>
+      </div>
+    </div>
+
+    <div class="goal" style="margin-top:-12px;height:48px">
+      <div class="gl" style="width:300px">2030 йилга қадар</div>
+      <div class="gr"><i class="fa-solid fa-bullseye"></i><span><b>5 млн таълим олувчи</b> — СИ саводхонлиги дастурлари билан қамраб олинади</span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ======================= 08 ======================= -->
+<div class="cap">08 · Иқтидорли ёшларни қўллаб-қувватлаш</div>
+<div class="stage"><div class="slide" id="s08">
+  <div class="sh"><h2>Иқтидорли ёшларни қўллаб-қувватлаш</h2><span class="pg">08</span></div><div class="rule"></div>
+  <div class="body" style="gap:28px">
+
+    <div class="panel" style="flex:1.1;padding:28px 16px 14px">
+      <div class="pt gr"><span>“Менинг биринчи ноутбуким” миллий ташаббуси</span></div>
+      <div class="row f1" style="gap:14px">
+        <div class="card" style="flex:none;width:250px;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:16px 18px">
+          <i class="fa-solid fa-laptop" style="color:var(--blue);font-size:42px"></i>
+          <div class="big" style="font-size:38px">10 МИНГ</div>
+          <div style="font-weight:600;font-size:14px;color:var(--ink)">нафар иқтидорли ёш</div>
+          <hr class="tl" style="margin:2px 0">
+          <p><b>2027 йил 1 мартдан</b> маркетплейслар орқали ноутбук харид қилади</p>
+        </div>
+        <div class="card bd" style="flex:none;width:400px;flex-direction:column;align-items:stretch;justify-content:center;gap:10px;padding:14px 18px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div class="donut">
+              <svg viewBox="0 0 150 150" width="150" height="150">
+                <circle cx="75" cy="75" r="60" fill="none" stroke="#05BAB6" stroke-width="16"/>
+                <circle cx="75" cy="75" r="60" fill="none" stroke="#026DD1" stroke-width="16" stroke-dasharray="188.5 188.5" transform="rotate(-90 75 75)"/>
+              </svg>
+              <div class="c"><div class="big" style="font-size:24px">50%</div><div style="font-weight:600;font-size:11px;color:var(--ink-3);margin-top:3px">қопланади</div></div>
+            </div>
+            <div class="col" style="gap:14px;flex:1">
+              <div class="lg-row"><span class="dot" style="background:#026DD1"></span><div><div style="font-weight:700;font-size:14px">Жамғарма қоплайди</div><div style="font-weight:500;font-size:11.5px;color:var(--ink-2);line-height:1.35">қийматнинг 50% қисми, бироқ <b style="color:var(--ink)">БҲМнинг 20 бараваридан</b> ошмайди</div></div></div>
+              <div class="lg-row"><span class="dot" style="background:#05BAB6"></span><div><div style="font-weight:700;font-size:14px">Қолган қисми</div><div style="font-weight:500;font-size:11.5px;color:var(--ink-2);line-height:1.35"><b style="color:var(--ink)">2 йилгача</b> муддатда бўлиб тўлаш имконияти</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="col f1" style="gap:9px">
+          <div style="font-weight:800;font-size:13px;text-align:center;text-transform:uppercase">Жорий этиш механизми</div>
+          <div class="flow f1">
+            <div class="step"><i class="fa-solid fa-users-viewfinder ic"></i><h4>«Рақамли ёшлар» платформаси</h4><p>Иштирокчилар реестри юритилади</p></div>
+            <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+            <div class="step"><i class="fa-solid fa-credit-card ic"></i><h4>Маркетплейс ва муддатли тўлов операторлари</h4><p>Харид ва ахборот алмашинуви</p></div>
+            <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+            <div class="step"><i class="fa-solid fa-wallet ic"></i><h4>Рақамли технологияларни ривожлантириш жамғармаси</h4><p>50% қоплама маблағи</p></div>
+          </div>
+          <div class="mas" style="text-align:center"><b>Ташаббус:</b> РТВ ва ТИВ таклифи · <b>Кенгаш таркиби ва вазифалари</b> — 1-илова</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:20px">
+      <div class="panel" style="flex:1.6;padding:22px 14px 12px">
+        <div class="pt">Иқтидорли 9–10-синф ўқувчилари учун</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px"><span class="pill" style="font-size:12.5px;padding:5px 11px"><i class="fa-regular fa-calendar-days"></i>2027 йилдан</span><span class="mas" style="font-size:12px"><b>Масъуллар:</b> Рақамли технологиялар вазирлиги · Таълим ва илм-фан вазирлиги · Ёшлар ишлари агентлиги</span></div>
+        <div class="flow f1">
+          <div class="step bd"><i class="fa-solid fa-trophy ic"></i><h4>Олимпиада ғолиби</h4><p>Математика, физика, информатика ва СИ олимпиадаларининг <b>ҳудудий босқичи</b> ғолиблари</p></div>
+          <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+          <div class="step bd"><i class="fa-solid fa-graduation-cap ic"></i><h4>Чуқурлаштирилган ўқув курслари</h4><p>Махсус ташкил этилади</p></div>
+          <div class="chev"><i class="fa-solid fa-angles-right"></i></div>
+          <div class="step bd" style="border-color:var(--teal-2)"><i class="fa-solid fa-earth-asia ic"></i><h4>Халқаро олимпиадаларга тайёрлаш</h4><p>Тайёрлаш тизими йўлга қўйилади</p></div>
+        </div>
+        <div class="card" style="padding:9px 14px;margin-top:10px"><i class="fa-solid fa-file-lines ic sm"></i><p style="font-size:12px"><b>2027 йил 1 мартга қадар</b> — информатика, СИ ва робототехника олимпиадалари, халқаро мусобақаларга тайёргарлик, ғолиб ва мураббийларни рағбатлантиришнинг ягона ташкилий ва молиявий тартиби Вазирлар Маҳкамасига киритилади</p></div>
+      </div>
+
+      <div class="panel" style="flex:1;padding:22px 14px 12px">
+        <div class="pt">Талабалар учун</div>
+        <div class="kick" style="text-align:center;margin-bottom:8px;color:var(--ink-2)">2027/2028 ўқув йилидан · ОТМларнинг бюджетдан ташқари маблағлари ҳисобидан</div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;padding:10px 16px"><div class="kick"><i class="fa-solid fa-ticket" style="color:var(--chev);font-size:16px;margin-right:6px"></i>Ваучер</div><div class="big" style="font-size:26px;color:var(--ink)">200 $ гача</div><p style="font-size:11.5px">Халқаро рақамли таълим платформалари ва СИ хизматлари учун</p></div>
+        <div class="card f1" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;padding:10px 16px;margin-top:8px"><div class="kick" style="color:var(--teal-2)"><i class="fa-solid fa-rocket" style="font-size:16px;margin-right:6px"></i>Талабалар стартаплари</div><div class="big" style="font-size:26px;color:var(--ink)">10 000 $ гача</div><p style="font-size:11.5px">ҳар бир истиқболли лойиҳага — ОТМларга маблағ ажратиш ҳуқуқи</p></div>
+      </div>
+    </div>
+
+    <div class="goal" style="margin-top:-12px;height:48px">
+      <div class="gl" style="width:260px">2027 йилдан</div>
+      <div class="gr"><i class="fa-solid fa-bullseye"></i><span><b>10 минг нафар ёш</b> — ноутбук билан, <b>олимпиада ғолиблари</b> — халқаро олимпиадаларга тайёрланади</span></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ======================= 09 (YANGI) ======================= -->
+<div class="cap">09 · Қарор мақсадлари, иловалар ва ижро (янги)</div>
+<div class="stage"><div class="slide" id="s09">
+  <div class="sh"><h2>Мақсадли кўрсаткичлар, иловалар ва ижро</h2><span class="pg">09</span></div><div class="rule"></div>
+  <div class="body" style="gap:30px">
+
+    <div class="panel" style="flex:none;padding:30px 16px 14px">
+      <div class="pt gr"><span>2030 йилга қадар асосий мақсадлар</span></div>
+      <div class="row" style="gap:12px;align-items:stretch">
+        <div class="goalcard f1"><i class="fa-solid fa-chalkboard-user ic lg"></i><div><div class="big" style="font-size:30px;margin-bottom:5px">100%</div><p style="margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)">педагог кадрлар — СИ компетенцияларини ривожлантириш дастурлари билан</p></div></div>
+        <div class="goalcard f1"><i class="fa-solid fa-people-group ic lg"></i><div><div class="big" style="font-size:30px;margin-bottom:5px">5 млн</div><p style="margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)">таълим олувчи — «Беш миллион СИ етакчилари» доирасида СИ саводхонлиги</p></div></div>
+        <div class="goalcard f1"><i class="fa-solid fa-user-shield ic lg"></i><div><div class="big" style="font-size:30px;margin-bottom:5px">Барча ОТМ</div><p style="margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)">ўқув, баҳолаш ва бошқарувда инсон назорати остида СИ</p></div></div>
+        <div class="goalcard f1"><i class="fa-solid fa-school ic lg"></i><div><div class="big" style="font-size:30px;margin-bottom:5px">100 та</div><p style="margin:0;font-weight:500;font-size:12.5px;line-height:1.38;color:var(--ink-2)">олис ва чекка ҳудуддаги мактабда «Интеллектуал таълим муҳити»</p></div></div>
+      </div>
+    </div>
+
+    <div class="row" style="flex:1;gap:20px">
+      <div class="panel" style="flex:1;padding:24px 14px 12px">
+        <div class="pt">Қарорга иловалар · 7 та</div>
+        <div class="col f1" style="gap:7px">
+          <div class="ax f1" style="min-height:0"><span class="n">1</span><p>«Менинг биринчи ноутбуким» кенгаши таркиби ва вазифалари</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">2</span><p>Институт фаолиятининг асосий йўналишлари</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">3</span><p>Таълимда СИни ривожлантиришнинг асосий йўналишлари</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">4</span><p>СИни ривожлантириш бўйича чора-тадбирлар</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">5</span><p>2030 йилгача мақсадли кўрсаткичлар</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">6</span><p>2027–2030 йй. мактаблар АКТ инфратузилмаси дастури</p></div>
+          <div class="ax f1" style="min-height:0"><span class="n">7</span><p>Ҳужжатларга ўзгартириш ва қўшимчалар</p></div>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1.05;padding:24px 14px 12px">
+        <div class="pt">Яқин муддатлар</div>
+        <div class="col f1" style="gap:7px">
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px">1 ой</span><p style="font-size:12px">Халқаро сертификат ва микроквалификация бўйича ВМга таклиф</p></div>
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px">2 ой</span><p style="font-size:12px">50 млн $ ни қайта тақсимлаш бўйича қарор лойиҳаси</p></div>
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px">1.02.2027</span><p style="font-size:12px">Мактаблар учун Интернет тарифлари қайта кўрилади</p></div>
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px">1.03.2027</span><p style="font-size:12px">Миллий модель · ноутбук ташаббуси · KOICA ер ва бино · олимпиадалар тартиби</p></div>
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px">1.04.2027</span><p style="font-size:12px">Миллий рамка · нодавлат менторларни қўллаб-қувватлаш дастури</p></div>
+          <div class="card f1" style="padding:7px 12px;gap:12px"><span class="pill" style="flex:none;width:92px;justify-content:center;font-size:12px;padding:5px 8px;background:var(--teal-2)">2027/2028</span><p style="font-size:12px">Сертификатлаш · 4/8 соат СИ · ОТМ модуллари · ваучер ва стартаплар</p></div>
+        </div>
+      </div>
+
+      <div class="panel" style="flex:1;padding:24px 14px 12px">
+        <div class="pt">Ижро ва назорат</div>
+        <div class="card bd f1" style="flex-direction:column;align-items:stretch;justify-content:center;gap:7px;padding:10px 14px">
+          <div style="display:flex;align-items:center;gap:9px"><i class="fa-solid fa-user-tie" style="color:var(--blue);font-size:19px"></i><h4 style="margin:0">Шахсий масъул ва жавобгар</h4></div>
+          <hr class="tl" style="margin:0">
+          <div class="person"><b>Э.О. Турдимов</b><span>Бош вазирнинг биринчи ўринбосари — таълим ва илм-фан вазири</span></div>
+          <div class="person"><b>Ш.Х. Шерматов</b><span>Рақамли технологиялар вазири</span></div>
+          <div class="person"><b>Ш.К. Курбаниязов</b><span>ТРРИММ директори</span></div>
+        </div>
+        <div class="card bd f1" style="flex-direction:column;align-items:stretch;justify-content:center;gap:7px;padding:10px 14px;margin-top:9px">
+          <div style="display:flex;align-items:center;gap:9px"><i class="fa-solid fa-eye" style="color:var(--blue);font-size:19px"></i><h4 style="margin:0">Назорат</h4></div>
+          <hr class="tl" style="margin:0">
+          <div class="person"><b>А.Н. Арипов</b><span>Бош вазир</span></div>
+          <div class="person"><b>О.А. Хакимов</b><span>Президент Администрацияси Раҳбарининг таълимни ислоҳ қилиш бўйича ўринбосари</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+</div>
+<script>
+(function(){
+  if(location.hash==='#export'){document.body.classList.add('export');return;}
+  var W=1526,H=860;
+  function fit(){
+    var st=document.querySelectorAll('.stage');
+    for(var i=0;i<st.length;i++){var s=st[i].clientWidth/W;st[i].firstElementChild.style.transform='scale('+s+')';st[i].style.height=(H*s)+'px';}
+  }
+  fit();window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
