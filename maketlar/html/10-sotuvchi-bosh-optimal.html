@@ -1,0 +1,232 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1900"><title>Sotuvchi bosh sahifasi — optimal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--red:#E5484D;--amber:#B45309;--pin:#7C3AED}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1150px}
+.frames{display:flex;gap:56px;margin-top:44px;align-items:flex-start}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46;white-space:nowrap}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;height:812px;background:#fff;position:relative;overflow:hidden}
+.ph>img.full{display:block;width:375px}
+.htop{display:block;width:375px;height:108px}
+.tab{position:absolute;left:0;bottom:0;width:375px;height:94px;display:block}
+/* blue stats band */
+.band{background:var(--pri);color:#fff;padding:4px 16px 34px}
+.band .r{display:flex;justify-content:space-between;font-size:12px;opacity:.85}
+.band .r b{font-weight:600;opacity:1}
+.kp{display:flex;margin-top:10px}
+.kp div{flex:1;padding-left:12px;border-left:1px solid rgba(255,255,255,.2)}
+.kp div:first-child{padding-left:0;border-left:0}
+.kp span{font-size:12px;opacity:.8}
+.kp b{display:block;font-size:22px;font-weight:700;margin-top:2px}
+.kp i{font-style:normal;font-size:11px;font-weight:600;color:#86EFAC}
+.sheet{background:#fff;border-radius:22px 22px 0 0;margin-top:-22px;padding:16px 16px 0;position:relative}
+/* primary row */
+.prow{display:flex;gap:8px}
+.btn{flex:1;height:52px;border-radius:14px;background:var(--pri);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.sq{width:52px;height:52px;border-radius:14px;background:var(--pri-soft);display:flex;align-items:center;justify-content:center;color:var(--pri)}
+/* task chips */
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin:14px 0 10px}
+.sh b{font-size:16px;font-weight:600}
+.sh span{font-size:13px;color:var(--muted)}
+.tasks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tc{border:1px solid var(--line);border-radius:12px;padding:10px;position:relative}
+.tc .ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.tc b{display:block;font-size:13px;font-weight:600;margin-top:8px;line-height:16px}
+.tc small{display:block;font-size:11px;color:var(--muted);margin-top:1px}
+.tc .d{position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.tc.w{background:#FEF3C7;border-color:#FDE68A}
+/* icon grid */
+.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px}
+.it{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;position:relative}
+.it .q{width:56px;height:56px;border-radius:16px;background:var(--field);display:flex;align-items:center;justify-content:center;color:var(--pri);position:relative}
+.it span{font-size:12px;line-height:15px;font-weight:500}
+.it .cnt{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;border-radius:10px;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #fff}
+.it .bz{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:700;color:#fff;background:var(--pri);border-radius:4px;padding:1px 4px;letter-spacing:.3px;border:1.5px solid #fff}
+.it.lock .q{opacity:.45}.it.lock span{color:var(--muted)}
+/* products summary */
+.ps{display:flex;align-items:center;gap:12px;background:var(--field);border-radius:14px;padding:10px 14px;margin-top:14px}
+.ps .n{flex:1}
+.ps .n b{font-size:15px;font-weight:600}
+.ps .seg{display:flex;gap:6px;margin-top:6px}
+.ps .seg span{font-size:12px;background:#fff;border-radius:7px;padding:3px 7px;color:#3F3F46}
+.ps .seg span b{font-size:12px}
+.ch{color:#9CA3AF;font-size:18px}
+/* onboarding band */
+.obar{height:6px;border-radius:3px;background:rgba(255,255,255,.25);margin-top:10px;overflow:hidden}.obar i{display:block;height:100%;width:40%;background:#fff}
+/* pins */
+.pin{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--pin);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(124,58,237,.25);z-index:5}
+.lg{margin-top:14px;width:375px;display:grid;gap:8px}
+.lg div{display:flex;gap:10px;font-size:13px;line-height:19px;color:#3F3F46}
+.lg i{font-style:normal;width:20px;height:20px;border-radius:50%;background:var(--pin);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+/* comparison */
+.cmp{background:#fff;border-radius:16px;padding:20px 22px;width:375px}
+.cmp h4{font-size:15px;margin-bottom:10px}
+.cmp table{width:100%;border-collapse:collapse;font-size:13px}
+.cmp td,.cmp th{padding:8px 4px;border-top:1px solid #F1F1F1;text-align:left;vertical-align:top}
+.cmp th{font-weight:600}
+.cmp td.g{color:#15803D;font-weight:600}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="m12 3 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 20h16M7 20v-6M12 20V7M17 20v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="pct" viewBox="0 0 24 24"><path d="M6 18 18 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7.5" cy="7.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16.5" cy="16.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 19V6M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><path d="M12 4v16M6 20h12M5 8h14M5 8l-2.5 6a3 3 0 0 0 5 0zM19 8l-2.5 6a3 3 0 0 0 5 0z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="crown" viewBox="0 0 24 24"><path d="M4 18h16M5 15 4 7l5 4 3-6 3 6 5-4-1 8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="more" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2" fill="currentColor"/><circle cx="12" cy="6" r="2" fill="currentColor"/><circle cx="18" cy="6" r="2" fill="currentColor"/><circle cx="6" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="18" cy="12" r="2" fill="currentColor"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="12" cy="18" r="2" fill="currentColor"/><circle cx="18" cy="18" r="2" fill="currentColor"/></symbol>
+<symbol id="xls" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m9 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path d="M4 8l8-4 8 4v8l-8 4-8-4z M4 8l8 4 8-4 M12 12v8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+<symbol id="tg" viewBox="0 0 24 24"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+</defs></svg>
+<div class="board">
+  <div class="btitle">Sotuvchi bosh sahifasi — optimal variant</div>
+  <div class="bsub">Hamma narsa <b>bitta ekranga, scroll’siz</b> sig‘adi. Statistika ko‘k sarlavhaning ichiga ko‘chdi, «Tovar qo‘shish» katta asosiy tugmaga aylandi, kunlik ishlar bitta qatorga yig‘ildi, menyu esa Click va Payme’dagidek 4 ustunli ikonkalar to‘ri bo‘ldi. Sarlavha va pastki menyu Figma’dagi asl ekrandan olingan.</div>
+
+  <div class="frames">
+
+  <div>
+    <div class="fl">Hozir <span>— Figma</span></div>
+    <div class="ph"><img class="full" src="img/figma-sotuvchi-bosh.png" alt=""></div>
+  </div>
+
+  <!-- B -->
+  <div>
+    <div class="fl">Optimal variant <span>— bitta ekran</span></div>
+    <div class="ph">
+      <img class="htop" src="img/s-header-top.png" alt="">
+      <div class="band">
+        <div class="r"><span>Oxirgi 30 kun</span><b>Statistika ›</b></div>
+        <div class="kp"><div><span>Sotuvda</span><b>12</b></div><div><span>Ko‘rishlar</span><b>3 420</b><i>↑ 12%</i></div><div><span>Qo‘ng‘iroqlar</span><b>86</b><i>↑ 8%</i></div></div>
+      </div>
+      <div class="sheet">
+        <div class="prow"><div class="btn"><svg width="20" height="20"><use href="#plus"/></svg>Tovar qo‘shish</div><div class="sq"><svg width="22" height="22"><use href="#xls"/></svg></div></div>
+        <div class="sh"><b>Bugun</b><span>3 ta ish</span></div>
+        <div class="tasks">
+          <div class="tc"><span class="d"></span><div class="ic" style="background:#FFF1E6;color:#EA580C"><svg width="16" height="16"><use href="#star"/></svg></div><b>3 ta izoh</b><small>Javob bering</small></div>
+          <div class="tc"><div class="ic" style="background:var(--pri-soft);color:var(--pri)"><svg width="16" height="16"><use href="#clock"/></svg></div><b>5 ta narx</b><small>Tasdiqlang</small></div>
+          <div class="tc w"><div class="ic" style="background:#fff;color:var(--amber)"><svg width="16" height="16"><use href="#crown"/></svg></div><b>Tarif</b><small>3 kun qoldi</small></div>
+        </div>
+        <div class="sh"><b>Asosiy menyu</b></div>
+        <div class="ig">
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#box"/></svg></div><span>Tovarlarim</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#star"/></svg><span class="cnt">3</span></div><span>Izohlar</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#chart"/></svg></div><span>Statistika</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#pct"/></svg></div><span>Chegirmalar</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#up"/></svg></div><span>Ko‘tarish</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#scale"/></svg><span class="bz">BIZNES</span></div><span>Narx tahlili</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#search"/></svg><span class="bz">BIZNES</span></div><span>Talab tahlili</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#more"/></svg></div><span>Yana</span></div>
+        </div>
+        <div class="ps"><div class="n"><b>Tovarlarim · 14</b><div class="seg"><span>Yoqilgan <b>12</b></span><span>O‘chiq <b>2</b></span><span>Chegirmada <b>1</b></span></div></div><span class="ch">›</span></div>
+      </div>
+      <img class="tab" src="img/s-tabbar.png" alt="">
+      <span class="pin" style="left:342px;top:146px">1</span>
+      <span class="pin" style="left:2px;top:220px">2</span>
+      <span class="pin" style="left:2px;top:318px">3</span>
+      <span class="pin" style="left:342px;top:436px">4</span>
+      <span class="pin" style="left:2px;top:668px">5</span>
+    </div>
+    <div class="lg">
+      <div><i>1</i><span>Statistika ko‘k sarlavhaning ichida, alohida joy egallamaydi. Bosilganda Statistika ekrani ochiladi.</span></div>
+      <div><i>2</i><span>Eng ko‘p ishlatiladigan amal — <b>«Tovar qo‘shish»</b> — ekrandagi eng katta tugma. Yonidagi kichik tugma Excel’dan yuklash uchun.</span></div>
+      <div><i>3</i><span><b>Bugun</b> — 3 ta ish bitta qatorda. Ish bo‘lmasa qator yashiriladi va menyu yuqoriga ko‘tariladi.</span></div>
+      <div><i>4</i><span><b>Asosiy menyu</b> — 8 ta ikonka. «Yana» qolgan bo‘limlarni ochadi: do‘kon ma’lumotlari, ish vaqti, Telegram, tarif.</span></div>
+      <div><i>5</i><span>Tovarlar ro‘yxati o‘rniga bitta qisqa karta. Bosilganda «Tovarlarim» ekrani ochiladi.</span></div>
+    </div>
+  </div>
+
+  <!-- New store -->
+  <div>
+    <div class="fl">Yangi do‘kon <span>— o‘sha tuzilma</span></div>
+    <div class="ph">
+      <img class="htop" src="img/s-header-top.png" alt="">
+      <div class="band">
+        <div class="r"><span>Do‘konni ishga tushirish</span><b>2 / 5</b></div>
+        <div style="font-size:16px;font-weight:600;margin-top:8px">Birinchi tovarni qo‘shing — xaridorlar sizni ko‘ra boshlaydi</div>
+        <div class="obar"><i></i></div>
+      </div>
+      <div class="sheet">
+        <div class="prow"><div class="btn"><svg width="20" height="20"><use href="#plus"/></svg>Birinchi tovarni qo‘shish</div><div class="sq"><svg width="22" height="22"><use href="#xls"/></svg></div></div>
+        <div class="sh"><b>Qolgan qadamlar</b><span>3 ta</span></div>
+        <div class="tasks">
+          <div class="tc"><div class="ic" style="background:var(--pri-soft);color:var(--pri)"><svg width="16" height="16"><use href="#box"/></svg></div><b>Tovar</b><small>Kamida 1 ta</small></div>
+          <div class="tc"><div class="ic" style="background:var(--pri-soft);color:var(--pri)"><svg width="16" height="16"><use href="#clock"/></svg></div><b>Ish vaqti</b><small>Belgilang</small></div>
+          <div class="tc"><div class="ic" style="background:var(--pri-soft);color:var(--pri)"><svg width="16" height="16"><use href="#tg"/></svg></div><b>Telegram</b><small>Ulang</small></div>
+        </div>
+        <div class="sh"><b>Asosiy menyu</b></div>
+        <div class="ig">
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#box"/></svg></div><span>Tovarlarim</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#star"/></svg></div><span>Izohlar</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#chart"/></svg></div><span>Statistika</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#pct"/></svg></div><span>Chegirmalar</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#up"/></svg></div><span>Ko‘tarish</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#scale"/></svg></div><span>Narx tahlili</span></div>
+          <div class="it lock"><div class="q"><svg width="24" height="24"><use href="#search"/></svg></div><span>Talab tahlili</span></div>
+          <div class="it"><div class="q"><svg width="24" height="24"><use href="#more"/></svg></div><span>Yana</span></div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);text-align:center;margin-top:14px">Xira bo‘limlar birinchi tovar qo‘shilgach ochiladi</div>
+      </div>
+      <img class="tab" src="img/s-tabbar.png" alt="">
+      <span class="pin" style="left:342px;top:432px">6</span>
+    </div>
+    <div class="lg">
+      <div><i>6</i><span>Yangi do‘konda ham joylashuv aynan shunday, faqat sarlavhada statistika o‘rnida ishga tushirish jarayoni, «Bugun» o‘rnida esa qolgan qadamlar turadi. Sotuvchi keyin hech narsani qaytadan o‘rganmaydi.</span></div>
+    </div>
+  </div>
+
+  <!-- comparison -->
+  <div>
+    <div class="fl">Taqqoslash</div>
+    <div class="cmp">
+      <h4>Oldingi variant → Optimal</h4>
+      <table>
+        <tr><th></th><th>Oldingi</th><th>Optimal</th></tr>
+        <tr><td>Balandlik</td><td>≈1 290 px, scroll kerak</td><td class="g">812 px, scroll yo‘q</td></tr>
+        <tr><td>Statistika</td><td>Alohida blok</td><td class="g">Sarlavha ichida</td></tr>
+        <tr><td>Tovar qo‘shish</td><td>Plitkalardan biri</td><td class="g">Eng katta tugma</td></tr>
+        <tr><td>Kunlik ishlar</td><td>3 ta qator, ≈190 px</td><td class="g">1 qator, ≈80 px</td></tr>
+        <tr><td>Menyu</td><td>9 ta katta plitka</td><td class="g">8 ta ikonka + «Yana»</td></tr>
+        <tr><td>Tovarlar</td><td>2 ta tovar + tugma</td><td class="g">1 ta qisqa karta</td></tr>
+        <tr><td>Ko‘rinadigan bo‘limlar</td><td>Ekranda ≈4 ta</td><td class="g">Ekranda hammasi</td></tr>
+      </table>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Nega bu variant optimal</h4>
+      <ul>
+        <li>Sotuvchi ilovani ochganda <b>hech narsani qidirmaydi va surmaydi</b>: natija, ishlar va barcha bo‘limlar birinchi ekranning o‘zida.</li>
+        <li>4 ustunli ikonkalar to‘ri O‘zbekistondagi foydalanuvchilarga Click, Payme va bank ilovalaridan tanish. Bu «bu asosiy menyu» degan tuyg‘uni darhol beradi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>2</i>Qoidalar</h4>
+      <ul>
+        <li>Menyuda ko‘pi bilan 8 ta ikonka. Qolganlari «Yana» ichida. Yangi bo‘lim qo‘shilsa, eng kam ishlatiladigan bo‘lim «Yana»ga o‘tadi.</li>
+        <li>Ikonkadagi qizil raqam faqat javob kutayotgan narsa uchun (izohlar). Tarif belgisi esa faqat Biznes bo‘limlarida.</li>
+        <li>Statistika raqamlari 3 tadan oshmaydi, aks holda sarlavha og‘irlashadi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>3</i>Figma uchun</h4>
+      <ul>
+        <li>Yangi komponentlar: ko‘k sarlavha ichidagi statistika qatori, kunlik ish kartochkasi (oddiy va ogohlantirish varianti), menyu ikonkasi (oddiy, raqamli, Biznes belgili, xira).</li>
+        <li>Pastki menyu, sarlavha va «Tovarlarim» ekrani o‘zgarishsiz qoladi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body></html>

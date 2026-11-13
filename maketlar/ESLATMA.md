@@ -16,6 +16,7 @@ Keyingi sessiyada shu fayldan davom etiladi.
 - `7-rasmsiz-tovar-va-tahlil` — rasmsiz tovar: yagona katalog, bozor narxi, xaridor kartasi, narx tahlili, talab tahlili, ommaviy narx, Excel import, narxlarni tasdiqlash
 - `8-rol-almashtirish` — bitta ilova, ikki rejim. Almashtirish sarlavhadagi ikonka orqali (xaridorda profil ikonkasi, sotuvchida do‘kon avatari + ⌄), «Til» oynasi stilidagi rejim oynasi. Asl Figma ekranlari ustiga chizilgan (`html/img/`)
 - `9-sotuvchi-bosh-sahifa` — sotuvchi bosh sahifasi asosiy menyu sifatida: statistika, «Bugun bajaring», 3×3 asosiy menyu, ko‘p ko‘rilgan tovarlar; tovarlar ro‘yxati «Tovarlarim» ekraniga ko‘chdi; yangi do‘kon uchun ishga tushirish ro‘yxati
+- `10-sotuvchi-bosh-optimal` — TAVSIYA ETILGAN bosh sahifa: bitta ekran, scroll yo‘q; statistika ko‘k sarlavha ichida, katta «Tovar qo‘shish» tugmasi + Excel, «Bugun» 3 ta ish bir qatorda, 4 ustunli 8 ikonkali menyu + «Yana», Tovarlarim qisqa kartasi
 
 ## Stil qoidasi
 - Yangi maket chizishda AVVAL Figma’dagi asl ekranni oling (get_screenshot) va uning ustiga chizing yoki aniq takrorlang. O‘zingizdan yangi stil o‘ylab topmang
