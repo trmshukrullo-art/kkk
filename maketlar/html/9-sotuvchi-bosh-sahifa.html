@@ -1,0 +1,219 @@
+<!doctype html><html lang="uz"><head><meta charset="utf-8"><meta name="viewport" content="width=1900"><title>Sotuvchi bosh sahifasi</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pri:#015594;--pri-soft:#E6EEF4;--field:#F1F2F3;--line:#E4E4E7;--ink:#0F1729;--muted:#6B7280;--red:#E5484D;--green:#15803D;--green-soft:#E8F5EC;--amber:#B45309;--amber-soft:#FEF3C7;--pin:#7C3AED}
+body{background:#F4F4F5;font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.board{background:#E5E5E5;margin:40px;padding:56px 60px 70px;border-radius:4px;width:fit-content}
+.btitle{font-size:36px;font-weight:700;letter-spacing:-.6px}
+.bsub{font-size:16px;line-height:24px;color:#52525B;margin-top:8px;max-width:1150px}
+.frames{display:flex;gap:56px;margin-top:44px;align-items:flex-start}
+.fl{font-size:14px;font-weight:600;margin-bottom:12px;color:#3F3F46;white-space:nowrap}
+.fl span{font-weight:400;color:#71717A}
+.ph{width:375px;background:#fff;position:relative;overflow:hidden}
+.ph.full>img.bg{display:block;width:375px}
+.hdr{display:block;width:375px;height:124px}
+.tab{position:absolute;left:0;bottom:0;width:375px;height:94px;display:block}
+.ct{padding:0 16px}
+.row{display:flex;align-items:center}
+.sh{display:flex;justify-content:space-between;align-items:baseline;margin:20px 0 10px}
+.sh b{font-size:17px;font-weight:600}
+.sh a{font-size:14px;color:var(--pri);font-weight:500;text-decoration:none}
+.lbl{font-size:13px;color:var(--muted)}
+/* stats — Figma bilan bir xil */
+.stats{display:flex;gap:8px}
+.stats div{flex:1;background:var(--pri-soft);border-radius:12px;padding:10px 12px;font-size:13px;color:#3F3F46}
+.stats b{display:block;font-size:20px;font-weight:700;color:var(--ink);margin-top:4px}
+.stats small{display:block;font-size:11px;color:var(--green);font-weight:600;margin-top:2px}
+/* task rows — Sozlamalar qatorlari stilida */
+.tk{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:11px 14px;margin-bottom:8px}
+.tk .ic{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.tk .n{flex:1;font-size:15px;font-weight:500;line-height:19px}
+.tk .n small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:1px}
+.tk .ch{color:#9CA3AF;font-size:18px}
+.cnt{min-width:20px;height:20px;border-radius:10px;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 6px}
+/* menu grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{background:var(--field);border-radius:16px;padding:12px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.tile .i{width:40px;height:40px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center}
+.tile .t{font-size:14px;font-weight:600;line-height:18px}
+.tile .s{font-size:12px;color:var(--muted);margin-top:2px}
+.tile.p{background:var(--pri)}.tile.p .t{color:#fff}.tile.p .s{color:rgba(255,255,255,.75)}.tile.p .i{background:rgba(255,255,255,.16)}
+.tile .bd{position:absolute;top:10px;right:10px}
+.biz{font-size:9px;font-weight:700;color:#fff;background:var(--pri);border-radius:5px;padding:2px 5px;letter-spacing:.3px}
+/* compact product rows */
+.pr{display:flex;align-items:center;gap:12px;background:var(--field);border-radius:14px;padding:12px 14px;margin-bottom:8px}
+.pr .n{flex:1;font-size:15px;font-weight:600}
+.pr .n small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.pr .v{text-align:right;font-size:15px;font-weight:700}
+.pr .v small{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.all{display:flex;justify-content:center;align-items:center;gap:6px;height:46px;border-radius:12px;border:1px solid var(--line);font-size:15px;font-weight:600;color:var(--pri)}
+/* nav */
+.sb{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 32px;font-weight:600;font-size:17px}
+.nav{height:56px;display:flex;align-items:center;justify-content:center;position:relative;font-size:17px}
+.nav .bk{position:absolute;left:16px;display:flex}
+/* onboarding */
+.ob{border-radius:16px;background:var(--pri-soft);padding:16px}
+.ob .t{font-size:17px;font-weight:700}
+.ob .s{font-size:13px;color:#3F3F46;margin-top:4px}
+.bar{height:8px;border-radius:4px;background:#fff;margin:12px 0 4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri);border-radius:4px}
+.st{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid rgba(1,85,148,.12)}
+.st .c{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.st .c.d{background:var(--pri)}.st .c.o{border:1.5px solid #9DB8CF;background:#fff}
+.st .n{flex:1;font-size:15px}.st .n.d{color:var(--muted);text-decoration:line-through}
+.st .go{height:32px;padding:0 12px;border-radius:10px;background:var(--pri);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center}
+/* pins */
+.pin{position:absolute;width:22px;height:22px;border-radius:50%;background:var(--pin);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(124,58,237,.25);z-index:5}
+.lg{margin-top:14px;width:375px;display:grid;gap:8px}
+.lg div{display:flex;gap:10px;font-size:13px;line-height:19px;color:#3F3F46}
+.lg i{font-style:normal;width:20px;height:20px;border-radius:50%;background:var(--pin);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.nb{background:#fff;border-radius:16px;padding:20px 22px;font-size:14px;line-height:21px;color:#3F3F46}
+.nb h4{font-size:15px;color:var(--ink);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.nb h4 i{font-style:normal;width:24px;height:24px;border-radius:7px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center}
+.nb ul{margin-left:18px}.nb li{margin-top:4px}
+.nb b{color:var(--ink)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="plus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="box" viewBox="0 0 24 24"><path d="M4 8l8-4 8 4v8l-8 4-8-4z M4 8l8 4 8-4 M12 12v8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="m12 3 2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.4 6.8 19.2l1-5.9L3.5 9.2l5.9-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 20h16M7 20v-6M12 20V7M17 20v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="pct" viewBox="0 0 24 24"><path d="M6 18 18 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="7.5" cy="7.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16.5" cy="16.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><path d="M12 4v16M6 20h12M5 8h14M5 8l-2.5 6a3 3 0 0 0 5 0zM19 8l-2.5 6a3 3 0 0 0 5 0z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 11h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="xls" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m9 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+<symbol id="crown" viewBox="0 0 24 24"><path d="M4 18h16M5 15 4 7l5 4 3-6 3 6 5-4-1 8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="tick" viewBox="0 0 12 12"><path d="m2.5 6.2 2.4 2.4 4.6-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+<div class="board">
+  <div class="btitle">Sotuvchi bosh sahifasi — asosiy menyu</div>
+  <div class="bsub">Hozir bosh sahifa faqat tovarlar ro‘yxati, shuning uchun «bu yerdan hamma narsaga o‘tiladi» degan tuyg‘u yo‘q. Yangi variantda bosh sahifa <b>boshqaruv markazi</b> bo‘ladi: qisqa statistika, bugun qilinadigan ishlar va hamma bo‘limlarga olib boradigan <b>asosiy menyu</b>. Tovarlar ro‘yxati alohida «Tovarlarim» ekraniga ko‘chadi. Sarlavha, pastki menyu va kartalar Figma’dagi asl ekrandan olingan.</div>
+
+  <div class="frames">
+
+  <!-- 0 Current -->
+  <div>
+    <div class="fl">Hozir <span>— Figma: Home — Tovarlar</span></div>
+    <div class="ph full"><img class="bg" src="img/figma-sotuvchi-bosh.png" alt=""></div>
+    <div class="lg"><div><span style="color:#71717A">Bosh sahifa faqat tovarlar ro‘yxatidan iborat. Izohlar, statistika, chegirma va tahlil bo‘limlariga bu yerdan o‘tib bo‘lmaydi, ular faqat Sozlamalar yoki boshqa joylar orqali ochiladi.</span></div></div>
+  </div>
+
+  <!-- 1 New hub full -->
+  <div>
+    <div class="fl">1 · Yangi bosh sahifa <span>— to‘liq (scroll)</span></div>
+    <div class="ph" style="height:1290px">
+      <img class="hdr" src="img/s-header.png" alt="">
+      <div class="ct">
+        <div class="sh" style="margin-top:4px"><span class="lbl">Oxirgi 30 kun</span><a>Statistika ›</a></div>
+        <div class="stats"><div>Sotuvda<b>12 ta</b></div><div>Ko‘rishlar<b>3 420</b><small>↑ 12%</small></div><div>Qo‘ng‘iroqlar<b>86</b><small>↑ 8%</small></div></div>
+
+        <div class="sh"><b>Bugun bajaring</b></div>
+        <div class="tk"><div class="ic" style="background:#FFF1E6;color:#EA580C"><svg width="20" height="20"><use href="#star"/></svg></div><div class="n">3 ta yangi izoh<small>Javob bersangiz reytingingiz oshadi</small></div><span class="cnt">3</span><span class="ch">›</span></div>
+        <div class="tk"><div class="ic" style="background:var(--pri-soft);color:var(--pri)"><svg width="20" height="20"><use href="#clock"/></svg></div><div class="n">5 ta narx eskirgan<small>30 kundan beri tasdiqlanmagan</small></div><span class="ch">›</span></div>
+        <div class="tk" style="background:var(--amber-soft);border-color:#FDE68A"><div class="ic" style="background:#fff;color:var(--amber)"><svg width="20" height="20"><use href="#crown"/></svg></div><div class="n">Tarif 3 kundan keyin tugaydi<small>Standart · uzaytirish 99 000 so‘m</small></div><span class="ch">›</span></div>
+
+        <div class="sh"><b>Asosiy menyu</b></div>
+        <div class="grid">
+          <div class="tile p"><div class="i" style="color:#fff"><svg width="22" height="22"><use href="#plus"/></svg></div><div><div class="t">Tovar qo‘shish</div><div class="s">Katalogdan</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#box"/></svg></div><div><div class="t">Tovarlarim</div><div class="s">14 ta · 2 o‘chiq</div></div></div>
+          <div class="tile"><span class="bd cnt">3</span><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#star"/></svg></div><div><div class="t">Izohlar</div><div class="s">4,6 ★ · 128</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#chart"/></svg></div><div><div class="t">Statistika</div><div class="s">3 420 ko‘rish</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#pct"/></svg></div><div><div class="t">Chegirmalar</div><div class="s">1 ta faol</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#xls"/></svg></div><div><div class="t">Excel’dan yuklash</div><div class="s">Ko‘p tovar</div></div></div>
+          <div class="tile"><span class="bd biz">BIZNES</span><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#scale"/></svg></div><div><div class="t">Narx tahlili</div><div class="s">Bozor bilan</div></div></div>
+          <div class="tile"><span class="bd biz">BIZNES</span><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#search"/></svg></div><div><div class="t">Talab tahlili</div><div class="s">Nima qidirishyapti</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#crown"/></svg></div><div><div class="t">Tarif</div><div class="s">Standart</div></div></div>
+        </div>
+
+        <div class="sh"><b>Ko‘p ko‘rilgan tovarlar</b><a>Hammasi ›</a></div>
+        <div class="pr"><div class="n">Tikurilla kraska<small>Bo‘yoqlar va laklar</small></div><div class="v">35 500<small>👁 1 248</small></div></div>
+        <div class="pr"><div class="n">Sement M400 «Qizilqum»<small>Qurilish aralashmalari</small></div><div class="v">62 000<small>👁 986</small></div></div>
+        <div class="all">Barcha tovarlar · 14 ›</div>
+      </div>
+      <img class="tab" src="img/s-tabbar.png" alt="">
+      <span class="pin" style="left:2px;top:178px">1</span>
+      <span class="pin" style="left:342px;top:262px">2</span>
+      <span class="pin" style="left:342px;top:520px">3</span>
+      <span class="pin" style="left:2px;top:1062px">4</span>
+    </div>
+    <div class="lg">
+      <div><i>1</i><span>Statistika kartalari Figma’dagi bilan bir xil, faqat o‘sish foizi qo‘shildi. «Statistika ›» to‘liq ekranga olib boradi.</span></div>
+      <div><i>2</i><span><b>Bugun bajaring</b> — ilovaning o‘zi eslatadigan ishlar: izohga javob, narx tasdiqlash, tarif. Ish bo‘lmasa bu blok yashiriladi.</span></div>
+      <div><i>3</i><span><b>Asosiy menyu</b> — barcha bo‘limlar bir joyda, 3×3 to‘rda. Eng ko‘p ishlatiladigan amal «Tovar qo‘shish» ko‘k rangda birinchi turadi. Biznes bo‘limlarida tarif belgisi bor.</span></div>
+      <div><i>4</i><span>To‘liq ro‘yxat o‘rniga faqat eng ko‘p ko‘rilgan 2 ta tovar. Hammasi «Tovarlarim» ekranida.</span></div>
+    </div>
+  </div>
+
+  <!-- 2 Products list -->
+  <div>
+    <div class="fl">2 · Tovarlarim <span>— avvalgi bosh sahifa</span></div>
+    <div class="ph" style="height:812px">
+      <div class="sb">9:41<span style="display:flex;gap:6px;align-items:center"><svg width="18" height="12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="27" height="13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="#000" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2"/></svg></span></div>
+      <div class="nav"><span class="bk"><svg width="22" height="22" fill="none" stroke="#0F1729" stroke-width="1.8" stroke-linecap="round"><path d="M19 11H4m6-6-6 6 6 6"/></svg></span>Tovarlarim</div>
+      <img src="img/s-list.png" alt="" style="display:block;width:375px;margin-top:4px">
+      <img class="tab" src="img/s-tabbar.png" alt="">
+      <span class="pin" style="left:342px;top:56px">5</span>
+    </div>
+    <div class="lg">
+      <div><i>5</i><span>Ro‘yxat Figma’dagidek o‘zgarishsiz qoladi: qidiruv, Barchasi / Yoqilgan / O‘chirilgan tablari, kartalar va «Tovar qo‘shish» tugmasi. Faqat tepasida orqaga tugmasi va «Tovarlarim» sarlavhasi bor.</span></div>
+    </div>
+  </div>
+
+  <!-- 3 New store -->
+  <div>
+    <div class="fl">3 · Yangi do‘kon <span>— birinchi kirish</span></div>
+    <div class="ph" style="height:812px">
+      <img class="hdr" src="img/s-header.png" alt="">
+      <div class="ct">
+        <div class="ob" style="margin-top:4px">
+          <div class="t">Do‘koningizni ishga tushiring</div>
+          <div class="s">Yana 3 qadam — keyin xaridorlar sizni qidiruvda ko‘radi</div>
+          <div class="bar"><i style="width:40%"></i></div>
+          <div class="lbl" style="margin-bottom:6px">2 / 5 bajarildi</div>
+          <div class="st"><span class="c d"><svg width="12" height="12"><use href="#tick"/></svg></span><span class="n d">Do‘kon ma’lumotlari</span></div>
+          <div class="st"><span class="c d"><svg width="12" height="12"><use href="#tick"/></svg></span><span class="n d">Manzil</span></div>
+          <div class="st"><span class="c o"></span><span class="n">Birinchi tovarni qo‘shing</span><span class="go">Qo‘shish</span></div>
+          <div class="st"><span class="c o"></span><span class="n">Ish vaqtini belgilang</span><span style="color:#9CA3AF">›</span></div>
+          <div class="st"><span class="c o"></span><span class="n">Telegram’ni ulang</span><span style="color:#9CA3AF">›</span></div>
+        </div>
+        <div class="sh"><b>Asosiy menyu</b></div>
+        <div class="grid">
+          <div class="tile p"><div class="i" style="color:#fff"><svg width="22" height="22"><use href="#plus"/></svg></div><div><div class="t">Tovar qo‘shish</div><div class="s">Katalogdan</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#box"/></svg></div><div><div class="t">Tovarlarim</div><div class="s">Hali yo‘q</div></div></div>
+          <div class="tile"><div class="i" style="color:var(--pri)"><svg width="22" height="22"><use href="#xls"/></svg></div><div><div class="t">Excel’dan yuklash</div><div class="s">Ko‘p tovar</div></div></div>
+        </div>
+      </div>
+      <img class="tab" src="img/s-tabbar.png" alt="">
+      <span class="pin" style="left:342px;top:132px">6</span>
+    </div>
+    <div class="lg">
+      <div><i>6</i><span>Yangi do‘konda statistika va «Bugun bajaring» o‘rniga <b>ishga tushirish ro‘yxati</b> turadi. Menyuda faqat hozir kerakli 3 ta bo‘lim ko‘rinadi, qolganlari birinchi tovar qo‘shilgach ochiladi. Ro‘yxat to‘liq bajarilgach bu karta yo‘qoladi.</span></div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="notes">
+    <div class="nb"><h4><i>1</i>Nega bosh sahifa menyu bo‘lishi kerak</h4>
+      <ul>
+        <li>Pastki menyuda faqat 4 ta joy bor: Bosh sahifa, Izohlar, logo va Sozlamalar. Statistika, chegirma, tahlil, Excel va tarif u yerga sig‘maydi, shuning uchun ularning <b>yagona uyi bosh sahifa</b> bo‘ladi.</li>
+        <li>Sotuvchi ilovani ochganda birinchi navbatda «nima qilishim kerak?» degan savolga javob oladi, keyin kerakli bo‘limga bir bosishda o‘tadi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>2</i>Tartib qoidasi</h4>
+      <ul>
+        <li><b>Yuqoridan pastga muhimlik bo‘yicha:</b> natija (statistika) → vazifalar → menyu → tovarlar ko‘rinishi.</li>
+        <li>Menyu tartibi: birinchi qatorda kundalik amallar (qo‘shish, tovarlar, izohlar), ikkinchisida tahlil va boshqaruv, uchinchisida tarifga bog‘liq bo‘limlar.</li>
+        <li>Plitkalardagi qisqa ma’lumot (masalan, «1 ta faol», «4,6 ★») bo‘limni ochmasdan holatni ko‘rsatadi.</li>
+      </ul>
+    </div>
+    <div class="nb"><h4><i>3</i>Figma uchun</h4>
+      <ul>
+        <li>Mavjud komponentlar qayta ishlatiladi: sarlavha, statistika kartalari, Sozlamalar qatori (vazifalar uchun) va pastki menyu.</li>
+        <li>Yangi komponentlar ikkita: <b>menyu plitkasi</b> (oddiy, asosiy va tarif belgili variantlari bilan) va <b>ishga tushirish ro‘yxati</b> kartasi.</li>
+        <li>Hozirgi «Home — Tovarlar» ekrani «Tovarlarim» nomi bilan ichki ekranga aylanadi.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body></html>
